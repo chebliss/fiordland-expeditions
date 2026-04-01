@@ -1,0 +1,8 @@
+# robots.txt — Fiordland Expeditions
+# Production: fiordlandexpeditions.co.nz
+# Staging: fel-staging.netlify.app (blocked from indexing)
+
+User-agent: *
+Allow: /
+
+Sitemap: https://fiordlandexpeditions.co.nz/sitemap.xml
