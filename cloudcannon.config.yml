@@ -1,8 +1,8 @@
 timezone: Pacific/Auckland
 collections_config:
   pages:
-      path: pages
-          icon: wysiwyg
-        source:
-          path: ''
-              icon: package_2
+    path: pages
+    icon: wysiwyg
+  source:
+    path: ''
+    icon: package_2
