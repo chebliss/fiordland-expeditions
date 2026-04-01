@@ -1,0 +1,15 @@
+paths:
+  static: ''
+  uploads: uploads
+timezone: Pacific/Auckland
+markdown:
+  engine: commonmark
+  options: {}
+source: /
+collections_config:
+  pages:
+    path: pages
+    icon: wysiwyg
+  source:
+    path: ''
+    icon: package_2
