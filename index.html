@@ -14,7 +14,21 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg" style="background-image: url('https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/73c94012-68ed-497e-80d0-3de34dcfc773/IMG_3572+%282%29.JPG')"></div>
+  <div class="hero-bg" id="hero-bg"></div>
+  <script>
+    (function(){
+      var imgs=[
+        'https://lh3.googleusercontent.com/d/1-WErorOCQfPjIUMScXPmZpspfboosHea',
+        'https://lh3.googleusercontent.com/d/1mnMajTAsocDZfri_1AfONWHg7xBHzlPW',
+        'https://lh3.googleusercontent.com/d/1cZ6kOznInaG81HFL769obRdPoKTLxUFC',
+        'https://lh3.googleusercontent.com/d/1-Muvn07Na9zNW8K1bET-sMyUdKxLm0_D',
+        'https://lh3.googleusercontent.com/d/1xeNF6jPpBDMH5pP72EaBAvtdXipBm1pP',
+        'https://lh3.googleusercontent.com/d/1AdiKkFQJk2A49TWOhL4IfgDPY1pnzYzB',
+        'https://lh3.googleusercontent.com/d/1u9JJKgYnTd4q4K3-FAx0VpDGr8Axq6Lk'
+      ];
+      document.getElementById('hero-bg').style.backgroundImage="url('"+imgs[Math.floor(Math.random()*imgs.length)]+"')";
+    })();
+  </script>
   <div class="hero-content">
     <p class="hero-eyebrow" data-cms-edit="source">Fiordland National Park, New Zealand</p>
     <h1 class="hero-title" data-cms-edit="source">Experience the<br /><em>Majesty of Fiordland</em></h1>
