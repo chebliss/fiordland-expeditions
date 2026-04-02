@@ -6,6 +6,18 @@
 <title>Fiordland Expeditions | Doubtful Sound Cruises &amp; Private Charters</title>
 <meta name="description" content="Experience exclusive Doubtful Sound overnight cruises and private charters with Fiordland Expeditions. 25+ years exploring Fiordland's most pristine waters." />
 <link rel="stylesheet" href="css/fel.css" />
+  <!-- FareHarbor Lightframe API -->
+  <script src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes"></script>
+  <script>
+    // Dynamic Book Now — always opens current month
+    (function(){
+      var now = new Date();
+      var y = now.getFullYear();
+      var m = String(now.getMonth()+1).padStart(2,'0');
+      var url = 'https://fareharbor.com/embeds/book/fiordlandexpeditionsnz/items/300312/calendar/'+y+'/'+m+'/?flow=554429&back=https://fiordlandexpeditions.co.nz/&g4=yes';
+      document.querySelectorAll('.fh-book-now').forEach(function(el){ el.href = url; });
+    })();
+  </script>
 </head>
 <body>
 
@@ -34,7 +46,7 @@
     <h1 class="hero-title" data-cms-edit="source">Experience the<br /><em>Majesty of Fiordland</em></h1>
     <p class="hero-subtitle" data-cms-edit="source">Exclusive Doubtful Sound cruises and private charters, crafted for those who seek something far beyond the ordinary. 25+ years of expertise. Max 12 guests.</p>
     <div class="hero-ctas">
-      <a href="https://fareharbor.com/embeds/book/fiordlandexpeditionsnz/items/300312/calendar/2026/03/?flow=554429&back=https://fiordlandexpeditions.co.nz/&g4=yes" class="btn-primary" target="_blank">Book Now</a>
+      <a href="#" class="btn-primary fh-book-now" target="_blank">Book Now</a>
       <a href="pages/contact.html" class="btn-outline">Get in Touch</a>
     </div>
   </div>
@@ -137,17 +149,23 @@
   </div>
   <div class="section-inner">
     <div class="grid-2 fade-up">
-      <div class="card">
-        <p class="vessel-tag" data-cms-edit="source">MV Tutoko II — Flagship</p>
-        <h3 class="card-title" data-cms-edit="source">The Luxury Expedition Vessel</h3>
-        <p class="card-body" data-cms-edit="source" style="margin-bottom:20px;">Purpose-built for Fiordland's unique environment with premium cabins, outstanding onboard dining, and a dedicated crew delivering world-class hospitality. Max 12 guests for an intimate, exclusive experience.</p>
-        <a href="pages/our-fleet.html" class="btn-ghost">Learn More</a>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="height:260px;background-image:url('https://lh3.googleusercontent.com/d/1FQPO1aiImfPyH0QO_7koSA-ltKweHBxI');background-size:cover;background-position:center;"></div>
+        <div style="padding:36px;">
+          <p class="vessel-tag" data-cms-edit="source">MV Tutoko II — Flagship</p>
+          <h3 class="card-title" data-cms-edit="source">The Luxury Expedition Vessel</h3>
+          <p class="card-body" data-cms-edit="source" style="margin-bottom:20px;">Purpose-built for Fiordland's unique environment with premium cabins, outstanding onboard dining, and a dedicated crew delivering world-class hospitality. Max 12 guests for an intimate, exclusive experience.</p>
+          <a href="pages/our-fleet.html" class="btn-ghost">Learn More</a>
+        </div>
       </div>
-      <div class="card">
-        <p class="vessel-tag" data-cms-edit="source">MV Tutoko — Expedition</p>
-        <h3 class="card-title" data-cms-edit="source">The Expedition Workhorse</h3>
-        <p class="card-body" data-cms-edit="source" style="margin-bottom:20px;">The ultimate platform for dedicated dive, hunt, and fishing missions in Fiordland. Equipped for serious expeditions with all the expertise your adventure demands. Max 8 guests.</p>
-        <a href="pages/our-fleet.html" class="btn-ghost">Learn More</a>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="height:260px;background-image:url('https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/b693cd66-d70e-49c0-b155-219e7c0fd689/Fiordland+Expeditions');background-size:cover;background-position:center;"></div>
+        <div style="padding:36px;">
+          <p class="vessel-tag" data-cms-edit="source">MV Tutoko — Expedition</p>
+          <h3 class="card-title" data-cms-edit="source">The Expedition Workhorse</h3>
+          <p class="card-body" data-cms-edit="source" style="margin-bottom:20px;">The ultimate platform for dedicated dive, hunt, and fishing missions in Fiordland. Equipped for serious expeditions with all the expertise your adventure demands. Max 8 guests.</p>
+          <a href="pages/our-fleet.html" class="btn-ghost">Learn More</a>
+        </div>
       </div>
     </div>
   </div>
@@ -229,14 +247,10 @@
     <div class="rule rule-center fade-up"></div>
     <p class="section-body fade-up" style="margin:0 auto 0;" data-cms-edit="source">Select your preferred dates below and secure your berth aboard MV Tutoko II.</p>
   </div>
-  <div class="section-inner fade-up" style="max-width:900px;margin:0 auto;">
+  <div class="section-inner fade-up" style="max-width:960px;margin:0 auto;">
     <div style="background:var(--navy-card);border:1px solid var(--border);padding:40px;">
-      <script src="https://fareharbor.com/embeds/api/v1/?autolightframes=yes"></script>
-      <div class="fh-availability-calendar"
-           data-shortname="fiordlandexpeditionsnz"
-           data-flow="554429"
-           data-full-items="yes">
-      </div>
+      <!-- FareHarbor calendar -->
+      <script src="https://fareharbor.com/embeds/script/calendar/fiordlandexpeditionsnz/?fallback=simple&full-items=yes"></script>
     </div>
   </div>
 </section>
