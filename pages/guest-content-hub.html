@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guest Content Hub — Fiordland Expeditions</title>
+  <meta name="description" content="Browse expedition highlights, access your personal cruise gallery, or share your moments from Doubtful Sound. Fiordland Expeditions Guest Content Hub.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+
+  <style>
+    :root {
+      --black:        #111111;
+      --white:        #ffffff;
+      --bright:       #f5f2ee;
+      --white-bold:   #ffffff;
+      --light-accent: #c9a050;
+      --light-accent-dim: rgba(201,160,80,0.12);
+      --light-accent-border: rgba(201,160,80,0.35);
+      --text-on-dark:   #f9fafb;
+      --text-on-light:  #1a1a1a;
+      --text-muted:     #6b6b6b;
+      --text-muted-light: #9a9a9a;
+      --max-width:    1600px;
+      --page-gutter:  3vw;
+      --mobile-gutter: 6vw;
+      --img-radius:   20px;
+      --btn-radius:   4px;
+      --ease:         0.3s ease;
+      --fb-blue:    #1877f2;
+      --ig-grad-a:  #f09433;
+      --ig-grad-b:  #e6683c;
+      --ig-grad-c:  #dc2743;
+      --ig-grad-d:  #cc2366;
+      --ig-grad-e:  #bc1888;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.6; color: var(--text-on-light); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+    h1,h2,h3,h4,.label-upper { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; line-height: 1.05; }
+    h1 { font-size: clamp(2rem, 4.5vw, 3.2rem); }
+    h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); }
+    h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
+    h4 { font-size: 1rem; }
+    p  { font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); }
+    .label-upper { font-size: 0.65rem; letter-spacing: 0.18em; color: var(--light-accent); display: block; margin-bottom: 10px; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--page-gutter); }
+    @media (max-width: 768px) { .container { padding: 0 var(--mobile-gutter); } }
+
+    /* HEADER */
+    .site-header { background: var(--black); border-bottom: 2px solid var(--light-accent); padding: 0 var(--page-gutter); position: sticky; top: 0; z-index: 200; }
+    .site-header-inner { max-width: var(--max-width); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .site-header img { height: 40px; width: auto; }
+    .header-page-label { font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light-accent); }
+    .header-back { font-family: 'Anton', sans-serif; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .header-back:hover { color: var(--light-accent); }
+
+    /* HERO */
+    .hero { background: var(--black); padding: 64px var(--page-gutter) 56px; text-align: center; border-bottom: 2px solid var(--light-accent); }
+    .hero h1 { color: var(--white); margin-bottom: 16px; }
+    .gold-underline { text-decoration: underline; text-decoration-color: var(--light-accent); text-underline-offset: 4px; }
+    .hero p { color: rgba(255,255,255,0.65); max-width: 560px; margin: 0 auto; }
+
+    /* TABS */
+    .tab-nav { display: flex; background: var(--white); border-bottom: 1px solid #e8e4df; position: sticky; top: 72px; z-index: 100; }
+    .tab-btn { flex: 1; padding: 20px 16px; font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all var(--ease); margin-bottom: -1px; }
+    .tab-btn:hover { color: var(--text-on-light); }
+    .tab-btn.active { color: var(--text-on-light); border-bottom-color: var(--light-accent); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* SECTIONS */
+    .section-white  { background: var(--white); padding: 60px 0; }
+    .section-bright { background: var(--bright); padding: 60px 0; }
+    .section-header { margin-bottom: 36px; }
+    .section-header h2 { color: var(--text-on-light); margin-top: 4px; }
+
+    /* GALLERY */
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+    .gallery-item { aspect-ratio: 1/1; border-radius: var(--img-radius); overflow: hidden; cursor: pointer; position: relative; background: #e8e4df; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background var(--ease); display: flex; align-items: flex-end; padding: 14px; gap: 8px; }
+    .gallery-item:hover .gallery-overlay { background: rgba(0,0,0,0.32); }
+    .gallery-overlay .btn-share-small { opacity: 0; transform: translateY(6px); transition: all 0.25s ease; }
+    .gallery-item:hover .gallery-overlay .btn-share-small { opacity: 1; transform: translateY(0); }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 80px 24px; border: 1px dashed var(--light-accent-border); border-radius: var(--img-radius); background: var(--light-accent-dim); }
+    .empty-state h3 { color: var(--text-on-light); margin-bottom: 8px; font-size: 1.1rem; }
+    .empty-state p { font-size: 0.88rem; }
+
+    /* BUTTONS */
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--text-on-light); color: var(--white); font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; border: none; padding: 14px 28px; border-radius: var(--btn-radius); cursor: pointer; transition: opacity var(--ease), transform 0.15s ease; text-decoration: none; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text-on-light); font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--text-on-light); padding: 13px 28px; border-radius: var(--btn-radius); cursor: pointer; transition: all var(--ease); text-decoration: none; }
+    .btn-secondary:hover { background: var(--text-on-light); color: var(--white); }
+    .btn-share-small { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; background: var(--white); color: var(--text-on-light); border: none; padding: 7px 16px; border-radius: var(--btn-radius); cursor: pointer; transition: opacity var(--ease); }
+    .btn-share-small:hover { opacity: 0.85; }
+
+    /* CARD */
+    .card { border: 1px solid #e8e4df; border-radius: var(--img-radius); padding: 36px; background: var(--white); }
+    .card-accent { border-color: var(--light-accent-border); }
+    .card h3 { color: var(--text-on-light); margin-bottom: 8px; }
+    .card p  { font-size: 0.88rem; margin-bottom: 20px; }
+
+    /* FORMS */
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-top: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
+    input[type="text"], input[type="date"], select { background: var(--white); border: 1px solid #d0ccc7; color: var(--text-on-light); padding: 12px 14px; border-radius: var(--btn-radius); font-family: inherit; font-size: 0.9rem; transition: border-color var(--ease); width: 100%; appearance: none; }
+    input[type="text"]:focus, input[type="date"]:focus, select:focus { outline: none; border-color: var(--text-on-light); }
+    input[type="text"]::placeholder { color: var(--text-muted-light); }
+
+    /* PERMISSIONS */
+    .permission-group { margin-top: 20px; padding: 20px 24px; background: var(--bright); border-radius: var(--img-radius); border: 1px solid #e8e4df; }
+    .permission-group .label-upper { margin-bottom: 14px; }
+    .permission-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid #e8e4df; cursor: pointer; }
+    .permission-item:last-child { border-bottom: none; }
+    .permission-item input[type="checkbox"] { width: 20px; height: 20px; min-width: 20px; border: 1.5px solid #c0bcb7; border-radius: 4px; background: var(--white); appearance: none; cursor: pointer; position: relative; transition: all var(--ease); padding: 0; }
+    .permission-item input[type="checkbox"]:checked { background: var(--text-on-light); border-color: var(--text-on-light); }
+    .permission-item input[type="checkbox"]:checked::after { content: ''; position: absolute; left: 5px; top: 2px; width: 6px; height: 10px; border: 2px solid var(--white); border-top: none; border-left: none; transform: rotate(45deg); }
+    .permission-text { flex: 1; }
+    .permission-text strong { display: block; font-family: 'Anton', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-on-light); margin-bottom: 3px; }
+    .permission-text p { font-size: 0.8rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
+
+    /* SOCIAL SHARING */
+    .share-panel { margin-top: 20px; border: 1px solid #e8e4df; border-radius: var(--img-radius); overflow: hidden; background: var(--white); }
+    .share-panel-header { padding: 16px 24px; border-bottom: 1px solid #e8e4df; display: flex; align-items: center; justify-content: space-between; }
+    .share-panel-header .label-upper { margin-bottom: 0; }
+    .share-caption { padding: 16px 24px; border-bottom: 1px solid #e8e4df; }
+    .share-caption label { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 8px; }
+    .share-caption textarea { width: 100%; border: 1px solid #d0ccc7; border-radius: var(--btn-radius); padding: 12px 14px; font-family: inherit; font-size: 0.88rem; color: var(--text-on-light); background: var(--white); resize: vertical; min-height: 80px; line-height: 1.6; transition: border-color var(--ease); }
+    .share-caption textarea:focus { outline: none; border-color: var(--text-on-light); }
+    .hashtag-strip { padding: 12px 24px; border-bottom: 1px solid #e8e4df; background: var(--bright); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .hashtag-strip .label-upper { margin-bottom: 0; flex-shrink: 0; }
+    .hashtag-pill { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.08em; background: var(--white); border: 1px solid #d0ccc7; color: var(--text-muted); padding: 5px 12px; border-radius: 999px; cursor: pointer; transition: all var(--ease); user-select: none; }
+    .hashtag-pill.active { background: var(--text-on-light); border-color: var(--text-on-light); color: var(--white); }
+    .hashtag-pill:hover:not(.active) { border-color: var(--text-on-light); color: var(--text-on-light); }
+    .share-platforms { padding: 20px 24px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .share-btn-social { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: var(--btn-radius); border: none; cursor: pointer; font-family: 'Anton', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: opacity var(--ease), transform 0.15s ease; }
+    .share-btn-social:hover { opacity: 0.88; transform: translateY(-1px); }
+    .share-btn-social svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .btn-facebook { background: var(--fb-blue); color: var(--white); }
+    .btn-instagram { background: linear-gradient(45deg, var(--ig-grad-a), var(--ig-grad-b), var(--ig-grad-c), var(--ig-grad-d), var(--ig-grad-e)); color: var(--white); }
+    .btn-copy { background: var(--text-on-light); color: var(--white); }
+    .btn-native { background: var(--bright); color: var(--text-on-light); border: 1px solid #d0ccc7; }
+    .share-platform-note { padding: 0 24px 16px; font-size: 0.78rem; color: var(--text-muted-light); font-style: italic; }
+
+    /* PRIVATE RESULT */
+    #private-result { display: none; margin-top: 40px; animation: fadeUp 0.35s ease; }
+    .result-header { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #e8e4df; }
+
+    /* UPLOAD */
+    .upload-zone { border: 1px dashed var(--light-accent-border); border-radius: var(--img-radius); padding: 48px 32px; text-align: center; background: var(--light-accent-dim); cursor: pointer; transition: all var(--ease); position: relative; }
+    .upload-zone:hover { border-color: var(--light-accent); background: rgba(201,160,80,0.1); }
+    .upload-zone h3 { color: var(--text-on-light); margin-bottom: 8px; font-size: 1.1rem; }
+    .upload-icon { width: 48px; height: 48px; margin: 0 auto 16px; opacity: 0.3; }
+    .upload-icon svg { width: 100%; height: 100%; }
+
+    /* QR */
+    .qr-section { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; margin-top: 24px; padding: 28px; background: var(--bright); border-radius: var(--img-radius); border: 1px solid #e8e4df; }
+    .qr-wrap { background: var(--white); padding: 10px; border-radius: 12px; border: 1px solid #e8e4df; flex-shrink: 0; }
+    .qr-info { flex: 1; min-width: 200px; }
+    .qr-info .label-upper { color: var(--light-accent); }
+    .qr-info p { font-size: 0.88rem; margin-bottom: 12px; }
+
+    /* LIGHTBOX */
+    #lightbox { display: none; position: fixed; inset: 0; z-index: 9000; background: rgba(17,17,17,0.97); justify-content: center; align-items: center; flex-direction: column; gap: 20px; }
+    #lightbox.open { display: flex; }
+    #lightbox-img { max-width: min(90vw, 960px); max-height: 66vh; border-radius: var(--img-radius); object-fit: contain; animation: fadeUp 0.25s ease; }
+    .lb-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; padding: 0 20px; }
+    .lb-btn { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: var(--white); width: 44px; height: 44px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--ease); flex-shrink: 0; }
+    .lb-btn:hover { background: var(--white); color: var(--black); }
+    .lb-close { position: absolute; top: 24px; right: 28px; background: none; border: none; color: rgba(255,255,255,0.6); font-size: 1.8rem; cursor: pointer; transition: color var(--ease); line-height: 1; }
+    .lb-close:hover { color: var(--white); }
+    .lb-counter { font-family: 'Anton', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+    .lb-share { background: var(--white); color: var(--black); border: none; font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; border-radius: var(--btn-radius); cursor: pointer; transition: opacity var(--ease); }
+    .lb-share:hover { opacity: 0.85; }
+
+    /* CONSENT */
+    .consent-note { margin-top: 20px; padding: 16px 20px; background: var(--bright); border-radius: var(--btn-radius); border-left: 3px solid var(--light-accent); }
+    .consent-note p { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
+
+    /* FOOTER */
+    .site-footer { background: var(--black); padding: 40px var(--page-gutter); text-align: center; border-top: 2px solid var(--light-accent); }
+    .site-footer img { height: 32px; margin: 0 auto 12px; display: block; opacity: 0.7; }
+    .site-footer p { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+    .site-footer a { color: var(--light-accent); text-decoration: none; }
+
+    /* TOAST */
+    #toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text-on-light); color: var(--white); font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; border-radius: var(--btn-radius); z-index: 99999; opacity: 0; transition: all 0.3s ease; pointer-events: none; white-space: nowrap; }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    #upload-queue { margin-top: 20px; display: none; }
+    .queue-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #e8e4df; font-size: 0.88rem; color: var(--text-muted); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse  { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+      .card { padding: 24px 20px; }
+      .result-header { flex-direction: column; align-items: flex-start; }
+      .qr-section { flex-direction: column; }
+      .tab-btn { font-size: 0.6rem; padding: 16px 8px; }
+      .share-platforms { padding: 16px; }
+      .share-btn-social { font-size: 0.6rem; padding: 10px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="https://fiordlandexpeditions.co.nz">
+      <img src="https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/25e4f2cd-780e-4751-8aa0-4a5d0922794a/FLE+Logo+2024+RGB+WHITE.png?format=300w" alt="Fiordland Expeditions">
+    </a>
+    <span class="header-page-label">Guest Content Hub</span>
+    <a href="https://fiordlandexpeditions.co.nz" class="header-back">← Back to Site</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="label-upper">Fiordland Expeditions</span>
+  <h1>Your Expedition,<br><span class="gold-underline">Captured.</span></h1>
+  <p style="margin-top:16px;">Browse expedition highlights, access your personal cruise gallery, or share your moments from the water.</p>
+</div>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('feed', this)">Expedition Feed</button>
+  <button class="tab-btn" onclick="switchTab('private', this)">Your Gallery</button>
+  <button class="tab-btn" onclick="switchTab('upload', this)">Contribute</button>
+</nav>
+
+<main>
+
+  <!-- TAB 1: PUBLIC FEED -->
+  <div id="tab-feed" class="tab-panel active">
+    <section class="section-white">
+      <div class="container">
+        <div class="section-header">
+          <span class="label-upper">Live from the Fiord</span>
+          <h2>Doubtful Sound Highlights</h2>
+          <p style="margin-top:8px;">A curated window into life aboard Fiordland Expeditions. Hover any image to share.</p>
+        </div>
+        <div class="gallery-grid" id="public-grid"></div>
+        <div class="empty-state" id="feed-empty" style="display:none;">
+          <h3>First Expedition Coming Soon</h3>
+          <p>The expedition feed launches with Derek Morrison's shoot — April 2026.<br>Check back after your cruise to see your moments here.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- TAB 2: PRIVATE GALLERY -->
+  <div id="tab-private" class="tab-panel">
+    <section class="section-bright">
+      <div class="container">
+        <div class="section-header">
+          <span class="label-upper">Exclusive Access</span>
+          <h2>Your Cruise Gallery</h2>
+          <p style="margin-top:8px;">Enter your cruise details to access photos and video from your expedition.</p>
+        </div>
+        <div class="card card-accent">
+          <span class="label-upper">Retrieve Your Assets</span>
+          <h3>Find Your Gallery</h3>
+          <p>Enter the vessel, your departure date, and your last name.</p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="vessel-select">Vessel</label>
+              <select id="vessel-select">
+                <option value="">Select vessel</option>
+                <option value="tutoko2">MV Tutoko II</option>
+                <option value="tutoko1">MV Tutoko</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cruise-date">Departure Date</label>
+              <input type="date" id="cruise-date">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="last-name">Last Name</label>
+              <input type="text" id="last-name" placeholder="e.g. Lindqvist">
+            </div>
+            <div class="form-group" style="justify-content:flex-end;">
+              <button class="btn-primary" onclick="showPrivateGallery()" style="width:100%;justify-content:center;">View My Gallery</button>
+            </div>
+          </div>
+        </div>
+        <div id="private-result">
+          <div class="result-header">
+            <div>
+              <span class="label-upper" id="private-eyebrow">Your Expedition</span>
+              <h2 id="private-title">Gallery</h2>
+            </div>
+            <button class="btn-secondary" onclick="downloadAll()">Download All</button>
+          </div>
+          <div class="gallery-grid" id="private-grid"></div>
+          <p style="margin-top:24px;padding-top:20px;border-top:1px solid #e8e4df;font-size:0.82rem;">Your images are available for 90 days from your cruise date.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- TAB 3: CONTRIBUTE -->
+  <div id="tab-upload" class="tab-panel">
+    <section class="section-white">
+      <div class="container">
+        <div class="section-header">
+          <span class="label-upper">Guest Contributor</span>
+          <h2>Share Your Journey</h2>
+          <p style="margin-top:8px;">Your best shots could feature in our expedition feed or marketing materials. All uploads are reviewed by our crew before going live.</p>
+        </div>
+
+        <!-- QR -->
+        <div class="card" style="margin-bottom:16px;">
+          <span class="label-upper">On-Vessel Upload</span>
+          <h3>Scan to Upload from Your Phone</h3>
+          <p>Point your camera — no app needed.</p>
+          <div class="qr-section">
+            <div class="qr-wrap"><canvas id="qr-canvas"></canvas></div>
+            <div class="qr-info">
+              <span class="label-upper">Direct Upload Link</span>
+              <p>Scan to open the upload experience on your phone. Works on Starlink — no mobile data needed while on the vessel.</p>
+              <code style="font-size:0.78rem;color:var(--text-muted);word-break:break-all;">fiordlandexpeditions.co.nz/gch</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- File upload -->
+        <div class="card" style="margin-bottom:16px;">
+          <span class="label-upper">Browse &amp; Upload</span>
+          <h3>Select Files from This Device</h3>
+          <p>Photos and videos accepted. Max 200MB per file.</p>
+          <div class="upload-zone" onclick="triggerFileInput()" style="margin-top:16px;">
+            <div class="upload-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <h3>Drop files here or click to browse</h3>
+            <p style="font-size:0.82rem;margin-top:6px;">Photos and videos welcome · Max 200MB per file</p>
+          </div>
+          <input type="file" id="file-input" multiple accept="image/*,video/mp4,video/quicktime" style="display:none" onchange="handleFileSelect(event)">
+          <div id="upload-queue"></div>
+        </div>
+
+        <!-- PERMISSIONS -->
+        <div class="permission-group">
+          <span class="label-upper">Sharing Permissions</span>
+          <p style="font-size:0.85rem;margin-bottom:16px;">Choose how you'd like your photos to be used. You can tick both options.</p>
+          <label class="permission-item">
+            <input type="checkbox" id="perm-mates" onchange="updateShareState()">
+            <span class="permission-text">
+              <strong>Share with cruise mates</strong>
+              <p>Your photos will be visible to other guests on the same cruise. Great for group albums and sharing memories with fellow travellers.</p>
+            </span>
+          </label>
+          <label class="permission-item">
+            <input type="checkbox" id="perm-public" onchange="updateShareState()">
+            <span class="permission-text">
+              <strong>Share publicly</strong>
+              <p>Fiordland Expeditions may feature your content in the public expedition feed, on our website, and across our social media channels. We'll always credit contributors.</p>
+            </span>
+          </label>
+        </div>
+
+        <!-- SOCIAL SHARING PANEL -->
+        <div class="share-panel" id="share-panel" style="margin-top:16px;">
+          <div class="share-panel-header">
+            <span class="label-upper" style="margin:0;">Share to Social Media</span>
+            <span style="font-size:0.78rem;color:var(--text-muted-light);">Optional</span>
+          </div>
+          <div class="share-caption">
+            <label for="share-caption-text">Your caption</label>
+            <textarea id="share-caption-text" oninput="updateCaption()">Check out this incredible moment from our Fiordland expedition! 🌊⛵</textarea>
+          </div>
+          <div class="hashtag-strip">
+            <span class="label-upper" style="margin:0;font-size:0.55rem;">Hashtags</span>
+            <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandExpeditions">#FiordlandExpeditions</span>
+            <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#DoubtfulSound">#DoubtfulSound</span>
+            <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandNZ">#FiordlandNZ</span>
+            <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#NewZealand">#NewZealand</span>
+            <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#NZTravel">#NZTravel</span>
+            <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#VisitNZ">#VisitNZ</span>
+            <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#Fiordland">#Fiordland</span>
+            <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#MilfordForTheMany">#MilfordForTheMany</span>
+            <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#DoubtfulForTheFew">#DoubtfulForTheFew</span>
+            <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#NZAdventure">#NZAdventure</span>
+          </div>
+          <div style="padding:10px 24px;background:var(--bright);border-bottom:1px solid #e8e4df;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
+            <span style="font-family:'Anton',sans-serif;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);">Tag FEL</span>
+            <a href="https://www.instagram.com/fiordland_expeditions/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:color var(--ease);" onmouseover="this.style.color='#bc1888'" onmouseout="this.style.color=''">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              @fiordland_expeditions
+            </a>
+            <a href="https://www.facebook.com/Fiordlandexpeditionstutoko/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:color var(--ease);" onmouseover="this.style.color='#1877f2'" onmouseout="this.style.color=''">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              @Fiordlandexpeditionstutoko
+            </a>
+          </div>
+          <div class="share-platforms">
+            <button class="share-btn-social btn-facebook" onclick="shareToFacebook()">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Share on Facebook
+            </button>
+            <button class="share-btn-social btn-instagram" onclick="shareToInstagram()">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              Copy for Instagram
+            </button>
+            <button class="share-btn-social btn-copy" onclick="copyToClipboard()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copy Caption &amp; Link
+            </button>
+            <button class="share-btn-social btn-native" onclick="nativeShare()" id="btn-native-share">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              More Options
+            </button>
+          </div>
+          <p class="share-platform-note">
+            Instagram doesn't allow direct web posting — tap "Copy for Instagram" to copy your caption and hashtags, then paste into the Instagram app.
+            Tag us at <a href="https://www.instagram.com/fiordland_expeditions/" target="_blank" style="color:var(--light-accent);text-decoration:none;">@fiordland_expeditions</a> and
+            <a href="https://www.facebook.com/Fiordlandexpeditionstutoko/" target="_blank" style="color:var(--light-accent);text-decoration:none;">@Fiordlandexpeditionstutoko</a> on Facebook.
+          </p>
+        </div>
+
+        <div class="consent-note" style="margin-top:16px;">
+          <p>By uploading and selecting sharing permissions above, you grant Fiordland Expeditions the rights specified. Your originals remain yours. We'll always credit our contributors when featuring your work publicly.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="Expedition image">
+  <div class="lb-controls">
+    <button class="lb-btn" onclick="changeImage(-1)">&#8592;</button>
+    <span class="lb-counter" id="lb-counter">1 / 6</span>
+    <button class="lb-btn" onclick="changeImage(1)">&#8594;</button>
+    <button class="lb-share" onclick="shareImage(currentIndex)">Share This Memory</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <img src="https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/25e4f2cd-780e-4751-8aa0-4a5d0922794a/FLE+Logo+2024+RGB+WHITE.png?format=300w" alt="Fiordland Expeditions">
+  <p>Fiordland Expeditions Ltd — Manapouri, Fiordland, New Zealand</p>
+  <p style="margin-top:6px;"><a href="https://fiordlandexpeditions.co.nz">fiordlandexpeditions.co.nz</a></p>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+  const FEL_FACEBOOK_URL = 'https://www.facebook.com/Fiordlandexpeditionstutoko/';
+  const FEL_INSTAGRAM_URL = 'https://www.instagram.com/fiordland_expeditions/';
+  const FEL_SITE_URL = 'https://fiordlandexpeditions.co.nz';
+  const GCH_URL = 'https://fiordlandexpeditions.co.nz/gch';
+  const FEL_IG_HANDLE = '@fiordland_expeditions';
+  const FEL_FB_HANDLE = '@Fiordlandexpeditionstutoko';
+
+  /* IMAGE DATA — replace with API call when backend is live */
+  const images = [
+    { src: 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/2bdc6c68-de28-4136-a4d3-22b0c195208a/_MG_7313.webp', thumb: 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/2bdc6c68-de28-4136-a4d3-22b0c195208a/_MG_7313.webp?format=500w', caption: 'Doubtful Sound at dusk' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/9294edac-8a44-4d14-b075-ed06cfc0f40e/_MG_7551sm.webp', thumb: 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/9294edac-8a44-4d14-b075-ed06cfc0f40e/_MG_7551sm.webp?format=500w', caption: 'MV Tutoko II on the Sound' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/4c0f8782-8e24-44c6-9c82-c51cd051d0b2/Crooked%2BArm%2BDS.webp', thumb: 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/4c0f8782-8e24-44c6-9c82-c51cd051d0b2/Crooked%2BArm%2BDS.webp?format=500w', caption: 'Crooked Arm' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/bec8fed9-fd83-4daa-a0e2-e8277eaa3d93/CRW_0150%2Bed1.webp', thumb: 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/bec8fed9-fd83-4daa-a0e2-e8277eaa3d93/CRW_0150%2Bed1.webp?format=500w', caption: 'Wilderness anchorage' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/87d101e5-e532-4b90-b174-1546e06198a5/Crooked%2BArm%2B060513%2B1.webp', thumb: 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/87d101e5-e532-4b90-b174-1546e06198a5/Crooked%2BArm%2B060513%2B1.webp?format=500w', caption: 'Morning on the fiord' },
+    { src: 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/cc9d5405-cc41-49ae-b6a3-5843a7e75a06/_MG_7535a.webp', thumb: 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/cc9d5405-cc41-49ae-b6a3-5843a7e75a06/_MG_7535a.webp?format=500w', caption: 'Expedition life' }
+  ];
+
+  let currentIndex = 0;
+  let activeImages = images;
+  let currentImageUrl = images[0].src;
+
+  function renderGrid(targetId, imageSet) {
+    const grid = document.getElementById(targetId);
+    if (!imageSet.length) {
+      if (targetId === 'public-grid') document.getElementById('feed-empty').style.display = 'block';
+      return;
+    }
+    grid.innerHTML = imageSet.map((img, i) => `
+      <div class="gallery-item" onclick="openLightbox(${i}, '${targetId}')">
+        <img src="${img.thumb}" alt="${img.caption}" loading="lazy">
+        <div class="gallery-overlay">
+          <button class="btn-share-small" onclick="event.stopPropagation(); currentIndex=${i}; currentImageUrl=activeImages[${i}].src; shareImage(${i})">Share</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderGrid('public-grid', images);
+
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function updateShareState() {}
+
+  function getActiveHashtags() {
+    return Array.from(document.querySelectorAll('.hashtag-pill.active')).map(el => el.dataset.tag).join(' ');
+  }
+
+  function toggleHashtag(el) { el.classList.toggle('active'); }
+
+  function buildShareText() {
+    const caption = document.getElementById('share-caption-text').value.trim();
+    const hashtags = getActiveHashtags();
+    return `${caption}\n\n${hashtags}\n\n${GCH_URL}`;
+  }
+
+  function updateCaption() {}
+
+  function shareToFacebook() {
+    const url = encodeURIComponent(GCH_URL);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=500');
+  }
+
+  function shareToInstagram() {
+    const caption = document.getElementById('share-caption-text').value.trim();
+    const hashtags = getActiveHashtags();
+    const full = `${caption}\n\n${hashtags}\n\n${FEL_IG_HANDLE}`;
+    copyText(full);
+    showToast('Caption copied — open Instagram to post!');
+    setTimeout(() => { window.open(FEL_INSTAGRAM_URL, '_blank'); }, 800);
+  }
+
+  function copyToClipboard() {
+    copyText(buildShareText() + '\n\n' + FEL_IG_HANDLE + '  |  ' + FEL_FB_HANDLE);
+    showToast('Caption & link copied!');
+  }
+
+  async function nativeShare() {
+    if (navigator.share) {
+      try { await navigator.share({ title: 'Fiordland Expeditions', text: buildShareText(), url: GCH_URL }); } catch(e) {}
+    } else { copyToClipboard(); }
+  }
+
+  async function shareImage(idx) {
+    const img = activeImages[idx] || images[idx];
+    currentImageUrl = img.src;
+    const hashtags = '#FiordlandExpeditions #DoubtfulSound #FiordlandNZ #NewZealand';
+    const text = `${img.caption} — Doubtful Sound, Fiordland NZ.\n\n${hashtags}\n\n${GCH_URL}`;
+    if (navigator.share) {
+      try { await navigator.share({ title: 'Fiordland Expeditions', text, url: img.src }); } catch(e) {}
+    } else {
+      copyText(`${text}\n\n${img.src}`);
+      showToast('Link & hashtags copied!');
+    }
+  }
+
+  async function copyText(str) {
+    try { await navigator.clipboard.writeText(str); }
+    catch(e) { const el = document.createElement('textarea'); el.value = str; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); }
+  }
+
+  function showPrivateGallery() {
+    const vessel = document.getElementById('vessel-select').value;
+    const date   = document.getElementById('cruise-date').value;
+    const name   = document.getElementById('last-name').value.trim();
+    if (!vessel || !date || !name) { showToast('Please complete all fields'); return; }
+    const vLabel = vessel === 'tutoko2' ? 'MV Tutoko II' : 'MV Tutoko';
+    document.getElementById('private-eyebrow').textContent = `${vLabel} · ${formatDate(date)}`;
+    document.getElementById('private-title').textContent   = name.toUpperCase() + ' EXPEDITION';
+    activeImages = images;
+    renderGrid('private-grid', activeImages);
+    const result = document.getElementById('private-result');
+    result.style.display = 'block';
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function formatDate(d) {
+    return new Date(d + 'T00:00:00').toLocaleDateString('en-NZ', { day:'numeric', month:'long', year:'numeric' });
+  }
+
+  function downloadAll() { showToast('Preparing your download...'); }
+
+  function openLightbox(idx, gridId) {
+    activeImages = images;
+    currentIndex = idx;
+    currentImageUrl = activeImages[idx].src;
+    updateLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function changeImage(step) {
+    currentIndex = (currentIndex + step + activeImages.length) % activeImages.length;
+    currentImageUrl = activeImages[currentIndex].src;
+    updateLightbox();
+  }
+
+  function updateLightbox() {
+    const img = document.getElementById('lightbox-img');
+    img.style.opacity = '0';
+    setTimeout(() => {
+      img.src = activeImages[currentIndex].src;
+      img.alt = activeImages[currentIndex].caption;
+      img.style.transition = 'opacity 0.2s ease';
+      img.style.opacity = '1';
+    }, 80);
+    document.getElementById('lb-counter').textContent = `${currentIndex + 1} / ${activeImages.length}`;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'ArrowLeft')  changeImage(-1);
+    if (e.key === 'ArrowRight') changeImage(1);
+    if (e.key === 'Escape')     closeLightbox();
+  });
+
+  function triggerFileInput() { document.getElementById('file-input').click(); }
+
+  function handleFileSelect(e) {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+    const q = document.getElementById('upload-queue');
+    q.style.display = 'block';
+    q.innerHTML = `
+      <div style="font-family:'Anton',sans-serif;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--light-accent);margin:20px 0 12px;">${files.length} file${files.length > 1 ? 's' : ''} queued</div>
+      ${files.map(f => `<div class="queue-item"><span>${f.name}</span><span style="font-size:0.8rem;color:var(--text-muted-light);">${(f.size/1024/1024).toFixed(1)} MB</span></div>`).join('')}
+      <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+        <button class="btn-primary" onclick="submitUpload()">Submit for Review</button>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">Files sync via Starlink and are reviewed before going live.</p>
+      </div>
+    `;
+  }
+
+  function submitUpload() {
+    showToast('Files queued for sync — thank you!');
+    document.getElementById('upload-queue').style.display = 'none';
+    document.getElementById('file-input').value = '';
+  }
+
+  /* QR CODE — points to the GCH URL */
+  QRCode.toCanvas(document.getElementById('qr-canvas'), GCH_URL, {
+    width: 130, margin: 1, color: { dark: '#111111', light: '#ffffff' }
+  });
+
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  if (!navigator.share) {
+    const nb = document.getElementById('btn-native-share');
+    if (nb) nb.style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
