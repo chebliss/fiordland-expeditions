@@ -393,11 +393,12 @@ button { cursor: pointer; font-family: var(--font-sans); }
 .photo-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
+  gap: 3px;
+  margin-top: 3px;
 }
 .photo-grid-item {}
 .photo-grid-img {
-  aspect-ratio: 4/3;
+  aspect-ratio: 16/10;
   background-size: cover;
   background-position: center;
   width: 100%;
@@ -407,17 +408,16 @@ button { cursor: pointer; font-family: var(--font-sans); }
 }
 .photo-grid-item:hover .photo-grid-img { transform: scale(1.03); }
 .photo-grid-caption {
-  padding: 16px 20px;
+  padding: 20px 24px;
   background: var(--navy-card);
-  border-bottom: 1px solid var(--border);
 }
 .photo-grid-caption h4 {
   font-family: var(--font-display);
-  font-size: 17px; font-weight: 400;
-  color: var(--white); margin-bottom: 4px;
+  font-size: 18px; font-weight: 400;
+  color: var(--white); margin-bottom: 6px;
 }
 .photo-grid-caption p {
-  font-size: 12px; color: var(--text-muted); line-height: 1.6;
+  font-size: 13px; color: var(--text-muted); line-height: 1.65;
 }
 @media(max-width:800px) {
   .photo-grid { grid-template-columns: 1fr; }
