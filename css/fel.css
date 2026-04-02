@@ -70,11 +70,21 @@ button { cursor: pointer; font-family: var(--font-sans); }
 .nav-links a:hover { opacity: 1; color: var(--gold-light); }
 .nav-dropdown { position: relative; }
 .nav-dropdown-menu {
-  display: none; position: absolute; top: calc(100% + 12px); left: 0;
+  display: block; opacity: 0; pointer-events: none;
+  position: absolute; top: 100%; left: 0;
   background: var(--navy-card); border: 1px solid var(--border);
   min-width: 240px; padding: 8px 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  transform: translateY(4px);
 }
-.nav-dropdown:hover .nav-dropdown-menu { display: block; }
+/* Invisible bridge fills gap between trigger and menu */
+.nav-dropdown-menu::before {
+  content: ''; position: absolute;
+  bottom: 100%; left: 0; right: 0; height: 12px;
+}
+.nav-dropdown:hover .nav-dropdown-menu {
+  opacity: 1; pointer-events: auto; transform: translateY(0);
+}
 .nav-dropdown-menu a {
   display: block; padding: 10px 20px;
   font-size: 11px; font-weight: 400; letter-spacing: 0.1em;
