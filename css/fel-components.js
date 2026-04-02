@@ -77,6 +77,17 @@ function renderFooter() {
     </div>
     <div class="footer-bottom">
       <span class="footer-legal">© 2026 Fiordland Expeditions Ltd. All rights reserved.</span>
+      <div style="display:flex;align-items:center;gap:20px;">
+        <a href="https://www.tripadvisor.com/Attraction_Review-g1205733-d8541914-Reviews-Fiordland_Expeditions_Doubtful_Sound_Overnight_Cruises_Multi_Day_Charters-Manapo.html" target="_blank" style="display:block;">
+          <img src="https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/3d6c8be6-00a8-4c9c-af89-14208d63aa58/tripadvisor.png" alt="TripAdvisor" style="height:36px;width:auto;opacity:0.85;filter:brightness(0) invert(1);" />
+        </a>
+        <a href="https://www.tripadvisor.com/Attraction_Review-g1205733-d8541914-Reviews-Fiordland_Expeditions_Doubtful_Sound_Overnight_Cruises_Multi_Day_Charters-Manapo.html" target="_blank" style="display:block;">
+          <img src="https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/8f2ffe14-c3dc-4c20-88db-1994433e6e3a/TA%2B2024.jpg" alt="TripAdvisor 2024 Award" style="height:52px;width:auto;" />
+        </a>
+        <a href="https://www.qualmark.co.nz" target="_blank" style="display:block;">
+          <img src="https://www.qualmark.co.nz/assets/Qualmark_Logo_Bronze.png" alt="Qualmark Bronze" style="height:48px;width:auto;opacity:0.85;filter:brightness(0) invert(1);" onerror="this.style.display='none'" />
+        </a>
+      </div>
       <span class="footer-legal">Site by <a href="https://blissconsultancy.co.nz" style="color:var(--gold)">Bliss&amp;Co</a></span>
     </div>
   `;

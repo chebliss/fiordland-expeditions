@@ -188,6 +188,15 @@ button { cursor: pointer; font-family: var(--font-sans); }
 }
 .card:hover { border-color: var(--border-mid); }
 .card-icon { font-size: 28px; margin-bottom: 16px; color: var(--gold); }
+/* Gold rule accent — replaces emoji card-icons */
+.card::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 20px;
+}
 .card-title {
   font-family: var(--font-display); font-size: 22px;
   font-weight: 400; color: var(--white); margin-bottom: 10px;
@@ -376,7 +385,7 @@ button { cursor: pointer; font-family: var(--font-sans); }
   max-width: var(--max-w); margin: 0 auto;
   border-top: 1px solid var(--border); padding-top: 24px;
   display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 12px;
+  flex-wrap: wrap; gap: 16px;
 }
 .footer-legal { font-size: 12px; color: var(--text-dim); }
 @media(max-width:900px) {
