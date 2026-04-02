@@ -95,10 +95,6 @@ function renderFooter() {
         <a href="https://www.tripadvisor.com/Attraction_Review-g1205733-d8541914-Reviews-Fiordland_Expeditions_Doubtful_Sound_Overnight_Cruises_Multi_Day_Charters-Manapo.html" target="_blank" rel="noopener" title="Fiordland Expeditions on TripAdvisor">
           <img src="${b}assets/img/tripadvisor-owl.webp" alt="TripAdvisor" style="height:56px;width:auto;" />
         </a>
-        <!-- TripAdvisor Travellers' Choice 2024 circular badge → links to FEL TripAdvisor listing -->
-        <a href="https://www.tripadvisor.com/Attraction_Review-g1205733-d8541914-Reviews-Fiordland_Expeditions_Doubtful_Sound_Overnight_Cruises_Multi_Day_Charters-Manapo.html" target="_blank" rel="noopener" title="TripAdvisor Travellers' Choice 2024">
-          <img src="https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/8f2ffe14-c3dc-4c20-88db-1994433e6e3a/TA%2B2024.jpg" alt="TripAdvisor Travellers' Choice 2024" style="height:72px;width:auto;" />
-        </a>
         <!-- Qualmark Gold logo → links to qualmark.co.nz -->
         <a href="https://www.qualmark.co.nz/" target="_blank" rel="noopener" title="Qualmark Gold — NZ Tourism Quality Assurance">
           <img src="${b}assets/img/qualmark-gold.jpg" alt="Qualmark Gold" style="height:72px;width:auto;" />
