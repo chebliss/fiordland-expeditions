@@ -90,17 +90,13 @@ function renderFooter() {
     <div class="footer-bottom">
       <span class="footer-legal">© 2026 Fiordland Expeditions Ltd. All rights reserved.</span>
       <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-        <!-- TripAdvisor wordmark -->
-        <a href="https://www.tripadvisor.com/Attraction_Review-g1205733-d8541914-Reviews-Fiordland_Expeditions_Doubtful_Sound_Overnight_Cruises_Multi_Day_Charters-Manapo.html" target="_blank" rel="noopener" title="TripAdvisor">
-          <img src="https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/3d6c8be6-00a8-4c9c-af89-14208d63aa58/tripadvisor.png" alt="TripAdvisor" style="height:52px;width:auto;filter:brightness(0) invert(1);opacity:0.9;" />
-        </a>
-        <!-- TripAdvisor 2024 Travellers' Choice badge -->
+        <!-- TripAdvisor Travellers' Choice 2024 circular badge -->
         <a href="https://www.tripadvisor.com/Attraction_Review-g1205733-d8541914-Reviews-Fiordland_Expeditions_Doubtful_Sound_Overnight_Cruises_Multi_Day_Charters-Manapo.html" target="_blank" rel="noopener" title="TripAdvisor Travellers' Choice 2024">
-          <img src="https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/8f2ffe14-c3dc-4c20-88db-1994433e6e3a/TA%2B2024.jpg" alt="TripAdvisor Travellers' Choice 2024" style="height:68px;width:auto;" />
+          <img src="https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/8f2ffe14-c3dc-4c20-88db-1994433e6e3a/TA%2B2024.jpg" alt="TripAdvisor Travellers' Choice 2024" style="height:72px;width:auto;" />
         </a>
         <!-- Qualmark Bronze -->
         <a href="https://www.qualmark.co.nz/" target="_blank" rel="noopener" title="Qualmark Bronze — NZ Tourism Quality Assurance">
-          <img src="https://www.qualmark.co.nz/assets/Qualmark_Logo_Bronze.png" alt="Qualmark Bronze" style="height:68px;width:auto;filter:brightness(0) invert(1);opacity:0.9;" onerror="this.style.display='none'" />
+          <img src="https://www.qualmark.co.nz/assets/Qualmark_Logo_Bronze.png" alt="Qualmark Bronze" style="height:72px;width:auto;filter:brightness(0) invert(1);opacity:0.9;" onerror="this.style.display='none'" />
         </a>
         <!-- Social icons -->
         <div style="display:flex;gap:14px;align-items:center;border-left:1px solid rgba(255,255,255,0.12);padding-left:20px;margin-left:4px;">
