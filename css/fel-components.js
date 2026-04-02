@@ -48,10 +48,6 @@ function renderFooter() {
         <ul>
           <li><a href="${b}pages/doubtful-sound-overnight-cruise.html">Overnight Cruise</a></li>
           <li><a href="${b}pages/fishing-private-charters.html">Fishing &amp; Charters</a></li>
-          <li><a href="${b}pages/landing-seclusionist.html">The Seclusionist</a></li>
-          <li><a href="${b}pages/landing-dynasty-builder.html">Dynasty Builder</a></li>
-          <li><a href="${b}pages/landing-milestone-celebrator.html">Milestone Celebrator</a></li>
-          <li><a href="${b}pages/landing-pilgrim-trophy.html">Pilgrim &amp; Trophy</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -75,6 +71,22 @@ function renderFooter() {
         </ul>
       </div>
     </div>
+
+    <!-- STAKEHOLDER PREVIEW BOX -->
+    <div style="border:1px dashed rgba(201,168,76,0.4);padding:24px 32px;margin-bottom:32px;display:flex;align-items:center;flex-wrap:wrap;gap:24px;">
+      <div style="flex-shrink:0;">
+        <p style="font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Stakeholder Preview</p>
+        <p style="font-size:11px;color:var(--text-dim);line-height:1.5;">Persona landing pages — not in public navigation</p>
+      </div>
+      <div style="width:1px;height:40px;background:rgba(201,168,76,0.2);flex-shrink:0;"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        <a href="${b}pages/landing-seclusionist.html" style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:8px 18px;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">The Seclusionist</a>
+        <a href="${b}pages/landing-dynasty-builder.html" style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:8px 18px;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">Dynasty Builder</a>
+        <a href="${b}pages/landing-milestone-celebrator.html" style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:8px 18px;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">Milestone Celebrator</a>
+        <a href="${b}pages/landing-pilgrim-trophy.html" style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:8px 18px;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">Pilgrim &amp; Trophy</a>
+      </div>
+    </div>
+
     <div class="footer-bottom">
       <span class="footer-legal">© 2026 Fiordland Expeditions Ltd. All rights reserved.</span>
       <div style="display:flex;align-items:center;gap:20px;">
@@ -89,6 +101,30 @@ function renderFooter() {
         </a>
       </div>
       <span class="footer-legal">Site by <a href="https://blissconsultancy.co.nz" style="color:var(--gold)">Bliss&amp;Co</a></span>
+    </div>
+    <div style="
+      margin-top: 32px;
+      border: 1px dashed rgba(201,168,76,0.4);
+      padding: 24px 28px;
+      border-radius: 4px;
+    ">
+      <p style="
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 16px;
+        opacity: 0.7;
+      ">Stakeholder Preview — Not Live Nav</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px 24px;">
+        <a href="${b}pages/landing-seclusionist.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color=''">The Seclusionist</a>
+        <a href="${b}pages/landing-dynasty-builder.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color=''">Dynasty Builder</a>
+        <a href="${b}pages/landing-milestone-celebrator.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color=''">Milestone Celebrator</a>
+        <a href="${b}pages/landing-pilgrim-trophy.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color=''">Pilgrim &amp; Trophy Seeker</a>
+        <span style="font-size:12px;color:rgba(201,168,76,0.25);user-select:none;">|</span>
+        <a href="${b}pages/guest-content-hub.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color=''">Guest Content Hub</a>
+      </div>
     </div>
   `;
 }
