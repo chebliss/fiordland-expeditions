@@ -97,7 +97,7 @@ function renderFooter() {
         </a>
         <!-- Qualmark Bronze -->
         <a href="https://www.qualmark.co.nz/" target="_blank" rel="noopener" title="Qualmark Bronze — NZ Tourism Quality Assurance">
-          <img src="https://www.qualmark.co.nz/assets/Qualmark_Logo_Bronze.png" alt="Qualmark Bronze" style="height:72px;width:auto;filter:brightness(0) invert(1);opacity:0.9;" onerror="this.style.display='none'" />
+          <img src="${b}assets/img/qualmark-bronze.svg" alt="Qualmark Bronze" style="height:72px;width:auto;opacity:0.9;" />
         </a>
         <!-- Social icons -->
         <div style="display:flex;gap:14px;align-items:center;border-left:1px solid rgba(255,255,255,0.12);padding-left:20px;margin-left:4px;">
