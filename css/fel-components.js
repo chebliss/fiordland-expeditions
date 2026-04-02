@@ -89,42 +89,18 @@ function renderFooter() {
 
     <div class="footer-bottom">
       <span class="footer-legal">© 2026 Fiordland Expeditions Ltd. All rights reserved.</span>
-      <div style="display:flex;align-items:center;gap:20px;">
+      <div style="display:flex;align-items:center;gap:24px;">
         <a href="https://www.tripadvisor.com/Attraction_Review-g1205733-d8541914-Reviews-Fiordland_Expeditions_Doubtful_Sound_Overnight_Cruises_Multi_Day_Charters-Manapo.html" target="_blank" style="display:block;">
-          <img src="https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/3d6c8be6-00a8-4c9c-af89-14208d63aa58/tripadvisor.png" alt="TripAdvisor" style="height:36px;width:auto;opacity:0.85;filter:brightness(0) invert(1);" />
+          <img src="https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/3d6c8be6-00a8-4c9c-af89-14208d63aa58/tripadvisor.png" alt="TripAdvisor" style="height:52px;width:auto;opacity:0.9;filter:brightness(0) invert(1);" />
         </a>
         <a href="https://www.tripadvisor.com/Attraction_Review-g1205733-d8541914-Reviews-Fiordland_Expeditions_Doubtful_Sound_Overnight_Cruises_Multi_Day_Charters-Manapo.html" target="_blank" style="display:block;">
-          <img src="https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/8f2ffe14-c3dc-4c20-88db-1994433e6e3a/TA%2B2024.jpg" alt="TripAdvisor 2024 Award" style="height:52px;width:auto;" />
+          <img src="https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/8f2ffe14-c3dc-4c20-88db-1994433e6e3a/TA%2B2024.jpg" alt="TripAdvisor 2024 Award" style="height:68px;width:auto;" />
         </a>
-        <a href="https://www.qualmark.co.nz" target="_blank" style="display:block;">
-          <img src="https://www.qualmark.co.nz/assets/Qualmark_Logo_Bronze.png" alt="Qualmark Bronze" style="height:48px;width:auto;opacity:0.85;filter:brightness(0) invert(1);" onerror="this.style.display='none'" />
+        <a href="https://www.qualmark.co.nz/" target="_blank" style="display:block;">
+          <img src="https://www.qualmark.co.nz/assets/Qualmark_Logo_Bronze.png" alt="Qualmark Bronze" style="height:64px;width:auto;opacity:0.9;filter:brightness(0) invert(1);" onerror="this.style.display='none'" />
         </a>
       </div>
       <span class="footer-legal">Site by <a href="https://blissconsultancy.co.nz" style="color:var(--gold)">Bliss&amp;Co</a></span>
-    </div>
-    <div style="
-      margin-top: 32px;
-      border: 1px dashed rgba(201,168,76,0.4);
-      padding: 24px 28px;
-      border-radius: 4px;
-    ">
-      <p style="
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: var(--gold);
-        margin-bottom: 16px;
-        opacity: 0.7;
-      ">Stakeholder Preview — Not Live Nav</p>
-      <div style="display:flex;flex-wrap:wrap;gap:8px 24px;">
-        <a href="${b}pages/landing-seclusionist.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color=''">The Seclusionist</a>
-        <a href="${b}pages/landing-dynasty-builder.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color=''">Dynasty Builder</a>
-        <a href="${b}pages/landing-milestone-celebrator.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color=''">Milestone Celebrator</a>
-        <a href="${b}pages/landing-pilgrim-trophy.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color=''">Pilgrim &amp; Trophy Seeker</a>
-        <span style="font-size:12px;color:rgba(201,168,76,0.25);user-select:none;">|</span>
-        <a href="${b}pages/guest-content-hub.html" style="font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='var(--gold-light)'" onmouseout="this.style.color=''">Guest Content Hub</a>
-      </div>
     </div>
   `;
 }
