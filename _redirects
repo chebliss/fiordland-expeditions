@@ -1,0 +1,9 @@
+# Netlify redirects — URL rewrites for the FEL site
+
+# Guest Content Hub — clean, thumb-typable URLs for vessel QR codes
+# and guest-facing print collateral
+/gch       /pages/guest-content-hub.html   200
+/share     /pages/guest-content-hub.html   200
+
+# Preserve deep-links to specific tabs via query string
+# (handled client-side inside guest-content-hub.html)
