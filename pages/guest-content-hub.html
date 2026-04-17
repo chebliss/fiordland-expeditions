@@ -525,7 +525,12 @@
 
   let currentIndex = 0;
   let activeImages = images;
+  let privateImages = [];
   let currentImageUrl = images[0].src;
+
+  function setActiveGrid(gridId) {
+    activeImages = (gridId === 'private-grid' && privateImages.length) ? privateImages : images;
+  }
 
   function renderGrid(targetId, imageSet) {
     const grid = document.getElementById(targetId);
@@ -537,7 +542,7 @@
       <div class="gallery-item" onclick="openLightbox(${i}, '${targetId}')">
         <img src="${img.thumb}" alt="${img.caption}" loading="lazy">
         <div class="gallery-overlay">
-          <button class="btn-share-small" onclick="event.stopPropagation(); currentIndex=${i}; currentImageUrl=activeImages[${i}].src; shareImage(${i})">Share</button>
+          <button class="btn-share-small" onclick="event.stopPropagation(); setActiveGrid('${targetId}'); currentIndex=${i}; currentImageUrl=activeImages[${i}].src; shareImage(${i})">Share</button>
         </div>
       </div>
     `).join('');
@@ -663,12 +668,12 @@
       return;
     }
 
-    activeImages = assets.map((a) => ({
+    privateImages = assets.map((a) => ({
       src: a.cloudinary_url,
       thumb: a.cloudinary_url.replace('/upload/', '/upload/w_600,c_limit,q_auto,f_auto/'),
       caption: a.guest_last_name ? `Shared by ${a.guest_last_name}` : 'Expedition moment',
     }));
-    renderGrid('private-grid', activeImages);
+    renderGrid('private-grid', privateImages);
   }
 
   function formatDate(d) {
@@ -678,7 +683,7 @@
   function downloadAll() { showToast('Preparing your download...'); }
 
   function openLightbox(idx, gridId) {
-    activeImages = images;
+    setActiveGrid(gridId);
     currentIndex = idx;
     currentImageUrl = activeImages[idx].src;
     updateLightbox();
