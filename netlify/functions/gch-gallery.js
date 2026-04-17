@@ -120,7 +120,10 @@ exports.handler = async (event) => {
     });
   }
 
-  const filter = `AND({vessel}="${escapeFormulaString(vessel)}",{cruise_date}="${escapeFormulaString(cruiseDate)}",OR({status}="approved",{status}="featured"))`;
+  // cruise_date is an Airtable Date field. Direct equality with a string
+  // literal is unreliable across Airtable's formula engine — coerce both
+  // sides to the same YYYY-MM-DD string before comparing.
+  const filter = `AND({vessel}="${escapeFormulaString(vessel)}",DATETIME_FORMAT({cruise_date},"YYYY-MM-DD")="${escapeFormulaString(cruiseDate)}",OR({status}="approved",{status}="featured"))`;
 
   const url = new URL(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`);
   url.searchParams.set('filterByFormula', filter);

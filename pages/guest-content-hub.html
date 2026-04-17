@@ -623,6 +623,8 @@
 
     const grid = document.getElementById('private-grid');
     grid.innerHTML = '';
+    // Clear any empty-state divs from a previous search so they don't stack
+    grid.parentElement.querySelectorAll('.empty-state').forEach((el) => el.remove());
     const result = document.getElementById('private-result');
     result.style.display = 'block';
     result.scrollIntoView({ behavior: 'smooth', block: 'start' });
