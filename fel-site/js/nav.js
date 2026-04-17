@@ -6,12 +6,12 @@
   const path = window.location.pathname;
   const active = (href) => path.includes(href) ? 'active' : '';
 
-  const LOGO = 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/25e4f2cd-780e-4751-8aa0-4a5d0922794a/FLE+Logo+2024+RGB+WHITE.png?format=1500w';
+  const LOGO = 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/25e4f2cd-780e-4751-8aa0-4a5d0922794a/FLE+Logo+2024+RGB+WHITE.png?format=300w';
   const BOOK = 'https://fareharbor.com/embeds/book/fiordlandexpeditionsnz/items/300312/calendar/2026/03/?flow=554429&language=en-us&g4=yes';
 
   const navHTML = `
 <nav class="nav">
-  <a href="/" class="nav-logo"><img src="${LOGO}" alt="Fiordland Expeditions"></a>
+  <a href="/" class="nav-logo"><img src="${LOGO}" width="160" height="40" decoding="async" alt="Fiordland Expeditions"></a>
   <ul class="nav-links" id="nav-links">
     <li><a href="/pages/overnight-cruise.html" class="${active('overnight')}">Overnight cruise</a></li>
     <li><a href="/pages/charters.html" class="${active('charter')}">Charters</a></li>
@@ -48,7 +48,7 @@
 
 <footer class="footer">
   <div class="footer-col">
-    <img src="${LOGO}" alt="Fiordland Expeditions" style="height:40px;margin-bottom:16px">
+    <img src="${LOGO}" width="160" height="40" loading="lazy" decoding="async" alt="Fiordland Expeditions" style="height:40px;margin-bottom:16px">
     <p>Doubtful Sound overnight cruises and private charters from Manapouri, Fiordland, New Zealand.</p>
   </div>
   <div class="footer-col">
