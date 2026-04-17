@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /pages/discerning-explorer.html
+
+Sitemap: https://fiordlandexpeditions.co.nz/sitemap.xml
