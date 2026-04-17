@@ -501,7 +501,7 @@
     <button class="lb-btn" onclick="changeImage(-1)">&#8592;</button>
     <span class="lb-counter" id="lb-counter">1 / 6</span>
     <button class="lb-btn" onclick="changeImage(1)">&#8594;</button>
-    <button class="lb-share" onclick="shareImage(currentIndex)">Share This Memory</button>
+    <button class="lb-share" onclick="selectFromLightbox()">Share This Memory</button>
   </div>
 </div>
 
@@ -598,7 +598,7 @@
       <div class="gallery-item" onclick="openLightbox(${i}, '${targetId}')">
         <img src="${img.thumb}" alt="${img.caption}" loading="lazy">
         <div class="gallery-overlay">
-          <button class="btn-share-small" onclick="event.stopPropagation(); setActiveGrid('${targetId}'); currentIndex=${i}; currentImageUrl=activeImages[${i}].src; shareImage(${i})">Share</button>
+          <button class="btn-share-small" onclick="event.stopPropagation(); gridShareClick(${i}, '${targetId}')">${targetId === 'private-grid' ? 'Select' : 'Share'}</button>
         </div>
       </div>
     `).join('');
@@ -784,10 +784,43 @@
     setActiveGrid(gridId);
     currentIndex = idx;
     currentImageUrl = activeImages[idx].src;
-    if (gridId === 'private-grid') selectShareImage(activeImages[idx]);
     updateLightbox();
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
+  }
+
+  // Select-for-share flow (private gallery only). Updates the share panel
+  // preview + scrolls the panel into view. Called by the thumbnail Share
+  // button and the lightbox Share button.
+  function selectPrivateForShare(idx) {
+    if (!privateImages[idx]) return;
+    selectShareImage(privateImages[idx]);
+    const panel = document.getElementById('share-panel');
+    if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    showToast('Image selected — customise caption and share below');
+  }
+
+  function selectFromLightbox() {
+    // Only applies when the lightbox was opened from the private grid.
+    if (activeImages !== privateImages) { shareImage(currentIndex); return; }
+    selectShareImage(activeImages[currentIndex]);
+    closeLightbox();
+    const panel = document.getElementById('share-panel');
+    if (panel) setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
+    showToast('Image selected — customise caption and share below');
+  }
+
+  // Called by the thumbnail's small Share button. Private grid → select into
+  // the share panel. Public grid → fire the native share sheet immediately.
+  function gridShareClick(idx, gridId) {
+    if (gridId === 'private-grid') {
+      selectPrivateForShare(idx);
+    } else {
+      setActiveGrid(gridId);
+      currentIndex = idx;
+      currentImageUrl = activeImages[idx].src;
+      shareImage(idx);
+    }
   }
 
   function closeLightbox() {
