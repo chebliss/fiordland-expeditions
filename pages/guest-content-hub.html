@@ -525,11 +525,12 @@
 
   let currentIndex = 0;
   let activeImages = images;
+  let publicImages = images.slice();
   let privateImages = [];
   let currentImageUrl = images[0].src;
 
   function setActiveGrid(gridId) {
-    activeImages = (gridId === 'private-grid' && privateImages.length) ? privateImages : images;
+    activeImages = (gridId === 'private-grid' && privateImages.length) ? privateImages : publicImages;
   }
 
   function renderGrid(targetId, imageSet) {
@@ -548,7 +549,26 @@
     `).join('');
   }
 
-  renderGrid('public-grid', images);
+  renderGrid('public-grid', publicImages);
+
+  // Pull featured content from Airtable and prepend to the demo images.
+  // Moderator flips a record's status to 'featured' to promote it here.
+  async function loadFeaturedFeed() {
+    try {
+      const res = await fetch('/.netlify/functions/gch-feed');
+      if (!res.ok) return;
+      const data = await res.json();
+      if (!data.ok || !Array.isArray(data.assets) || !data.assets.length) return;
+      const featured = data.assets.map((a) => ({
+        src: a.cloudinary_url,
+        thumb: a.cloudinary_url.replace('/upload/', '/upload/w_600,c_limit,q_auto,f_auto/'),
+        caption: a.notes || (a.guest_last_name ? `Shared by ${a.guest_last_name}` : 'Expedition highlight'),
+      }));
+      publicImages = [...featured, ...images];
+      renderGrid('public-grid', publicImages);
+    } catch (e) { /* keep the hardcoded demo feed on failure */ }
+  }
+  loadFeaturedFeed();
 
   function switchTab(name, btn) {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
