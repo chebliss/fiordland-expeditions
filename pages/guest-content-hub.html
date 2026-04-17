@@ -680,7 +680,24 @@
     return new Date(d + 'T00:00:00').toLocaleDateString('en-NZ', { day:'numeric', month:'long', year:'numeric' });
   }
 
-  function downloadAll() { showToast('Preparing your download...'); }
+  function downloadAll() {
+    if (!privateImages.length) { showToast('No images to download'); return; }
+    showToast(`Downloading ${privateImages.length} image${privateImages.length > 1 ? 's' : ''}...`);
+    // Cloudinary's fl_attachment flag forces Content-Disposition: attachment so
+    // the browser triggers a download dialog instead of navigating to the image.
+    privateImages.forEach((img, i) => {
+      const dlUrl = img.src.replace('/upload/', '/upload/fl_attachment/');
+      const filename = (dlUrl.split('/').pop() || `fiordland-${i + 1}.jpg`).split('?')[0];
+      const a = document.createElement('a');
+      a.href = dlUrl;
+      a.download = filename;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      // Space the clicks so browsers don't throttle multi-downloads as popups.
+      setTimeout(() => { a.click(); document.body.removeChild(a); }, i * 400);
+    });
+  }
 
   function openLightbox(idx, gridId) {
     setActiveGrid(gridId);
