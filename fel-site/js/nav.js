@@ -82,6 +82,47 @@
   // Inject footer at end of body
   document.body.insertAdjacentHTML('beforeend', footerHTML);
 
+  // Inject site-wide Organization / LocalBusiness JSON-LD
+  // Note: JSON-LD works when injected after DOM parse — Googlebot renders JS.
+  // For maximum SEO safety, consider hard-coding this in each page's <head> later.
+  const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": ["TravelAgency", "LocalBusiness"],
+    "@id": "https://fiordlandexpeditions.co.nz/#organization",
+    "name": "Fiordland Expeditions",
+    "legalName": "Fiordland Expeditions Limited",
+    "url": "https://fiordlandexpeditions.co.nz/",
+    "logo": LOGO,
+    "image": "https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/0b90276b-e615-4a3c-babb-f812cdce619c/Fiordland+Expeditions?format=1200w",
+    "description": "Doubtful Sound overnight cruises and private charters from Manapouri, Fiordland, New Zealand. Licensed overnight operator with 25+ years' experience.",
+    "telephone": "+64-3-249-9005",
+    "email": "info@fiordlandexpeditions.co.nz",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Real NZ Ferry Terminal, Pearl Harbour",
+      "addressLocality": "Manapouri",
+      "addressRegion": "Southland",
+      "postalCode": "9679",
+      "addressCountry": "NZ",
+      "postOfficeBoxNumber": "PO Box 300, Te Anau 9600"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -45.5671,
+      "longitude": 167.6175
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Fiordland National Park, New Zealand"
+    },
+    "slogan": "Experience the majesty of Fiordland",
+    "foundingDate": "2000"
+  };
+  const orgScript = document.createElement('script');
+  orgScript.type = 'application/ld+json';
+  orgScript.textContent = JSON.stringify(orgSchema);
+  document.head.appendChild(orgScript);
+
   // Mobile nav toggle
   document.getElementById('nav-toggle').addEventListener('click', function() {
     document.getElementById('nav-links').classList.toggle('open');
