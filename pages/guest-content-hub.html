@@ -335,9 +335,34 @@
           </div>
         </div>
 
+        <!-- Cruise details (required for upload) -->
+        <div class="card" style="margin-bottom:16px;">
+          <span class="label-upper">Step 1 · Tell Us About Your Cruise</span>
+          <h3>Your Cruise Details</h3>
+          <p>So we can file your photos to the right gallery.</p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="upload-vessel">Vessel</label>
+              <select id="upload-vessel">
+                <option value="">Select vessel</option>
+                <option value="tutoko2">MV Tutoko II</option>
+                <option value="tutoko1">MV Tutoko</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="upload-cruise-date">Departure Date</label>
+              <input type="date" id="upload-cruise-date">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="upload-last-name">Last Name</label>
+              <input type="text" id="upload-last-name" placeholder="e.g. Lindqvist">
+            </div>
+          </div>
+        </div>
+
         <!-- File upload -->
         <div class="card" style="margin-bottom:16px;">
-          <span class="label-upper">Browse &amp; Upload</span>
+          <span class="label-upper">Step 2 · Browse &amp; Upload</span>
           <h3>Select Files from This Device</h3>
           <p>Photos and videos accepted. Max 200MB per file.</p>
           <div class="upload-zone" onclick="triggerFileInput()" style="margin-top:16px;">
@@ -357,7 +382,7 @@
 
         <!-- PERMISSIONS -->
         <div class="permission-group">
-          <span class="label-upper">Sharing Permissions</span>
+          <span class="label-upper">Step 3 · Sharing Permissions</span>
           <p style="font-size:0.85rem;margin-bottom:16px;">Choose how you'd like your photos to be used. You can tick both options.</p>
           <label class="permission-item">
             <input type="checkbox" id="perm-mates" onchange="updateShareState()">
@@ -586,19 +611,62 @@
     catch(e) { const el = document.createElement('textarea'); el.value = str; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); }
   }
 
-  function showPrivateGallery() {
+  async function showPrivateGallery() {
     const vessel = document.getElementById('vessel-select').value;
     const date   = document.getElementById('cruise-date').value;
     const name   = document.getElementById('last-name').value.trim();
     if (!vessel || !date || !name) { showToast('Please complete all fields'); return; }
+
     const vLabel = vessel === 'tutoko2' ? 'MV Tutoko II' : 'MV Tutoko';
     document.getElementById('private-eyebrow').textContent = `${vLabel} · ${formatDate(date)}`;
     document.getElementById('private-title').textContent   = name.toUpperCase() + ' EXPEDITION';
-    activeImages = images;
-    renderGrid('private-grid', activeImages);
+
+    const grid = document.getElementById('private-grid');
+    grid.innerHTML = '';
     const result = document.getElementById('private-result');
     result.style.display = 'block';
     result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    showToast('Loading your gallery...');
+
+    const qs = new URLSearchParams({ vessel, cruise_date: date, guest_last_name: name }).toString();
+    let data;
+    try {
+      const res = await fetch(`/.netlify/functions/gch-gallery?${qs}`, { method: 'GET' });
+      data = await res.json();
+      if (!res.ok || !data.ok) {
+        showToast(data.error || 'Gallery unavailable — try again shortly');
+        return;
+      }
+    } catch (e) {
+      showToast('Network error — check your connection');
+      return;
+    }
+
+    if (data.expired) {
+      grid.innerHTML = '';
+      showToast('This gallery has expired (90-day window)');
+      const empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.innerHTML = `<h3>Gallery Expired</h3><p>${data.message || 'Galleries are available for 90 days after the cruise date.'}</p>`;
+      grid.parentElement.insertBefore(empty, grid);
+      return;
+    }
+
+    const assets = Array.isArray(data.assets) ? data.assets : [];
+    if (!assets.length) {
+      const empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.innerHTML = `<h3>No Photos Yet</h3><p>Nothing approved for this cruise yet. Check back after moderation — uploads typically go live within 24 hours.</p>`;
+      grid.parentElement.insertBefore(empty, grid);
+      return;
+    }
+
+    activeImages = assets.map((a) => ({
+      src: a.cloudinary_url,
+      thumb: a.cloudinary_url.replace('/upload/', '/upload/w_600,c_limit,q_auto,f_auto/'),
+      caption: a.guest_last_name ? `Shared by ${a.guest_last_name}` : 'Expedition moment',
+    }));
+    renderGrid('private-grid', activeImages);
   }
 
   function formatDate(d) {
@@ -648,25 +716,129 @@
 
   function triggerFileInput() { document.getElementById('file-input').click(); }
 
+  /* Upload pipeline state */
+  const UPLOAD_TYPE = new URLSearchParams(location.search).get('crew') === '1' ? 'crew' : 'guest';
+  const MAX_BYTES = 200 * 1024 * 1024;
+  let pendingFiles = [];
+
   function handleFileSelect(e) {
     const files = Array.from(e.target.files);
     if (!files.length) return;
+    const accepted = files.filter(f => f.size <= MAX_BYTES);
+    if (accepted.length < files.length) {
+      showToast(`${files.length - accepted.length} file(s) over 200MB skipped`);
+    }
+    pendingFiles = accepted;
+    renderUploadQueue();
+  }
+
+  function renderUploadQueue() {
     const q = document.getElementById('upload-queue');
+    if (!pendingFiles.length) { q.style.display = 'none'; q.innerHTML = ''; return; }
     q.style.display = 'block';
     q.innerHTML = `
-      <div style="font-family:'Anton',sans-serif;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--light-accent);margin:20px 0 12px;">${files.length} file${files.length > 1 ? 's' : ''} queued</div>
-      ${files.map(f => `<div class="queue-item"><span>${f.name}</span><span style="font-size:0.8rem;color:var(--text-muted-light);">${(f.size/1024/1024).toFixed(1)} MB</span></div>`).join('')}
+      <div style="font-family:'Anton',sans-serif;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--light-accent);margin:20px 0 12px;">${pendingFiles.length} file${pendingFiles.length > 1 ? 's' : ''} queued</div>
+      ${pendingFiles.map((f, i) => `<div class="queue-item" id="queue-item-${i}"><span>${f.name}</span><span style="font-size:0.8rem;color:var(--text-muted-light);" id="queue-status-${i}">${(f.size/1024/1024).toFixed(1)} MB · ready</span></div>`).join('')}
       <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-        <button class="btn-primary" onclick="submitUpload()">Submit for Review</button>
+        <button class="btn-primary" id="btn-submit-upload" onclick="submitUpload()">Submit for Review</button>
         <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">Files sync via Starlink and are reviewed before going live.</p>
       </div>
     `;
   }
 
-  function submitUpload() {
-    showToast('Files queued for sync — thank you!');
-    document.getElementById('upload-queue').style.display = 'none';
-    document.getElementById('file-input').value = '';
+  function setQueueStatus(i, text) {
+    const el = document.getElementById(`queue-status-${i}`);
+    if (el) el.textContent = text;
+  }
+
+  function readUploadFormFields() {
+    const vessel = document.getElementById('upload-vessel').value;
+    const cruiseDate = document.getElementById('upload-cruise-date').value;
+    const lastName = document.getElementById('upload-last-name').value.trim();
+    const consentMates = document.getElementById('perm-mates').checked;
+    const consentPublic = document.getElementById('perm-public').checked;
+    return { vessel, cruiseDate, lastName, consentMates, consentPublic };
+  }
+
+  async function uploadOne(file, idx, form) {
+    setQueueStatus(idx, 'requesting signature...');
+    const sigRes = await fetch('/.netlify/functions/gch-upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        vessel: form.vessel,
+        cruise_date: form.cruiseDate,
+        guest_last_name: form.lastName,
+        upload_type: UPLOAD_TYPE,
+      }),
+    });
+    const sig = await sigRes.json();
+    if (!sigRes.ok) throw new Error(sig.error || 'Signature request failed');
+
+    setQueueStatus(idx, 'uploading to Cloudinary...');
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('api_key', sig.api_key);
+    fd.append('timestamp', sig.timestamp);
+    fd.append('signature', sig.signature);
+    fd.append('folder', sig.folder);
+    fd.append('tags', sig.tags);
+
+    const cldRes = await fetch(sig.upload_url, { method: 'POST', body: fd });
+    const cld = await cldRes.json();
+    if (!cldRes.ok) throw new Error((cld.error && cld.error.message) || 'Cloudinary upload failed');
+
+    setQueueStatus(idx, 'recording consent...');
+    const consentRes = await fetch('/.netlify/functions/gch-consent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        upload_id: cld.public_id,
+        cloudinary_url: cld.secure_url,
+        cloudinary_folder: sig.folder,
+        vessel: form.vessel,
+        cruise_date: form.cruiseDate,
+        guest_last_name: form.lastName,
+        upload_type: UPLOAD_TYPE,
+        file_type: cld.resource_type === 'video' ? 'video' : 'image',
+        consent_mates: form.consentMates,
+        consent_public: form.consentPublic,
+      }),
+    });
+    const consent = await consentRes.json();
+    if (!consentRes.ok || !consent.ok) throw new Error(consent.error || 'Consent record failed');
+
+    setQueueStatus(idx, UPLOAD_TYPE === 'crew' ? 'uploaded · approved' : 'uploaded · pending review');
+  }
+
+  async function submitUpload() {
+    const form = readUploadFormFields();
+    if (!form.vessel || !form.cruiseDate || !form.lastName) {
+      showToast('Please fill in vessel, date, and last name'); return;
+    }
+    if (!pendingFiles.length) { showToast('No files selected'); return; }
+    if (!form.consentMates && !form.consentPublic) {
+      showToast('Tick at least one sharing permission'); return;
+    }
+
+    const btn = document.getElementById('btn-submit-upload');
+    if (btn) { btn.disabled = true; btn.textContent = 'Uploading...'; btn.style.opacity = '0.6'; }
+    let successes = 0;
+    for (let i = 0; i < pendingFiles.length; i++) {
+      try {
+        await uploadOne(pendingFiles[i], i, form);
+        successes++;
+      } catch (err) {
+        setQueueStatus(i, `failed: ${err.message || 'unknown error'}`);
+      }
+    }
+    if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.textContent = 'Submit for Review'; }
+    showToast(successes === pendingFiles.length ? `All ${successes} file(s) uploaded — thank you!` : `${successes}/${pendingFiles.length} uploaded`);
+    if (successes === pendingFiles.length) {
+      pendingFiles = [];
+      document.getElementById('file-input').value = '';
+      setTimeout(() => { renderUploadQueue(); }, 2000);
+    }
   }
 
   /* QR CODE — points to the GCH URL */
