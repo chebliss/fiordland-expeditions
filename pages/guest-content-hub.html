@@ -304,6 +304,67 @@
             <button class="btn-secondary" onclick="downloadAll()">Download All</button>
           </div>
           <div class="gallery-grid" id="private-grid"></div>
+
+          <!-- SOCIAL SHARING PANEL — share a selected image or the gallery link -->
+          <div class="share-panel" id="share-panel" style="margin-top:24px;">
+            <div class="share-panel-header">
+              <span class="label-upper" style="margin:0;">Share Your Expedition</span>
+              <span style="font-size:0.78rem;color:var(--text-muted-light);" id="share-target-label">Gallery link</span>
+            </div>
+            <div class="share-caption">
+              <label for="share-caption-text">Your caption</label>
+              <textarea id="share-caption-text" oninput="updateCaption()">Check out this incredible moment from our Fiordland expedition! 🌊⛵</textarea>
+              <p style="font-size:0.78rem;color:var(--text-muted-light);margin-top:8px;">Click any image above to share that specific moment. Otherwise the buttons below share a link to your gallery.</p>
+            </div>
+            <div class="hashtag-strip">
+              <span class="label-upper" style="margin:0;font-size:0.55rem;">Hashtags</span>
+              <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandExpeditions">#FiordlandExpeditions</span>
+              <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#DoubtfulSound">#DoubtfulSound</span>
+              <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandNZ">#FiordlandNZ</span>
+              <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#NewZealand">#NewZealand</span>
+              <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#NZTravel">#NZTravel</span>
+              <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#VisitNZ">#VisitNZ</span>
+              <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#Fiordland">#Fiordland</span>
+              <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#MilfordForTheMany">#MilfordForTheMany</span>
+              <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#DoubtfulForTheFew">#DoubtfulForTheFew</span>
+              <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#NZAdventure">#NZAdventure</span>
+            </div>
+            <div style="padding:10px 24px;background:var(--bright);border-bottom:1px solid #e8e4df;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
+              <span style="font-family:'Anton',sans-serif;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);">Tag FEL</span>
+              <a href="https://www.instagram.com/fiordland_expeditions/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:color var(--ease);" onmouseover="this.style.color='#bc1888'" onmouseout="this.style.color=''">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                @fiordland_expeditions
+              </a>
+              <a href="https://www.facebook.com/Fiordlandexpeditionstutoko/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:color var(--ease);" onmouseover="this.style.color='#1877f2'" onmouseout="this.style.color=''">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                @Fiordlandexpeditionstutoko
+              </a>
+            </div>
+            <div class="share-platforms">
+              <button class="share-btn-social btn-facebook" onclick="shareToFacebook()">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                Share on Facebook
+              </button>
+              <button class="share-btn-social btn-instagram" onclick="shareToInstagram()">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                Copy for Instagram
+              </button>
+              <button class="share-btn-social btn-copy" onclick="copyToClipboard()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                Copy Caption &amp; Link
+              </button>
+              <button class="share-btn-social btn-native" onclick="nativeShare()" id="btn-native-share">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                More Options
+              </button>
+            </div>
+            <p class="share-platform-note">
+              Instagram doesn't allow direct web posting — tap "Copy for Instagram" to copy your caption and hashtags, then paste into the Instagram app.
+              Tag us at <a href="https://www.instagram.com/fiordland_expeditions/" target="_blank" style="color:var(--light-accent);text-decoration:none;">@fiordland_expeditions</a> and
+              <a href="https://www.facebook.com/Fiordlandexpeditionstutoko/" target="_blank" style="color:var(--light-accent);text-decoration:none;">@Fiordlandexpeditionstutoko</a> on Facebook.
+            </p>
+          </div>
+
           <p style="margin-top:24px;padding-top:20px;border-top:1px solid #e8e4df;font-size:0.82rem;">Your images are available for 90 days from your cruise date.</p>
         </div>
       </div>
@@ -400,64 +461,8 @@
           </label>
         </div>
 
-        <!-- SOCIAL SHARING PANEL -->
-        <div class="share-panel" id="share-panel" style="margin-top:16px;">
-          <div class="share-panel-header">
-            <span class="label-upper" style="margin:0;">Share to Social Media</span>
-            <span style="font-size:0.78rem;color:var(--text-muted-light);">Optional</span>
-          </div>
-          <div class="share-caption">
-            <label for="share-caption-text">Your caption</label>
-            <textarea id="share-caption-text" oninput="updateCaption()">Check out this incredible moment from our Fiordland expedition! 🌊⛵</textarea>
-          </div>
-          <div class="hashtag-strip">
-            <span class="label-upper" style="margin:0;font-size:0.55rem;">Hashtags</span>
-            <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandExpeditions">#FiordlandExpeditions</span>
-            <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#DoubtfulSound">#DoubtfulSound</span>
-            <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandNZ">#FiordlandNZ</span>
-            <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#NewZealand">#NewZealand</span>
-            <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#NZTravel">#NZTravel</span>
-            <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#VisitNZ">#VisitNZ</span>
-            <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#Fiordland">#Fiordland</span>
-            <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#MilfordForTheMany">#MilfordForTheMany</span>
-            <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#DoubtfulForTheFew">#DoubtfulForTheFew</span>
-            <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#NZAdventure">#NZAdventure</span>
-          </div>
-          <div style="padding:10px 24px;background:var(--bright);border-bottom:1px solid #e8e4df;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
-            <span style="font-family:'Anton',sans-serif;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);">Tag FEL</span>
-            <a href="https://www.instagram.com/fiordland_expeditions/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:color var(--ease);" onmouseover="this.style.color='#bc1888'" onmouseout="this.style.color=''">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-              @fiordland_expeditions
-            </a>
-            <a href="https://www.facebook.com/Fiordlandexpeditionstutoko/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:color var(--ease);" onmouseover="this.style.color='#1877f2'" onmouseout="this.style.color=''">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-              @Fiordlandexpeditionstutoko
-            </a>
-          </div>
-          <div class="share-platforms">
-            <button class="share-btn-social btn-facebook" onclick="shareToFacebook()">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-              Share on Facebook
-            </button>
-            <button class="share-btn-social btn-instagram" onclick="shareToInstagram()">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-              Copy for Instagram
-            </button>
-            <button class="share-btn-social btn-copy" onclick="copyToClipboard()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-              Copy Caption &amp; Link
-            </button>
-            <button class="share-btn-social btn-native" onclick="nativeShare()" id="btn-native-share">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-              More Options
-            </button>
-          </div>
-          <p class="share-platform-note">
-            Instagram doesn't allow direct web posting — tap "Copy for Instagram" to copy your caption and hashtags, then paste into the Instagram app.
-            Tag us at <a href="https://www.instagram.com/fiordland_expeditions/" target="_blank" style="color:var(--light-accent);text-decoration:none;">@fiordland_expeditions</a> and
-            <a href="https://www.facebook.com/Fiordlandexpeditionstutoko/" target="_blank" style="color:var(--light-accent);text-decoration:none;">@Fiordlandexpeditionstutoko</a> on Facebook.
-          </p>
-        </div>
+        <!-- SOCIAL SHARING PANEL MOVED — now lives inside the Your Gallery tab
+             so guests can share the specific image they've just viewed. -->
 
         <div class="consent-note" style="margin-top:16px;">
           <p>By uploading and selecting sharing permissions above, you grant Fiordland Expeditions the rights specified. Your originals remain yours. We'll always credit our contributors when featuring your work publicly.</p>
@@ -528,9 +533,18 @@
   let publicImages = images.slice();
   let privateImages = [];
   let currentImageUrl = images[0].src;
+  // When the guest clicks an image in their private gallery, remember it so
+  // the share panel's buttons target that image rather than the gallery URL.
+  let selectedShareImage = null;
 
   function setActiveGrid(gridId) {
     activeImages = (gridId === 'private-grid' && privateImages.length) ? privateImages : publicImages;
+  }
+
+  function selectShareImage(img) {
+    selectedShareImage = img || null;
+    const label = document.getElementById('share-target-label');
+    if (label) label.textContent = selectedShareImage ? 'Selected image' : 'Gallery link';
   }
 
   function renderGrid(targetId, imageSet) {
@@ -585,36 +599,40 @@
 
   function toggleHashtag(el) { el.classList.toggle('active'); }
 
+  function shareTargetUrl() {
+    return selectedShareImage ? selectedShareImage.src : GCH_URL;
+  }
+
   function buildShareText() {
     const caption = document.getElementById('share-caption-text').value.trim();
     const hashtags = getActiveHashtags();
-    return `${caption}\n\n${hashtags}\n\n${GCH_URL}`;
+    return `${caption}\n\n${hashtags}\n\n${shareTargetUrl()}`;
   }
 
   function updateCaption() {}
 
   function shareToFacebook() {
-    const url = encodeURIComponent(GCH_URL);
+    const url = encodeURIComponent(shareTargetUrl());
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=500');
   }
 
   function shareToInstagram() {
     const caption = document.getElementById('share-caption-text').value.trim();
     const hashtags = getActiveHashtags();
-    const full = `${caption}\n\n${hashtags}\n\n${FEL_IG_HANDLE}`;
+    const full = `${caption}\n\n${hashtags}\n\n${FEL_IG_HANDLE}\n\n${shareTargetUrl()}`;
     copyText(full);
-    showToast('Caption copied — open Instagram to post!');
+    showToast(selectedShareImage ? 'Caption + image URL copied — save image to phone and paste in Instagram' : 'Caption copied — open Instagram to post!');
     setTimeout(() => { window.open(FEL_INSTAGRAM_URL, '_blank'); }, 800);
   }
 
   function copyToClipboard() {
     copyText(buildShareText() + '\n\n' + FEL_IG_HANDLE + '  |  ' + FEL_FB_HANDLE);
-    showToast('Caption & link copied!');
+    showToast(selectedShareImage ? 'Image link & caption copied!' : 'Caption & link copied!');
   }
 
   async function nativeShare() {
     if (navigator.share) {
-      try { await navigator.share({ title: 'Fiordland Expeditions', text: buildShareText(), url: GCH_URL }); } catch(e) {}
+      try { await navigator.share({ title: 'Fiordland Expeditions', text: buildShareText(), url: shareTargetUrl() }); } catch(e) {}
     } else { copyToClipboard(); }
   }
 
@@ -650,6 +668,8 @@
     grid.innerHTML = '';
     // Clear any empty-state divs from a previous search so they don't stack
     grid.parentElement.querySelectorAll('.empty-state').forEach((el) => el.remove());
+    // Reset share panel back to gallery-link mode until the guest picks an image
+    selectShareImage(null);
     const result = document.getElementById('private-result');
     result.style.display = 'block';
     result.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -723,6 +743,7 @@
     setActiveGrid(gridId);
     currentIndex = idx;
     currentImageUrl = activeImages[idx].src;
+    if (gridId === 'private-grid') selectShareImage(activeImages[idx]);
     updateLightbox();
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
