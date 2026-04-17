@@ -6,10 +6,22 @@
 // cruise (not only their own uploads) — shared memories across cruise mates.
 // Enforces a 90-day expiry window from the cruise_date.
 
-const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
-const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
+const AIRTABLE_API_KEY = (process.env.AIRTABLE_API_KEY || '').trim();
+const AIRTABLE_BASE_ID = (process.env.AIRTABLE_BASE_ID || '').trim();
 const AIRTABLE_TABLE = 'Uploads';
 const EXPIRY_DAYS = 90;
+
+function maskToken(tok) {
+  if (!tok) return { present: false };
+  return {
+    present: true,
+    length: tok.length,
+    prefix: tok.slice(0, 8),
+    suffix: tok.slice(-4),
+    has_dot: tok.includes('.'),
+    starts_with_pat: tok.startsWith('pat'),
+  };
+}
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -56,6 +68,34 @@ exports.handler = async (event) => {
   }
 
   const params = event.queryStringParameters || {};
+
+  // Debug mode: bypass the filtered query and probe Airtable directly
+  // to surface what the function actually sees for env vars + what Airtable
+  // returns on the simplest possible request.
+  if (params.debug === '1') {
+    const probeUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}?maxRecords=1`;
+    let probeStatus = null;
+    let probeBody = null;
+    try {
+      const probeRes = await fetch(probeUrl, { headers: { 'Authorization': `Bearer ${AIRTABLE_API_KEY}` } });
+      probeStatus = probeRes.status;
+      probeBody = await probeRes.text();
+      try { probeBody = JSON.parse(probeBody); } catch (e) { /* keep as text */ }
+    } catch (e) {
+      probeBody = { fetch_error: String(e && e.message || e) };
+    }
+    return json(200, {
+      debug: true,
+      env: {
+        AIRTABLE_BASE_ID,
+        base_id_length: AIRTABLE_BASE_ID.length,
+        AIRTABLE_API_KEY: maskToken(AIRTABLE_API_KEY),
+      },
+      probe_url: probeUrl,
+      probe_status: probeStatus,
+      probe_response: probeBody,
+    });
+  }
   const vessel = sanitiseVessel(params.vessel);
   const cruiseDate = sanitiseCruiseDate(params.cruise_date);
   // guest_last_name is accepted but not used as a filter — any guest on the
