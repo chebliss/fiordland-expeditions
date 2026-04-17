@@ -81,13 +81,25 @@
 
     /* GALLERY */
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
-    .gallery-item { aspect-ratio: 1/1; border-radius: var(--img-radius); overflow: hidden; cursor: pointer; position: relative; background: #e8e4df; }
+    .gallery-item { aspect-ratio: 1/1; border-radius: var(--img-radius); overflow: hidden; cursor: pointer; position: relative; background: #e8e4df; border: 3px solid transparent; transition: border-color 0.2s ease, transform 0.2s ease; }
+    .gallery-item.selected { border-color: var(--light-accent); transform: scale(0.97); }
+    .gallery-item.selected::after { content: '✓'; position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; background: var(--light-accent); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
     .gallery-item:hover img { transform: scale(1.05); }
     .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background var(--ease); display: flex; align-items: flex-end; padding: 14px; gap: 8px; }
     .gallery-item:hover .gallery-overlay { background: rgba(0,0,0,0.32); }
     .gallery-overlay .btn-share-small { opacity: 0; transform: translateY(6px); transition: all 0.25s ease; }
     .gallery-item:hover .gallery-overlay .btn-share-small { opacity: 1; transform: translateY(0); }
+
+    /* SHARE PANEL — selected image preview */
+    .share-selected-preview { display: none; padding: 16px 24px; border-bottom: 1px solid #e8e4df; background: var(--bright); align-items: center; gap: 14px; }
+    .share-selected-preview.active { display: flex; }
+    .share-selected-preview img { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; flex-shrink: 0; border: 2px solid var(--light-accent); }
+    .share-selected-preview .preview-info { flex: 1; min-width: 0; }
+    .share-selected-preview .preview-info strong { display: block; font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-on-light); margin-bottom: 2px; }
+    .share-selected-preview .preview-info p { font-size: 0.78rem; color: var(--text-muted); margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .share-selected-preview .preview-clear { font-family: 'Anton', sans-serif; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; background: none; border: 1px solid #d0ccc7; color: var(--text-muted); padding: 6px 12px; border-radius: var(--btn-radius); cursor: pointer; transition: all var(--ease); flex-shrink: 0; }
+    .share-selected-preview .preview-clear:hover { border-color: var(--text-on-light); color: var(--text-on-light); }
 
     /* EMPTY STATE */
     .empty-state { text-align: center; padding: 80px 24px; border: 1px dashed var(--light-accent-border); border-radius: var(--img-radius); background: var(--light-accent-dim); }
@@ -311,10 +323,18 @@
               <span class="label-upper" style="margin:0;">Share Your Expedition</span>
               <span style="font-size:0.78rem;color:var(--text-muted-light);" id="share-target-label">Gallery link</span>
             </div>
+            <div class="share-selected-preview" id="share-selected-preview">
+              <img id="share-preview-img" src="" alt="Selected image">
+              <div class="preview-info">
+                <strong>Sharing this image</strong>
+                <p id="share-preview-caption">Selected moment</p>
+              </div>
+              <button class="preview-clear" onclick="selectShareImage(null)">Clear</button>
+            </div>
             <div class="share-caption">
               <label for="share-caption-text">Your caption</label>
               <textarea id="share-caption-text" oninput="updateCaption()">Check out this incredible moment from our Fiordland expedition! 🌊⛵</textarea>
-              <p style="font-size:0.78rem;color:var(--text-muted-light);margin-top:8px;">Click any image above to share that specific moment. Otherwise the buttons below share a link to your gallery.</p>
+              <p style="font-size:0.78rem;color:var(--text-muted-light);margin-top:8px;">Click any image above to select it to share. Otherwise the buttons below share a link to your gallery.</p>
             </div>
             <div class="hashtag-strip">
               <span class="label-upper" style="margin:0;font-size:0.55rem;">Hashtags</span>
@@ -545,6 +565,27 @@
     selectedShareImage = img || null;
     const label = document.getElementById('share-target-label');
     if (label) label.textContent = selectedShareImage ? 'Selected image' : 'Gallery link';
+    const preview = document.getElementById('share-selected-preview');
+    if (preview) {
+      if (selectedShareImage) {
+        preview.classList.add('active');
+        const img = document.getElementById('share-preview-img');
+        const cap = document.getElementById('share-preview-caption');
+        if (img) img.src = selectedShareImage.thumb || selectedShareImage.src;
+        if (cap) cap.textContent = selectedShareImage.caption || 'Selected moment';
+      } else {
+        preview.classList.remove('active');
+      }
+    }
+    // Toggle the visual selected-state on gallery thumbnails
+    document.querySelectorAll('#private-grid .gallery-item').forEach((el) => el.classList.remove('selected'));
+    if (selectedShareImage) {
+      const idx = privateImages.findIndex((p) => p.src === selectedShareImage.src);
+      if (idx >= 0) {
+        const items = document.querySelectorAll('#private-grid .gallery-item');
+        if (items[idx]) items[idx].classList.add('selected');
+      }
+    }
   }
 
   function renderGrid(targetId, imageSet) {
