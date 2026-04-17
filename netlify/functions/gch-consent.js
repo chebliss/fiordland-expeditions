@@ -95,6 +95,10 @@ exports.handler = async (event) => {
   // Crew uploads auto-approve; guest uploads start pending moderation.
   const status = uploadType === 'crew' ? 'approved' : 'pending';
 
+  // Also populate an Attachment field so moderators see the image inline in
+  // the Airtable row. Airtable fetches the URL when the record is created.
+  const attachmentFilename = `${uploadId.split('/').pop() || 'upload'}.${fileType === 'video' ? 'mp4' : 'jpg'}`;
+
   const fields = {
     upload_id: uploadId,
     vessel,
@@ -107,6 +111,7 @@ exports.handler = async (event) => {
     cloudinary_url: cloudinaryUrl,
     cloudinary_folder: cloudinaryFolder,
     file_type: fileType,
+    image: [{ url: cloudinaryUrl, filename: attachmentFilename }],
   };
 
   const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`;
