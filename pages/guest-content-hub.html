@@ -91,15 +91,33 @@
     .gallery-overlay .btn-share-small { opacity: 0; transform: translateY(6px); transition: all 0.25s ease; }
     .gallery-item:hover .gallery-overlay .btn-share-small { opacity: 1; transform: translateY(0); }
 
-    /* SHARE PANEL — selected image preview */
-    .share-selected-preview { display: none; padding: 16px 24px; border-bottom: 1px solid #e8e4df; background: var(--bright); align-items: center; gap: 14px; }
-    .share-selected-preview.active { display: flex; }
-    .share-selected-preview img { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; flex-shrink: 0; border: 2px solid var(--light-accent); }
-    .share-selected-preview .preview-info { flex: 1; min-width: 0; }
-    .share-selected-preview .preview-info strong { display: block; font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-on-light); margin-bottom: 2px; }
-    .share-selected-preview .preview-info p { font-size: 0.78rem; color: var(--text-muted); margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .share-selected-preview .preview-clear { font-family: 'Anton', sans-serif; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; background: none; border: 1px solid #d0ccc7; color: var(--text-muted); padding: 6px 12px; border-radius: var(--btn-radius); cursor: pointer; transition: all var(--ease); flex-shrink: 0; }
-    .share-selected-preview .preview-clear:hover { border-color: var(--text-on-light); color: var(--text-on-light); }
+    /* SHARE DRAWER — fixed-bottom, slides up when selection is non-empty */
+    #share-drawer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 500; background: var(--white); border-top: 2px solid var(--light-accent); box-shadow: 0 -6px 24px rgba(0,0,0,0.15); transform: translateY(110%); transition: transform 0.3s ease; max-height: 80vh; overflow-y: auto; }
+    #share-drawer.active { transform: translateY(0); }
+    body.has-share-drawer { padding-bottom: 380px; }
+    @media (max-width: 640px) { body.has-share-drawer { padding-bottom: 420px; } }
+    .drawer-inner { max-width: var(--max-width); margin: 0 auto; padding: 14px var(--page-gutter); }
+    .drawer-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .drawer-title { font-family: 'Anton', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-on-light); }
+    .drawer-close { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; background: none; border: 1px solid #d0ccc7; color: var(--text-muted); padding: 6px 12px; border-radius: var(--btn-radius); cursor: pointer; transition: all var(--ease); }
+    .drawer-close:hover { border-color: var(--text-on-light); color: var(--text-on-light); }
+    #share-preview-list { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+    .preview-thumb { position: relative; width: 56px; height: 56px; flex-shrink: 0; border-radius: 8px; overflow: hidden; border: 2px solid var(--light-accent); }
+    .preview-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .preview-thumb-remove { position: absolute; top: 2px; right: 2px; width: 18px; height: 18px; border-radius: 50%; background: rgba(17,17,17,0.78); color: var(--white); border: none; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
+    .preview-thumb-remove:hover { background: var(--black); }
+    #drawer-caption { width: 100%; border: 1px solid #d0ccc7; border-radius: var(--btn-radius); padding: 10px 12px; font-family: inherit; font-size: 0.88rem; color: var(--text-on-light); background: var(--white); resize: vertical; min-height: 56px; line-height: 1.5; margin-top: 10px; }
+    #drawer-caption:focus { outline: none; border-color: var(--text-on-light); }
+    .drawer-hashtags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .drawer-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .drawer-buttons .share-btn-social { font-size: 0.58rem; padding: 9px 14px; }
+    .btn-x { background: #000; color: var(--white); }
+    .btn-snapchat { background: #fffc00; color: #000; }
+    .btn-tiktok { background: #010101; color: var(--white); }
+    @media (max-width: 640px) {
+      .drawer-buttons .share-btn-social { flex: 1 1 calc(50% - 8px); justify-content: center; }
+    }
 
     /* EMPTY STATE */
     .empty-state { text-align: center; padding: 80px 24px; border: 1px dashed var(--light-accent-border); border-radius: var(--img-radius); background: var(--light-accent-dim); }
@@ -316,75 +334,6 @@
             <button class="btn-secondary" onclick="downloadAll()">Download All</button>
           </div>
           <div class="gallery-grid" id="private-grid"></div>
-
-          <!-- SOCIAL SHARING PANEL — share a selected image or the gallery link -->
-          <div class="share-panel" id="share-panel" style="margin-top:24px;">
-            <div class="share-panel-header">
-              <span class="label-upper" style="margin:0;">Share Your Expedition</span>
-              <span style="font-size:0.78rem;color:var(--text-muted-light);" id="share-target-label">Gallery link</span>
-            </div>
-            <div class="share-selected-preview" id="share-selected-preview">
-              <img id="share-preview-img" src="" alt="Selected image">
-              <div class="preview-info">
-                <strong>Sharing this image</strong>
-                <p id="share-preview-caption">Selected moment</p>
-              </div>
-              <button class="preview-clear" onclick="selectShareImage(null)">Clear</button>
-            </div>
-            <div class="share-caption">
-              <label for="share-caption-text">Your caption</label>
-              <textarea id="share-caption-text" oninput="updateCaption()">Check out this incredible moment from our Fiordland expedition! 🌊⛵</textarea>
-              <p style="font-size:0.78rem;color:var(--text-muted-light);margin-top:8px;">Click any image above to select it to share. Otherwise the buttons below share a link to your gallery.</p>
-            </div>
-            <div class="hashtag-strip">
-              <span class="label-upper" style="margin:0;font-size:0.55rem;">Hashtags</span>
-              <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandExpeditions">#FiordlandExpeditions</span>
-              <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#DoubtfulSound">#DoubtfulSound</span>
-              <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandNZ">#FiordlandNZ</span>
-              <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#NewZealand">#NewZealand</span>
-              <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#NZTravel">#NZTravel</span>
-              <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#VisitNZ">#VisitNZ</span>
-              <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#Fiordland">#Fiordland</span>
-              <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#MilfordForTheMany">#MilfordForTheMany</span>
-              <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#DoubtfulForTheFew">#DoubtfulForTheFew</span>
-              <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#NZAdventure">#NZAdventure</span>
-            </div>
-            <div style="padding:10px 24px;background:var(--bright);border-bottom:1px solid #e8e4df;display:flex;flex-wrap:wrap;gap:16px;align-items:center;">
-              <span style="font-family:'Anton',sans-serif;font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);">Tag FEL</span>
-              <a href="https://www.instagram.com/fiordland_expeditions/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:color var(--ease);" onmouseover="this.style.color='#bc1888'" onmouseout="this.style.color=''">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                @fiordland_expeditions
-              </a>
-              <a href="https://www.facebook.com/Fiordlandexpeditionstutoko/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:color var(--ease);" onmouseover="this.style.color='#1877f2'" onmouseout="this.style.color=''">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                @Fiordlandexpeditionstutoko
-              </a>
-            </div>
-            <div class="share-platforms">
-              <button class="share-btn-social btn-facebook" onclick="shareToFacebook()">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                Share on Facebook
-              </button>
-              <button class="share-btn-social btn-instagram" onclick="shareToInstagram()">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                Copy for Instagram
-              </button>
-              <button class="share-btn-social btn-copy" onclick="copyToClipboard()">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                Copy Caption &amp; Link
-              </button>
-              <button class="share-btn-social btn-native" onclick="nativeShare()" id="btn-native-share">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-                More Options
-              </button>
-            </div>
-            <p class="share-platform-note">
-              Instagram doesn't allow direct web posting — tap "Copy for Instagram" to copy your caption and hashtags, then paste into the Instagram app.
-              Tag us at <a href="https://www.instagram.com/fiordland_expeditions/" target="_blank" style="color:var(--light-accent);text-decoration:none;">@fiordland_expeditions</a> and
-              <a href="https://www.facebook.com/Fiordlandexpeditionstutoko/" target="_blank" style="color:var(--light-accent);text-decoration:none;">@Fiordlandexpeditionstutoko</a> on Facebook.
-            </p>
-          </div>
-
           <p style="margin-top:24px;padding-top:20px;border-top:1px solid #e8e4df;font-size:0.82rem;">Your images are available for 90 days from your cruise date.</p>
         </div>
       </div>
@@ -512,6 +461,40 @@
   <p style="margin-top:6px;"><a href="https://fiordlandexpeditions.co.nz">fiordlandexpeditions.co.nz</a></p>
 </footer>
 
+<!-- BOTTOM SHARE DRAWER — slides up whenever 1+ images are selected -->
+<div id="share-drawer" aria-live="polite">
+  <div class="drawer-inner">
+    <div class="drawer-header">
+      <span class="drawer-title"><span id="share-count-label">Gallery link</span> · Share Your Expedition</span>
+      <button class="drawer-close" onclick="clearShareSelection()">Clear all</button>
+    </div>
+
+    <div id="share-preview-list"></div>
+
+    <textarea id="share-caption-text" oninput="updateCaption()">Check out this incredible moment from our Fiordland expedition! 🌊⛵</textarea>
+
+    <div class="drawer-hashtags">
+      <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandExpeditions">#FiordlandExpeditions</span>
+      <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#DoubtfulSound">#DoubtfulSound</span>
+      <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandNZ">#FiordlandNZ</span>
+      <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#NewZealand">#NewZealand</span>
+      <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#NZTravel">#NZTravel</span>
+      <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#Fiordland">#Fiordland</span>
+      <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#NZAdventure">#NZAdventure</span>
+    </div>
+
+    <div class="drawer-buttons">
+      <button class="share-btn-social btn-facebook" onclick="shareToFacebook()">Facebook</button>
+      <button class="share-btn-social btn-instagram" onclick="shareToInstagram()">Instagram</button>
+      <button class="share-btn-social btn-x" onclick="shareToX()">X</button>
+      <button class="share-btn-social btn-snapchat" onclick="shareToSnapchat()">Snapchat</button>
+      <button class="share-btn-social btn-tiktok" onclick="shareToTiktok()">TikTok</button>
+      <button class="share-btn-social btn-copy" onclick="copyToClipboard()">Copy</button>
+      <button class="share-btn-social btn-native" onclick="nativeShare()" id="btn-native-share">More</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
@@ -553,39 +536,67 @@
   let publicImages = images.slice();
   let privateImages = [];
   let currentImageUrl = images[0].src;
-  // When the guest clicks an image in their private gallery, remember it so
-  // the share panel's buttons target that image rather than the gallery URL.
-  let selectedShareImage = null;
+  // Array of image objects the guest has picked for share. Selection is
+  // cross-tab (Expedition Feed + Your Gallery both contribute). A non-empty
+  // array slides up the bottom share drawer.
+  let selectedShareImages = [];
 
   function setActiveGrid(gridId) {
     activeImages = (gridId === 'private-grid' && privateImages.length) ? privateImages : publicImages;
   }
 
+  function isShareSelected(img) {
+    return !!img && selectedShareImages.some((s) => s.src === img.src);
+  }
+
+  function toggleShareSelection(img) {
+    if (!img) return;
+    const idx = selectedShareImages.findIndex((s) => s.src === img.src);
+    if (idx >= 0) selectedShareImages.splice(idx, 1);
+    else selectedShareImages.push(img);
+    renderSharePanel();
+  }
+
+  function clearShareSelection() {
+    selectedShareImages = [];
+    renderSharePanel();
+  }
+
+  function renderSharePanel() {
+    const drawer = document.getElementById('share-drawer');
+    const count = selectedShareImages.length;
+    if (drawer) drawer.classList.toggle('active', count > 0);
+    document.body.classList.toggle('has-share-drawer', count > 0);
+
+    // Mark thumbnails with .selected across BOTH grids
+    const mark = (gridId, set) => {
+      const items = document.querySelectorAll(`#${gridId} .gallery-item`);
+      items.forEach((el, i) => {
+        const img = set[i];
+        el.classList.toggle('selected', !!img && isShareSelected(img));
+      });
+    };
+    mark('private-grid', privateImages);
+    mark('public-grid', publicImages);
+
+    const label = document.getElementById('share-count-label');
+    if (label) label.textContent = count ? `${count} image${count > 1 ? 's' : ''} selected` : 'Gallery link';
+
+    const list = document.getElementById('share-preview-list');
+    if (list) {
+      list.innerHTML = selectedShareImages.map((img, i) => `
+        <div class="preview-thumb" title="Click to deselect">
+          <img src="${img.thumb || img.src}" alt="">
+          <button class="preview-thumb-remove" onclick="toggleShareSelection(selectedShareImages[${i}])" aria-label="Deselect">×</button>
+        </div>
+      `).join('');
+    }
+  }
+
+  // Backwards-compat: some call sites still expect the single-image API.
   function selectShareImage(img) {
-    selectedShareImage = img || null;
-    const label = document.getElementById('share-target-label');
-    if (label) label.textContent = selectedShareImage ? 'Selected image' : 'Gallery link';
-    const preview = document.getElementById('share-selected-preview');
-    if (preview) {
-      if (selectedShareImage) {
-        preview.classList.add('active');
-        const img = document.getElementById('share-preview-img');
-        const cap = document.getElementById('share-preview-caption');
-        if (img) img.src = selectedShareImage.thumb || selectedShareImage.src;
-        if (cap) cap.textContent = selectedShareImage.caption || 'Selected moment';
-      } else {
-        preview.classList.remove('active');
-      }
-    }
-    // Toggle the visual selected-state on gallery thumbnails
-    document.querySelectorAll('#private-grid .gallery-item').forEach((el) => el.classList.remove('selected'));
-    if (selectedShareImage) {
-      const idx = privateImages.findIndex((p) => p.src === selectedShareImage.src);
-      if (idx >= 0) {
-        const items = document.querySelectorAll('#private-grid .gallery-item');
-        if (items[idx]) items[idx].classList.add('selected');
-      }
-    }
+    if (!img) { clearShareSelection(); return; }
+    if (!isShareSelected(img)) toggleShareSelection(img);
   }
 
   function renderGrid(targetId, imageSet) {
@@ -598,10 +609,12 @@
       <div class="gallery-item" onclick="openLightbox(${i}, '${targetId}')">
         <img src="${img.thumb}" alt="${img.caption}" loading="lazy">
         <div class="gallery-overlay">
-          <button class="btn-share-small" onclick="event.stopPropagation(); gridShareClick(${i}, '${targetId}')">${targetId === 'private-grid' ? 'Select' : 'Share'}</button>
+          <button class="btn-share-small" onclick="event.stopPropagation(); gridShareClick(${i}, '${targetId}')">Select</button>
         </div>
       </div>
     `).join('');
+    // After re-render, reapply .selected markers (the DOM just got replaced)
+    renderSharePanel();
   }
 
   renderGrid('public-grid', publicImages);
@@ -615,6 +628,7 @@
       const data = await res.json();
       if (!data.ok || !Array.isArray(data.assets) || !data.assets.length) return;
       const featured = data.assets.map((a) => ({
+        upload_id: a.upload_id || '',
         src: a.cloudinary_url,
         thumb: a.cloudinary_url.replace('/upload/', '/upload/w_600,c_limit,q_auto,f_auto/'),
         caption: a.notes || (a.guest_last_name ? `Shared by ${a.guest_last_name}` : 'Expedition highlight'),
@@ -640,14 +654,32 @@
 
   function toggleHashtag(el) { el.classList.toggle('active'); }
 
+  // Share URL policy:
+  //   - Exactly 1 image selected, with an upload_id → ?img=<upload_id> deep link.
+  //   - Multiple or zero selected (or single without upload_id) → the hub URL.
+  // Always points at fiordlandexpeditions.co.nz, never at raw Cloudinary.
   function shareTargetUrl() {
-    return selectedShareImage ? selectedShareImage.src : GCH_URL;
+    if (selectedShareImages.length === 1 && selectedShareImages[0].upload_id) {
+      return `${GCH_URL}?img=${encodeURIComponent(selectedShareImages[0].upload_id)}`;
+    }
+    return GCH_URL;
+  }
+
+  function selectedImageUrlsLine() {
+    if (!selectedShareImages.length) return '';
+    return selectedShareImages.map((i) => i.src).join('\n');
   }
 
   function buildShareText() {
     const caption = document.getElementById('share-caption-text').value.trim();
     const hashtags = getActiveHashtags();
     return `${caption}\n\n${hashtags}\n\n${shareTargetUrl()}`;
+  }
+
+  function buildShareTextWithImageUrls() {
+    const base = buildShareText();
+    const imgs = selectedImageUrlsLine();
+    return imgs ? `${base}\n\n${imgs}` : base;
   }
 
   function updateCaption() {}
@@ -657,23 +689,39 @@
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=500');
   }
 
-  function shareToInstagram() {
+  function shareToX() {
     const caption = document.getElementById('share-caption-text').value.trim();
     const hashtags = getActiveHashtags();
-    const full = `${caption}\n\n${hashtags}\n\n${FEL_IG_HANDLE}\n\n${shareTargetUrl()}`;
-    copyText(full);
-    showToast(selectedShareImage ? 'Caption + image URL copied — save image to phone and paste in Instagram' : 'Caption copied — open Instagram to post!');
+    const text = encodeURIComponent(`${caption}\n\n${hashtags}`);
+    const url = encodeURIComponent(shareTargetUrl());
+    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'width=600,height=500');
+  }
+
+  function shareToInstagram() {
+    copyText(buildShareTextWithImageUrls() + '\n\n' + FEL_IG_HANDLE);
+    showToast(selectedShareImages.length ? 'Caption + image URLs copied — save images to phone and paste in Instagram' : 'Caption copied — open Instagram to post!');
     setTimeout(() => { window.open(FEL_INSTAGRAM_URL, '_blank'); }, 800);
   }
 
+  function shareToSnapchat() {
+    copyText(buildShareTextWithImageUrls());
+    showToast('Caption + image URLs copied — paste into Snapchat');
+  }
+
+  function shareToTiktok() {
+    copyText(buildShareTextWithImageUrls());
+    showToast('Caption + image URLs copied — paste into TikTok');
+    setTimeout(() => { window.open('https://www.tiktok.com/', '_blank'); }, 600);
+  }
+
   function copyToClipboard() {
-    copyText(buildShareText() + '\n\n' + FEL_IG_HANDLE + '  |  ' + FEL_FB_HANDLE);
-    showToast(selectedShareImage ? 'Image link & caption copied!' : 'Caption & link copied!');
+    copyText(buildShareTextWithImageUrls() + '\n\n' + FEL_IG_HANDLE + '  |  ' + FEL_FB_HANDLE);
+    showToast(selectedShareImages.length ? (selectedShareImages.length > 1 ? `${selectedShareImages.length} image links + caption copied!` : 'Image link + caption copied!') : 'Caption & link copied!');
   }
 
   async function nativeShare() {
     if (navigator.share) {
-      try { await navigator.share({ title: 'Fiordland Expeditions', text: buildShareText(), url: shareTargetUrl() }); } catch(e) {}
+      try { await navigator.share({ title: 'Fiordland Expeditions', text: buildShareTextWithImageUrls(), url: shareTargetUrl() }); } catch(e) {}
     } else { copyToClipboard(); }
   }
 
@@ -709,8 +757,8 @@
     grid.innerHTML = '';
     // Clear any empty-state divs from a previous search so they don't stack
     grid.parentElement.querySelectorAll('.empty-state').forEach((el) => el.remove());
-    // Reset share panel back to gallery-link mode until the guest picks an image
-    selectShareImage(null);
+    // Reset share drawer for a fresh cruise lookup
+    clearShareSelection();
     const result = document.getElementById('private-result');
     result.style.display = 'block';
     result.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -750,6 +798,7 @@
     }
 
     privateImages = assets.map((a) => ({
+      upload_id: a.upload_id || '',
       src: a.cloudinary_url,
       thumb: a.cloudinary_url.replace('/upload/', '/upload/w_600,c_limit,q_auto,f_auto/'),
       caption: a.guest_last_name ? `Shared by ${a.guest_last_name}` : 'Expedition moment',
@@ -789,38 +838,22 @@
     document.body.style.overflow = 'hidden';
   }
 
-  // Select-for-share flow (private gallery only). Updates the share panel
-  // preview + scrolls the panel into view. Called by the thumbnail Share
-  // button and the lightbox Share button.
-  function selectPrivateForShare(idx) {
-    if (!privateImages[idx]) return;
-    selectShareImage(privateImages[idx]);
-    const panel = document.getElementById('share-panel');
-    if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    showToast('Image selected — customise caption and share below');
-  }
-
+  // Select-for-share flow. Toggles the image in/out of the selection array.
+  // Called from the thumbnail Select button and the lightbox Share button,
+  // on both private and public grids.
   function selectFromLightbox() {
-    // Only applies when the lightbox was opened from the private grid.
-    if (activeImages !== privateImages) { shareImage(currentIndex); return; }
-    selectShareImage(activeImages[currentIndex]);
+    const img = activeImages[currentIndex];
+    if (!img) return;
+    toggleShareSelection(img);
     closeLightbox();
-    const panel = document.getElementById('share-panel');
-    if (panel) setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'center' }), 200);
-    showToast('Image selected — customise caption and share below');
+    showToast(isShareSelected(img) ? 'Image selected — open the share drawer below' : 'Image removed from selection');
   }
 
-  // Called by the thumbnail's small Share button. Private grid → select into
-  // the share panel. Public grid → fire the native share sheet immediately.
   function gridShareClick(idx, gridId) {
-    if (gridId === 'private-grid') {
-      selectPrivateForShare(idx);
-    } else {
-      setActiveGrid(gridId);
-      currentIndex = idx;
-      currentImageUrl = activeImages[idx].src;
-      shareImage(idx);
-    }
+    const set = (gridId === 'private-grid') ? privateImages : publicImages;
+    const img = set[idx];
+    if (!img) return;
+    toggleShareSelection(img);
   }
 
   function closeLightbox() {
