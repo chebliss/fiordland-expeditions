@@ -1046,6 +1046,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const nb = document.getElementById('btn-native-share');
     if (nb) nb.style.display = 'none';
   }
+
+  // ── GCH dataLayer event instrumentation ──────────────────
+  // GTM tags subscribe to these and forward to GA4 as engagement events.
+  // Wraps existing functions so original behaviour is preserved.
+  window.dataLayer = window.dataLayer || [];
+  function gchPush(event, params) {
+    window.dataLayer.push(Object.assign({event: event}, params || {}));
+  }
+  function gchWrap(name, paramFn) {
+    if (typeof window[name] !== 'function') return;
+    const orig = window[name];
+    window[name] = function() {
+      try { gchPush('gch_' + name, paramFn ? paramFn.apply(this, arguments) : {}); } catch(e){}
+      return orig.apply(this, arguments);
+    };
+  }
+
+  // Top of funnel: tab switches, gallery access
+  gchWrap('switchTab', function(tab) { return { tab: tab }; });
+  gchWrap('showPrivateGallery');
+
+  // Engagement: lightbox, download
+  gchWrap('openLightbox', function(idx, src) { return { source: src, image_index: idx }; });
+  gchWrap('downloadAll');
+
+  // Conversion: upload + consent
+  gchWrap('submitUpload');
+
+  // Sharing (each platform a separate event)
+  ['Facebook','Instagram','X','Snapchat','Tiktok'].forEach(function(p){
+    gchWrap('shareTo' + p, function(){ return { platform: p.toLowerCase() }; });
+  });
+  gchWrap('copyToClipboard', function(){ return { platform: 'copy_link' }; });
+  gchWrap('nativeShare', function(){ return { platform: 'native_share' }; });
 </script>
 
 </body>
