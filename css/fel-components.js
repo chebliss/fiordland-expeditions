@@ -1,6 +1,6 @@
 /* fel-components.js — shared nav + footer for all FEL pages */
 
-const FEL_LOGO = 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/25e4f2cd-780e-4751-8aa0-4a5d0922794a/FLE+Logo+2024+RGB+WHITE.png?format=1500w';
+const FEL_LOGO = '/images/fle-logo-white.png';
 const now = new Date();
 const FH_BOOK = 'https://fareharbor.com/embeds/book/fiordlandexpeditionsnz/items/300312/calendar/'+now.getFullYear()+'/'+String(now.getMonth()+1).padStart(2,'0')+'/?flow=554429&back=https://fiordlandexpeditions.co.nz/&g4=yes';
 

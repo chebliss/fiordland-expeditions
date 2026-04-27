@@ -6,7 +6,7 @@
   const path = window.location.pathname;
   const active = (href) => path.includes(href) ? 'active' : '';
 
-  const LOGO = 'https://images.squarespace-cdn.com/content/v1/68ad198e14fb0617e39fa27a/25e4f2cd-780e-4751-8aa0-4a5d0922794a/FLE+Logo+2024+RGB+WHITE.png?format=1500w';
+  const LOGO = '/images/fle-logo-white.png';
   const BOOK = 'https://fareharbor.com/embeds/book/fiordlandexpeditionsnz/items/300312/calendar/2026/03/?flow=554429&language=en-us&g4=yes';
 
   const navHTML = `
