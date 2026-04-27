@@ -166,10 +166,74 @@ function initFAQs() {
   });
 }
 
+// ── dataLayer click tracking ───────────────────────────────
+// GTM tags subscribe to these Custom Events and forward to GA4 + Ads.
+window.dataLayer = window.dataLayer || [];
+
+function felParseFareharborItem(url) {
+  const m = url.match(/\/items\/(\d+)/);
+  return m ? m[1] : null;
+}
+
+function felLinkLocation(el) {
+  if (el.closest('.nav, .header')) return 'nav';
+  if (el.closest('.footer')) return 'footer';
+  if (el.closest('.hero')) return 'hero';
+  if (el.closest('.persona-pill, .landing-cta')) return 'persona_landing';
+  return 'body';
+}
+
+function initClickTracking() {
+  document.addEventListener('click', function(e) {
+    const a = e.target.closest('a');
+    if (!a) return;
+    const href = a.getAttribute('href') || '';
+    const where = felLinkLocation(a);
+    const path = window.location.pathname;
+
+    if (href.startsWith('tel:')) {
+      window.dataLayer.push({
+        event: 'contact_phone_click',
+        phone_number: href.replace('tel:', ''),
+        link_location: where,
+        page_path: path
+      });
+      return;
+    }
+    if (href.startsWith('mailto:')) {
+      window.dataLayer.push({
+        event: 'contact_email_click',
+        email_address: href.replace('mailto:', '').split('?')[0],
+        link_location: where,
+        page_path: path
+      });
+      return;
+    }
+    if (href.indexOf('fareharbor.com') !== -1) {
+      const itemId = felParseFareharborItem(href);
+      window.dataLayer.push({
+        event: 'book_now_click',
+        fh_item_id: itemId,
+        fh_url: href,
+        link_location: where,
+        page_path: path,
+        ecommerce: {
+          items: [{
+            item_id: itemId,
+            item_name: a.dataset.itemName || (itemId === '300312' ? 'Doubtful Sound Overnight Cruise' : 'Fareharbor item'),
+            affiliation: 'Fareharbor'
+          }]
+        }
+      });
+    }
+  }, true);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderNav();
   renderFooter();
   initNav();
   initFadeUp();
   initFAQs();
+  initClickTracking();
 });
