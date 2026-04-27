@@ -23,18 +23,24 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Doubtful Sound — New Zealand's Best Kept Fiordland Secret",
-  "description": "A guide to Doubtful Sound for travellers planning a Fiordland visit. The differences between Milford and Doubtful Sound, and why many travellers choose to experience both.",
-  "url": "https://fiordlandexpeditions.co.nz/pages/milford-vs-doubtful-sound.html",
-  "image": "https://lh3.googleusercontent.com/d/1AdiKkFQJk2A49TWOhL4IfgDPY1pnzYzB",
-  "author": {"@type": "Organization", "name": "Fiordland Expeditions"},
-  "publisher": {"@type": "Organization", "name": "Fiordland Expeditions", "url": "https://fiordlandexpeditions.co.nz"},
-  "about": [
-    {"@type": "Place", "name": "Doubtful Sound", "containedInPlace": {"@type": "Place", "name": "Fiordland National Park, New Zealand"}},
-    {"@type": "Place", "name": "Milford Sound", "containedInPlace": {"@type": "Place", "name": "Fiordland National Park, New Zealand"}}
-  ],
-  "keywords": ["Doubtful Sound", "Milford Sound", "Fiordland", "New Zealand cruise", "overnight cruise", "small group", "Doubtful Sound overnight", "Fiordland National Park"]
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://fiordlandexpeditions.co.nz/pages/milford-vs-doubtful-sound.html#article",
+      "headline": "Doubtful Sound — New Zealand's Best Kept Fiordland Secret",
+      "description": "A comparison of Milford Sound and Doubtful Sound for travellers planning Fiordland.",
+      "url": "https://fiordlandexpeditions.co.nz/pages/milford-vs-doubtful-sound.html",
+      "image": "https://lh3.googleusercontent.com/d/1AdiKkFQJk2A49TWOhL4IfgDPY1pnzYzB",
+      "author": {"@id": "https://fiordlandexpeditions.co.nz/#attraction"},
+      "publisher": {"@id": "https://fiordlandexpeditions.co.nz/#attraction"},
+      "about": [
+        {"@type": "Place", "name": "Doubtful Sound", "containedInPlace": "Fiordland National Park"},
+        {"@type": "Place", "name": "Milford Sound", "containedInPlace": "Fiordland National Park"}
+      ],
+      "inLanguage": "en-NZ",
+      "isPartOf": {"@id": "https://fiordlandexpeditions.co.nz/#website"}
+    }
+  ]
 }
   </script>
 <link rel="stylesheet" href="../css/fel.css" />
@@ -343,7 +349,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="rule rule-center fade-up"></div>
     <p class="section-body fade-up" style="margin:0 auto 40px;">Whether you're adding Doubtful to a Fiordland trip or planning around it specifically, we're here to help. Check available dates, or get in touch — we'll give you honest advice about what fits your itinerary.</p>
     <div class="fade-up" style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-      <a href="doubtful-sound-overnight-cruise.html" class="btn-primary">View the Overnight Cruise</a>
+      <a href="https://fareharbor.com/embeds/book/fiordlandexpeditionsnz/items/300312/?flow=554429&back=https://fiordlandexpeditions.co.nz/&g4=yes" target="_blank" class="btn-primary" data-item-name="Doubtful Sound Overnight Cruise">Check Availability</a>
+      <a href="doubtful-sound-overnight-cruise.html" class="btn-outline">View the Overnight Cruise</a>
       <a href="contact.html" class="btn-outline">Talk to Our Team</a>
     </div>
     <p class="fade-up" style="margin-top:24px;font-size:13px;color:var(--text-dim);">From $900 per person &nbsp;·&nbsp; Max 12 guests &nbsp;·&nbsp; Departs Manapouri year-round</p>

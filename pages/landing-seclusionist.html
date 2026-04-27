@@ -23,8 +23,19 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "isPartOf": {"@type": "WebSite", "name": "Fiordland Expeditions", "url": "https://fiordlandexpeditions.co.nz"}
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://fiordlandexpeditions.co.nz/pages/landing-seclusionist.html#service",
+      "name": "Doubtful Sound Private Escape — The Seclusionist",
+      "description": "An exclusive Doubtful Sound overnight cruise aboard MV Tutoko II for travellers who escape the world rather than join it. Maximum 12 guests. Permit-protected access to the inner fiord.",
+      "url": "https://fiordlandexpeditions.co.nz/pages/landing-seclusionist.html",
+      "provider": {"@id": "https://fiordlandexpeditions.co.nz/#attraction"},
+      "areaServed": {"@type": "Place", "name": "Doubtful Sound, Fiordland National Park"},
+      "audience": {"@type": "Audience", "audienceType": "Solitude-seeking luxury travellers"}
+    },
+    {"@type": "WebPage", "@id": "https://fiordlandexpeditions.co.nz/pages/landing-seclusionist.html#webpage", "isPartOf": {"@id": "https://fiordlandexpeditions.co.nz/#website"}, "primaryImageOfPage": {"@type": "ImageObject", "url": "https://lh3.googleusercontent.com/d/1AdiKkFQJk2A49TWOhL4IfgDPY1pnzYzB"}}
+  ]
 }
   </script>
 <link rel="stylesheet" href="../css/fel.css" />

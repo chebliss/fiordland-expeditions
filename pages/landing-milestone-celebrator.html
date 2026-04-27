@@ -23,8 +23,19 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "isPartOf": {"@type": "WebSite", "name": "Fiordland Expeditions", "url": "https://fiordlandexpeditions.co.nz"}
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://fiordlandexpeditions.co.nz/pages/landing-milestone-celebrator.html#service",
+      "name": "Milestone Celebration Cruise — Doubtful Sound",
+      "description": "Bespoke celebration cruises in Doubtful Sound aboard MV Tutoko II — birthdays, anniversaries, retirements. Heli-Hero arrival from Queenstown available.",
+      "url": "https://fiordlandexpeditions.co.nz/pages/landing-milestone-celebrator.html",
+      "provider": {"@id": "https://fiordlandexpeditions.co.nz/#attraction"},
+      "areaServed": {"@type": "Place", "name": "Doubtful Sound, Fiordland National Park"},
+      "audience": {"@type": "Audience", "audienceType": "Birthday, anniversary and retirement celebrants"}
+    },
+    {"@type": "WebPage", "@id": "https://fiordlandexpeditions.co.nz/pages/landing-milestone-celebrator.html#webpage", "isPartOf": {"@id": "https://fiordlandexpeditions.co.nz/#website"}}
+  ]
 }
   </script>
 <link rel="stylesheet" href="../css/fel.css" />

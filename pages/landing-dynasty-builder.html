@@ -23,8 +23,19 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "isPartOf": {"@type": "WebSite", "name": "Fiordland Expeditions", "url": "https://fiordlandexpeditions.co.nz"}
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://fiordlandexpeditions.co.nz/pages/landing-dynasty-builder.html#service",
+      "name": "Dynasty Builder — Multi-generational Doubtful Sound Charter",
+      "description": "A private Doubtful Sound charter aboard MV Tutoko II for families spanning three generations. Multi-gen memories, no fixed schedule, dedicated chef.",
+      "url": "https://fiordlandexpeditions.co.nz/pages/landing-dynasty-builder.html",
+      "provider": {"@id": "https://fiordlandexpeditions.co.nz/#attraction"},
+      "areaServed": {"@type": "Place", "name": "Doubtful Sound, Fiordland National Park"},
+      "audience": {"@type": "FamilyAudience", "audienceType": "Multi-generational families"}
+    },
+    {"@type": "WebPage", "@id": "https://fiordlandexpeditions.co.nz/pages/landing-dynasty-builder.html#webpage", "isPartOf": {"@id": "https://fiordlandexpeditions.co.nz/#website"}}
+  ]
 }
   </script>
 <link rel="stylesheet" href="../css/fel.css" />

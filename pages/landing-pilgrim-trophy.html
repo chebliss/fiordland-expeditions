@@ -23,8 +23,20 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "isPartOf": {"@type": "WebSite", "name": "Fiordland Expeditions", "url": "https://fiordlandexpeditions.co.nz"}
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://fiordlandexpeditions.co.nz/pages/landing-pilgrim-trophy.html#service",
+      "name": "Dedicated Expeditions — Fiordland Fishing, Hunting & Dive Charters",
+      "description": "Trophy fishing, world-class diving and deer hunting in Fiordland National Park aboard MV Tutoko — the dedicated expedition vessel.",
+      "url": "https://fiordlandexpeditions.co.nz/pages/landing-pilgrim-trophy.html",
+      "provider": {"@id": "https://fiordlandexpeditions.co.nz/#attraction"},
+      "areaServed": {"@type": "Place", "name": "Fiordland National Park"},
+      "category": ["Fishing charter", "Hunting charter", "Diving charter"],
+      "audience": {"@type": "Audience", "audienceType": "Trophy hunters, anglers and divers"}
+    },
+    {"@type": "WebPage", "@id": "https://fiordlandexpeditions.co.nz/pages/landing-pilgrim-trophy.html#webpage", "isPartOf": {"@id": "https://fiordlandexpeditions.co.nz/#website"}}
+  ]
 }
   </script>
 <link rel="stylesheet" href="../css/fel.css" />
