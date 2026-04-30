@@ -226,6 +226,14 @@
     #toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text-on-light); color: var(--white); font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; border-radius: var(--btn-radius); z-index: 99999; opacity: 0; transition: all 0.3s ease; pointer-events: none; white-space: nowrap; }
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+    /* UPLOAD SUCCESS BANNER */
+    #upload-success { display: none; margin: 0 0 24px; padding: 32px 28px; background: var(--light-accent-dim); border: 2px solid var(--light-accent); border-radius: var(--btn-radius); text-align: center; animation: fadeUp 0.4s ease both; }
+    #upload-success.show { display: block; }
+    #upload-success .success-tick { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--light-accent); color: var(--white); font-size: 1.4rem; line-height: 1; margin-bottom: 14px; box-shadow: 0 0 0 6px var(--light-accent-dim); }
+    #upload-success .success-eyebrow { display: block; font-family: 'Anton', sans-serif; font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light-accent); margin-bottom: 8px; }
+    #upload-success h2 { font-size: clamp(1.4rem, 2.4vw, 1.9rem); color: var(--text-on-light); margin: 4px 0 10px; }
+    #upload-success p { font-size: 0.95rem; color: var(--text-muted); max-width: 540px; margin: 0 auto; }
+
     #upload-queue { margin-top: 20px; display: none; }
     .queue-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #e8e4df; font-size: 0.88rem; color: var(--text-muted); }
 
@@ -363,6 +371,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="label-upper">Guest Contributor</span>
           <h2>Share Your Journey</h2>
           <p style="margin-top:8px;">Your best shots could feature in our expedition feed or marketing materials. All uploads are reviewed by our crew before going live.</p>
+        </div>
+
+        <!-- SUCCESS BANNER (revealed after a successful upload) -->
+        <div id="upload-success" role="status" aria-live="polite">
+          <span class="success-tick" aria-hidden="true">&#10003;</span>
+          <span class="success-eyebrow">Success</span>
+          <h2 id="upload-success-title">Your photos are in!</h2>
+          <p id="upload-success-message">Thank you &mdash; your moments from Doubtful Sound have been received and added to the gallery. Check the <strong>Your Gallery</strong> tab to view them.</p>
         </div>
 
         <!-- QR -->
@@ -1025,7 +1041,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       pendingFiles = [];
       document.getElementById('file-input').value = '';
       setTimeout(() => { renderUploadQueue(); }, 2000);
+      showUploadSuccess(successes);
     }
+  }
+
+  function showUploadSuccess(count) {
+    const banner = document.getElementById('upload-success');
+    const title = document.getElementById('upload-success-title');
+    if (!banner) return;
+    if (title) {
+      title.textContent = count === 1
+        ? 'Your photo is in!'
+        : `All ${count} photos are in!`;
+    }
+    banner.classList.add('show');
+    banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   /* QR CODE — points to the GCH URL */
