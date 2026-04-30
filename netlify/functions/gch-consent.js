@@ -92,8 +92,9 @@ exports.handler = async (event) => {
     return json(400, { error: 'Missing or invalid vessel / cruise_date.' });
   }
 
-  // Crew uploads auto-approve; guest uploads start pending moderation.
-  const status = uploadType === 'crew' ? 'approved' : 'pending';
+  // Default all uploads (crew and guest) to approved on submission.
+  // Moderators can downgrade via Airtable if a row needs holding back.
+  const status = 'approved';
 
   // Also populate an Attachment field so moderators see the image inline in
   // the Airtable row. Airtable fetches the URL when the record is created.

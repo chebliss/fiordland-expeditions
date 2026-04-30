@@ -430,14 +430,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="label-upper">Step 3 · Sharing Permissions</span>
           <p style="font-size:0.85rem;margin-bottom:16px;">Choose how you'd like your photos to be used. You can tick both options.</p>
           <label class="permission-item">
-            <input type="checkbox" id="perm-mates" onchange="updateShareState()">
+            <input type="checkbox" id="perm-mates" checked onchange="updateShareState()">
             <span class="permission-text">
               <strong>Share with cruise mates</strong>
               <p>Your photos will be visible to other guests on the same cruise. Great for group albums and sharing memories with fellow travellers.</p>
             </span>
           </label>
           <label class="permission-item">
-            <input type="checkbox" id="perm-public" onchange="updateShareState()">
+            <input type="checkbox" id="perm-public" checked onchange="updateShareState()">
             <span class="permission-text">
               <strong>Share publicly</strong>
               <p>Fiordland Expeditions may feature your content in the public expedition feed, on our website, and across our social media channels. We'll always credit contributors.</p>
@@ -995,7 +995,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const consent = await consentRes.json();
     if (!consentRes.ok || !consent.ok) throw new Error(consent.error || 'Consent record failed');
 
-    setQueueStatus(idx, UPLOAD_TYPE === 'crew' ? 'uploaded · approved' : 'uploaded · pending review');
+    setQueueStatus(idx, 'uploaded · approved');
   }
 
   async function submitUpload() {
