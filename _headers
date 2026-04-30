@@ -1,0 +1,6 @@
+# Netlify headers — staging environment
+# Prevents Google from indexing the staging URL (fel-staging.netlify.app)
+# Remove this file when going live on fiordlandexpeditions.co.nz
+
+/*
+  X-Robots-Tag: noindex, nofollow

@@ -1,0 +1,40 @@
+timezone: Pacific/Auckland
+
+paths:
+  static: ''
+  uploads: assets/uploads
+
+collections_config:
+  pages:
+    path: pages
+    icon: wysiwyg
+    output: true
+    url: /[slug]/
+    _enabled_editors:
+      - source
+      - visual
+  home:
+    path: ''
+    glob: 'index.html'
+    icon: home
+    output: true
+    url: /
+    _enabled_editors:
+      - source
+      - visual
+
+_inputs:
+  content:
+    type: html
+
+_editables:
+  content:
+    bold: true
+    italic: true
+    link: true
+    bulletedlist: true
+    numberedlist: true
+
+source_editor:
+  tab_size: 2
+  show_gutter: true
