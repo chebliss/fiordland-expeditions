@@ -3,7 +3,7 @@
 
 (function() {
   // Cloudinary helpers exposed on window.fel for use by inline page scripts.
-  const CLD_BASE = 'https://res.cloudinary.com/fiordland-expeditions/image/upload';
+  const CLD_BASE = 'https://res.cloudinary.com/dbfwdxsaz/image/upload';
   function cldUrl(publicId, opts) {
     const transforms = ['f_auto', 'q_auto'];
     if (opts) transforms.push(opts);
