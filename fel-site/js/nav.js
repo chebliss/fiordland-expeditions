@@ -1,7 +1,22 @@
-// nav.js — injects shared nav and footer into every page
+// nav.js: injects shared nav and footer into every page, exposes Cloudinary helpers.
 // Usage: <script src="../js/nav.js"></script> (adjust path per depth)
 
 (function() {
+  // Cloudinary helpers exposed on window.fel for use by inline page scripts.
+  const CLD_BASE = 'https://res.cloudinary.com/fiordland-expeditions/image/upload';
+  function cldUrl(publicId, opts) {
+    const transforms = ['f_auto', 'q_auto'];
+    if (opts) transforms.push(opts);
+    return CLD_BASE + '/' + transforms.join(',') + '/' + publicId;
+  }
+  function cldSrcset(publicId, widths) {
+    widths = widths || [640, 960, 1280, 1600, 2400];
+    return widths.map(function(w) {
+      return cldUrl(publicId, 'w_' + w) + ' ' + w + 'w';
+    }).join(', ');
+  }
+  window.fel = { cldUrl: cldUrl, cldSrcset: cldSrcset };
+
   // Detect active page
   const path = window.location.pathname;
   const active = (href) => path.includes(href) ? 'active' : '';
@@ -39,10 +54,10 @@
 </div>
 
 <div class="footer-trust">
-  <div class="ft-item">AUTH-20202007 — Hall Arm · Crooked Arm · Bradshaw Sound</div>
+  <div class="ft-item">AUTH-20202007. Hall Arm · Crooked Arm · Bradshaw Sound</div>
   <div class="ft-item">Valid 8 December 2040</div>
-  <div class="ft-item">Maritime NZ Certified — MV Tutoko II</div>
-  <div class="ft-item">UNESCO World Heritage — Licensed Overnight Operator</div>
+  <div class="ft-item">Maritime NZ Certified: MV Tutoko II</div>
+  <div class="ft-item">UNESCO World Heritage: Licensed Overnight Operator</div>
   <div class="ft-item">25+ Years in Doubtful Sound</div>
 </div>
 
@@ -74,7 +89,7 @@
     <p style="margin-top:8px;color:rgba(255,255,255,0.25)">PO Box 300, Te Anau 9600<br>Fiordland, New Zealand</p>
   </div>
 </footer>
-<div class="footer-bottom">&copy; 2025 Fiordland Expeditions Limited &mdash; Manapouri, Fiordland, New Zealand</div>`;
+<div class="footer-bottom">&copy; 2025 Fiordland Expeditions Limited. Manapouri, Fiordland, New Zealand</div>`;
 
   // Inject nav at top of body
   document.body.insertAdjacentHTML('afterbegin', navHTML);

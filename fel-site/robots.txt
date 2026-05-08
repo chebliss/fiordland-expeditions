@@ -1,0 +1,4 @@
+# Staging environment: block all crawlers until production launch.
+# Replace with permissive rules + sitemap reference at production cut-over.
+User-agent: *
+Disallow: /
