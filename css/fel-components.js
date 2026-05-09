@@ -8,6 +8,24 @@ function getBase() {
   return window.location.pathname.includes('/pages/') ? '../' : '';
 }
 
+// Cloudinary URL helpers. Cloud `dbfwdxsaz` hosts the Derek Morrison shoot
+// at fel/derek-2026/<subfolder>/<filename>. f_auto + q_auto handle format
+// negotiation (WebP/AVIF) and per-image quality. Eager widths pre-cached:
+// 640, 960, 1280, 1600, 2400.
+const CLD_BASE = 'https://res.cloudinary.com/dbfwdxsaz/image/upload';
+function cldUrl(publicId, opts) {
+  const transforms = ['f_auto', 'q_auto'];
+  if (opts) transforms.push(opts);
+  return CLD_BASE + '/' + transforms.join(',') + '/' + publicId;
+}
+function cldSrcset(publicId, widths) {
+  widths = widths || [640, 960, 1280, 1600, 2400];
+  return widths.map(function(w) {
+    return cldUrl(publicId, 'w_' + w) + ' ' + w + 'w';
+  }).join(', ');
+}
+window.fel = Object.assign(window.fel || {}, { cldUrl: cldUrl, cldSrcset: cldSrcset });
+
 function renderNav() {
   const nav = document.getElementById('fel-nav');
   if (!nav) return;
@@ -42,7 +60,7 @@ function renderFooter() {
     <div class="footer-inner">
       <div>
         <div class="footer-logo"><img src="${FEL_LOGO}" alt="Fiordland Expeditions" /></div>
-        <p class="footer-blurb">25+ years exploring Fiordland's most pristine waters. Exclusive DOC-consented access to Doubtful Sound — the fiord the crowds never reach.</p>
+        <p class="footer-blurb">25+ years exploring Fiordland's most pristine waters. Exclusive DOC-consented access to Doubtful Sound: the fiord the crowds never reach.</p>
       </div>
       <div class="footer-col">
         <h5>Experiences</h5>
@@ -77,7 +95,7 @@ function renderFooter() {
     <div style="border:1px dashed rgba(201,168,76,0.4);padding:24px 32px;margin-bottom:32px;display:flex;align-items:center;flex-wrap:wrap;gap:24px;">
       <div style="flex-shrink:0;">
         <p style="font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Stakeholder Preview</p>
-        <p style="font-size:11px;color:var(--text-dim);line-height:1.5;">Persona landing pages — not in public navigation</p>
+        <p style="font-size:11px;color:var(--text-dim);line-height:1.5;">Persona landing pages, not in public navigation</p>
       </div>
       <div style="width:1px;height:40px;background:rgba(201,168,76,0.2);flex-shrink:0;"></div>
       <div style="display:flex;flex-wrap:wrap;gap:10px;">
@@ -99,7 +117,7 @@ function renderFooter() {
           <img src="${b}assets/img/tripadvisor-owl.webp" alt="TripAdvisor" style="height:56px;width:auto;" />
         </a>
         <!-- Qualmark Gold logo → links to qualmark.co.nz -->
-        <a href="https://www.qualmark.co.nz/" target="_blank" rel="noopener" title="Qualmark Gold — NZ Tourism Quality Assurance">
+        <a href="https://www.qualmark.co.nz/" target="_blank" rel="noopener" title="Qualmark Gold: NZ Tourism Quality Assurance">
           <img src="${b}assets/img/qualmark-gold.jpg" alt="Qualmark Gold" style="height:72px;width:auto;" />
         </a>
         <!-- Social icons -->
