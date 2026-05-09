@@ -325,9 +325,7 @@ Heroes get `loading="eager"` + `fetchpriority="high"`. All other images get `loa
 
 1. **Ultrawide hero treatment for #3.1 (Seclusionist hero — `dji0317`).** This image is 2048x743. Confirm the page layout's hero block can accommodate `aspect-ratio: 2.75 / 1` cleanly, or propose a CSS pattern for a cinematic letterbox banner.
 
-2. **Cloudinary folder duplicate flag.** During hero verification, two parallel folder structures were discovered: `fel/derek-2026/hero-vessel-experience/` (the canonical, prefixed folders) and `fel/derek-2026/hero-vessel-experience/` (an unprefixed duplicate, likely a double-upload artifact). The shot list uses the prefixed paths. Cleanup of the unprefixed duplicates is a separate task — Claude Code does not need to handle it. Just be aware that public_ids in this shot list are authoritative.
-
-3. **Logo public_id.** Held in `fel/brand/logo` once uploaded. Until then, leave the LOGO constant in `fel-components.js` pointing at Squarespace and surface the dependency in the appropriate batch summary.
+2. **Logo public_id.** Held in `fel/brand/logo` once uploaded. Until then, leave the LOGO constant in `fel-components.js` pointing at Squarespace and surface the dependency in the appropriate batch summary.
 
 ---
 
