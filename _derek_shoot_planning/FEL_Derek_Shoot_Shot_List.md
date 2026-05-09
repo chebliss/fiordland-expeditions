@@ -36,7 +36,7 @@ This file is the source of truth. Claude Code reads the populated slots below an
 ## Spelling and naming notes
 
 - The owners' surname is **Abernethy** (not "Abernathy"). Some filenames carry the typo; alt text and visible copy use the correct spelling. Filenames can be corrected post-launch in a separate pass.
-- The vessel is **MV Tutoko II** (capital II, Roman numeral). The older charter vessel is **MV Tutoko** (no II). Some 02-hero-vessel-experience filenames refer to the older vessel — verify visually before placing on the wrong page.
+- The vessel is **MV Tutoko II** (capital II, Roman numeral). The older charter vessel is **MV Tutoko** (no II). Some hero-vessel-experience filenames refer to the older vessel — verify visually before placing on the wrong page.
 
 ---
 
@@ -46,7 +46,7 @@ This file is the source of truth. Claude Code reads the populated slots below an
 
 ### 1.1 Hero (above fold)
 
-- **Public ID:** `fel/derek-2026/02-hero-vessel-experience/fiordland-expeditions-mv-tutoko-ii-sunrise-mirror-reflection-mist-doubtful-sound-dji0080`
+- **Public ID:** `fel/derek-2026/hero-vessel-experience/fiordland-expeditions-mv-tutoko-ii-sunrise-mirror-reflection-mist-doubtful-sound-dji0080`
 - **Alt text:** `MV Tutoko II at sunrise on Doubtful Sound, mirror-still water and rising mist — Fiordland Expeditions overnight cruises, New Zealand`
 - **Figcaption:** `Sunrise over Doubtful Sound, MV Tutoko II`
 - **Loading:** `eager`, `fetchpriority="high"`
@@ -85,7 +85,7 @@ This file is the source of truth. Claude Code reads the populated slots below an
 
 ### 2.1 Page header (Hero)
 
-- **Public ID:** `fel/derek-2026/02-hero-vessel-experience/fiordland-expeditions-vessel-waterfall-encounter-doubtful-sound-c10707`
+- **Public ID:** `fel/derek-2026/hero-vessel-experience/fiordland-expeditions-vessel-waterfall-encounter-doubtful-sound-c10707`
 - **Alt text:** `MV Tutoko II at a Doubtful Sound waterfall — overnight cruises with intimate fjord encounters, Fiordland New Zealand`
 - **Figcaption:** `Waterfall encounter aboard MV Tutoko II`
 - **Loading:** `eager`, `fetchpriority="high"`
@@ -154,7 +154,7 @@ This file is the source of truth. Claude Code reads the populated slots below an
 
 ### 4.1 Page header (Hero)
 
-- **Public ID:** `fel/derek-2026/02-hero-vessel-experience/fiordland-expeditions-mv-tutoko-ii-aerial-twilight-tasman-fiordland-dji0259`
+- **Public ID:** `fel/derek-2026/hero-vessel-experience/fiordland-expeditions-mv-tutoko-ii-aerial-twilight-tasman-fiordland-dji0259`
 - **Alt text:** `MV Tutoko II at twilight near the Tasman Sea — contact Fiordland Expeditions to plan your Doubtful Sound voyage, New Zealand`
 - **Figcaption:** `Where the fjord meets the Tasman Sea`
 - **Loading:** `eager`, `fetchpriority="high"`
@@ -203,7 +203,7 @@ Two vessel cards (MV Tutoko II + MV Tutoko) plus possible specs/comparison image
 
 ### 5b.1 Hero
 
-- **Public ID:** `fel/derek-2026/02-hero-vessel-experience/fiordland-expeditions-mv-tutoko-ii-water-level-kayakers-reflection-doubtful-sound-c21778`
+- **Public ID:** `fel/derek-2026/hero-vessel-experience/fiordland-expeditions-mv-tutoko-ii-water-level-kayakers-reflection-doubtful-sound-c21778`
 - **Alt text:** `MV Tutoko II at anchor with kayakers on Doubtful Sound — purpose-built expedition vessel and basecamp for fjord exploration, Fiordland New Zealand`
 - **Figcaption:** `MV Tutoko II — your floating basecamp on Doubtful Sound`
 - **Loading:** `eager`, `fetchpriority="high"`
@@ -325,7 +325,7 @@ Heroes get `loading="eager"` + `fetchpriority="high"`. All other images get `loa
 
 1. **Ultrawide hero treatment for #3.1 (Seclusionist hero — `dji0317`).** This image is 2048x743. Confirm the page layout's hero block can accommodate `aspect-ratio: 2.75 / 1` cleanly, or propose a CSS pattern for a cinematic letterbox banner.
 
-2. **Cloudinary folder duplicate flag.** During hero verification, two parallel folder structures were discovered: `fel/derek-2026/02-hero-vessel-experience/` (the canonical, prefixed folders) and `fel/derek-2026/hero-vessel-experience/` (an unprefixed duplicate, likely a double-upload artifact). The shot list uses the prefixed paths. Cleanup of the unprefixed duplicates is a separate task — Claude Code does not need to handle it. Just be aware that public_ids in this shot list are authoritative.
+2. **Cloudinary folder duplicate flag.** During hero verification, two parallel folder structures were discovered: `fel/derek-2026/hero-vessel-experience/` (the canonical, prefixed folders) and `fel/derek-2026/hero-vessel-experience/` (an unprefixed duplicate, likely a double-upload artifact). The shot list uses the prefixed paths. Cleanup of the unprefixed duplicates is a separate task — Claude Code does not need to handle it. Just be aware that public_ids in this shot list are authoritative.
 
 3. **Logo public_id.** Held in `fel/brand/logo` once uploaded. Until then, leave the LOGO constant in `fel-components.js` pointing at Squarespace and surface the dependency in the appropriate batch summary.
 
