@@ -111,6 +111,11 @@ button { cursor: pointer; font-family: var(--font-sans); }
   position: absolute; inset: 0; z-index: 0;
   background-size: cover; background-position: center;
 }
+.hero-bg-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+  display: block;
+}
 .hero-bg::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(to bottom, rgba(10,14,26,0.45) 0%, rgba(10,14,26,0.65) 100%);
