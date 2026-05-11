@@ -38,6 +38,43 @@
 }
   </script>
 <link rel="stylesheet" href="../css/fel.css" />
+  <!-- GLightbox — cabin gallery lightbox -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+  <style>
+    .cabin-hero {
+      display: block;
+      position: relative;
+      aspect-ratio: 4/3;
+      margin-bottom: 28px;
+      overflow: hidden;
+      cursor: zoom-in;
+      border: 1px solid var(--border);
+      text-decoration: none;
+    }
+    .cabin-hero img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+    .cabin-hero:hover img,
+    .cabin-hero:focus-visible img { transform: scale(1.04); }
+    .cabin-hero-hint {
+      position: absolute; top: 12px; right: 12px;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 11px 7px 9px;
+      background: rgba(10,14,26,0.78);
+      backdrop-filter: blur(4px);
+      color: var(--white);
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: 1px solid rgba(201,168,76,0.4);
+      pointer-events: none;
+    }
+    .cabin-hero-hint svg { stroke: var(--gold-light); flex-shrink: 0; }
+  </style>
   <link rel="icon" href="/images/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="/images/favicon.ico">
 
@@ -208,7 +245,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="grid-3 fade-up">
       <!-- PREMIUM -->
       <div style="background:var(--navy-card);border:1px solid var(--gold);padding:40px;">
-        <div style="aspect-ratio:4/3;background-image:url('/images/fleet-1.jpg');background-size:cover;background-position:center;margin-bottom:28px;"></div>
+        <a href="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1600/fel/Cabins/Premium_Cabin.jpg"
+           class="glightbox cabin-hero"
+           data-gallery="cabin-premium"
+           data-title="Premium Cabin interior aboard MV Tutoko II"
+           aria-label="Open Premium Cabin gallery (2 photos)">
+          <img src="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_800,c_fill,ar_4:3/fel/Cabins/Premium_Cabin.jpg"
+               alt="Premium Cabin interior aboard MV Tutoko II"
+               loading="lazy">
+          <span class="cabin-hero-hint" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+            View gallery (2)
+          </span>
+        </a>
         <p class="vessel-tag" style="margin-bottom:12px;" data-cms-edit="source">Tutoko II Only</p>
         <h3 style="font-family:var(--font-display);font-size:26px;color:var(--white);margin-bottom:16px;" data-cms-edit="source">Premium Cabin</h3>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
@@ -217,10 +266,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li style="font-size:14px;color:var(--text-body);display:flex;gap:10px;" data-cms-edit="source"><span style="color:var(--gold);">✦</span> 240v NZ outlets + USB charging overnight</li>
           <li style="font-size:14px;color:var(--text-muted);display:flex;gap:10px;"><span style="color:var(--text-dim);">—</span> Limited space for 3 adults</li>
         </ul>
+        <!-- Hidden gallery items for lightbox -->
+        <a href="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1600/fel/Cabins/Premium_Cabin_2.jpg" class="glightbox" data-gallery="cabin-premium" data-title="Premium Cabin — alternate view aboard MV Tutoko II" style="display:none;" aria-hidden="true" tabindex="-1"></a>
       </div>
       <!-- ECONOMY -->
       <div style="background:var(--navy-card);border:1px solid var(--border);padding:40px;">
-        <div style="aspect-ratio:4/3;background-image:url('/images/fleet-2.jpg');background-size:cover;background-position:center;margin-bottom:28px;"></div>
+        <a href="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1600/fel/Cabins/Economy_Cabin.jpg"
+           class="glightbox cabin-hero"
+           data-gallery="cabin-economy"
+           data-title="Economy Cabin interior aboard MV Tutoko II"
+           aria-label="Open Economy Cabin gallery (2 photos)">
+          <img src="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_800,c_fill,ar_4:3/fel/Cabins/Economy_Cabin.jpg"
+               alt="Economy Cabin interior aboard MV Tutoko II"
+               loading="lazy">
+          <span class="cabin-hero-hint" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+            View gallery (2)
+          </span>
+        </a>
         <p class="vessel-tag" style="background:transparent;color:var(--text-muted);border:1px solid var(--border);margin-bottom:12px;" data-cms-edit="source">Tutoko II Only</p>
         <h3 style="font-family:var(--font-display);font-size:26px;color:var(--white);margin-bottom:16px;" data-cms-edit="source">Economy Cabin</h3>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
@@ -229,10 +292,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li style="font-size:14px;color:var(--text-body);display:flex;gap:10px;" data-cms-edit="source"><span style="color:var(--gold);">✦</span> 240v NZ outlets + USB charging overnight</li>
           <li style="font-size:14px;color:var(--text-muted);display:flex;gap:10px;"><span style="color:var(--text-dim);">—</span> Limited space for 3 adults</li>
         </ul>
+        <!-- Hidden gallery items for lightbox -->
+        <a href="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1600/fel/Cabins/Economy_Cabin_2.jpg" class="glightbox" data-gallery="cabin-economy" data-title="Economy Cabin — alternate view aboard MV Tutoko II" style="display:none;" aria-hidden="true" tabindex="-1"></a>
       </div>
       <!-- BUNK -->
       <div style="background:var(--navy-card);border:1px solid var(--border);padding:40px;">
-        <div style="aspect-ratio:4/3;background-image:url('/images/fleet-3.jpg');background-size:cover;background-position:center;margin-bottom:28px;"></div>
+        <a href="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1600/fel/derek-2026/04-vessel/fiordland-expeditions-quad-cabin-bunks-mv-tutoko-ii-accommodation-c10830.jpg"
+           class="glightbox cabin-hero"
+           data-gallery="cabin-bunk-room"
+           data-title="Quad bunk room aboard MV Tutoko II — Fiordland Expeditions accommodation"
+           aria-label="Open Shared Bunk Room gallery (8 photos)">
+          <img src="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_800,c_fill,ar_4:3/fel/derek-2026/04-vessel/fiordland-expeditions-quad-cabin-bunks-mv-tutoko-ii-accommodation-c10830.jpg"
+               alt="Quad bunk room aboard MV Tutoko II — Fiordland Expeditions accommodation"
+               loading="lazy">
+          <span class="cabin-hero-hint" aria-hidden="true">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+            View gallery (8)
+          </span>
+        </a>
         <p class="vessel-tag" style="background:transparent;color:var(--text-muted);border:1px solid var(--border);margin-bottom:12px;" data-cms-edit="source">Both Vessels</p>
         <h3 style="font-family:var(--font-display);font-size:26px;color:var(--white);margin-bottom:16px;" data-cms-edit="source">Shared Bunk Room</h3>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
@@ -241,6 +318,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li style="font-size:14px;color:var(--text-body);display:flex;gap:10px;" data-cms-edit="source"><span style="color:var(--gold);">✦</span> Top deck — direct access to deck and night sky</li>
           <li style="font-size:14px;color:var(--text-body);display:flex;gap:10px;" data-cms-edit="source"><span style="color:var(--gold);">✦</span> Can be booked as a private cabin — ask us</li>
         </ul>
+        <!-- Hidden gallery items for lightbox -->
+        <a href="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1600/fel/derek-2026/04-vessel/fiordland-expeditions-cabin-interior-accommodation-mv-tutoko-ii-c10835.jpg" class="glightbox" data-gallery="cabin-bunk-room" data-title="Cabin interior aboard MV Tutoko II" style="display:none;" aria-hidden="true" tabindex="-1"></a>
+        <a href="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1600/fel/derek-2026/04-vessel/fiordland-expeditions-cabin-interior-accommodation-mv-tutoko-ii-c10843.jpg" class="glightbox" data-gallery="cabin-bunk-room" data-title="Cabin interior — alternate view aboard MV Tutoko II" style="display:none;" aria-hidden="true" tabindex="-1"></a>
+        <a href="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1600/fel/derek-2026/01-journey-in/fiordland-expeditions-boarding-deep-cove-mv-tutoko-ii-doubtful-sound-c10160.jpg" class="glightbox" data-gallery="cabin-bunk-room" data-title="Boarding MV Tutoko II at Deep Cove, Doubtful Sound" style="display:none;" aria-hidden="true" tabindex="-1"></a>
+        <a href="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1600/fel/derek-2026/01-journey-in/fiordland-expeditions-boarding-deep-cove-mv-tutoko-ii-doubtful-sound-c10148.jpg" class="glightbox" data-gallery="cabin-bunk-room" data-title="Boarding MV Tutoko II at Deep Cove, Doubtful Sound" style="display:none;" aria-hidden="true" tabindex="-1"></a>
+        <a href="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1600/fel/derek-2026/01-journey-in/fiordland-expeditions-boarding-deep-cove-mv-tutoko-ii-doubtful-sound-c10149.jpg" class="glightbox" data-gallery="cabin-bunk-room" data-title="Boarding MV Tutoko II at Deep Cove, Doubtful Sound" style="display:none;" aria-hidden="true" tabindex="-1"></a>
+        <a href="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1600/fel/derek-2026/hero-vessel-experience/fiordland-expeditions-guests-bow-cliff-waterfalls-doubtful-sound-c10251.jpg" class="glightbox" data-gallery="cabin-bunk-room" data-title="Guests on the bow beneath cliff waterfalls, Doubtful Sound" style="display:none;" aria-hidden="true" tabindex="-1"></a>
+        <a href="https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1600/fel/derek-2026/03-guest-experience/fiordland-expeditions-tawaki-crew-top-deck-fjord-views-c10425.jpg" class="glightbox" data-gallery="cabin-bunk-room" data-title="Crew and guests on the top deck with fjord views" style="display:none;" aria-hidden="true" tabindex="-1"></a>
       </div>
     </div>
   </div>
@@ -371,5 +456,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <footer class="footer" id="fel-footer"></footer>
 <script src="../css/fel-components.js"></script>
+<script>
+  window.addEventListener('load', () => GLightbox({ selector: '.glightbox' }));
+</script>
 </body>
 </html>
