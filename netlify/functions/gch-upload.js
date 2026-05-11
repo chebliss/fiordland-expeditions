@@ -95,7 +95,6 @@ exports.handler = async (event) => {
     `type:${uploadType}`,
   ];
   if (lastName) tagParts.push(`guest:${lastName}`);
-  tagParts.push(uploadType === 'crew' ? 'status:approved' : 'status:pending');
   const tags = tagParts.join(',');
 
   const timestamp = Math.floor(Date.now() / 1000);
