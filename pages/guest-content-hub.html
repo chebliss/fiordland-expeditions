@@ -241,6 +241,13 @@
       .share-platforms { padding: 16px; }
       .share-btn-social { font-size: 0.6rem; padding: 10px 14px; }
     }
+    /* Upload success takeover — shown after all files in a batch succeed */
+    .upload-success { padding: 72px 32px; text-align: center; margin-bottom: 16px; }
+    .upload-success-icon { width: 72px; height: 72px; margin: 0 auto 24px; color: var(--light-accent); display: block; }
+    .upload-success-icon svg { width: 100%; height: 100%; }
+    .upload-success h3 { font-size: 2rem; margin-bottom: 14px; color: var(--text-on-light); }
+    .upload-success-body { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); max-width: 480px; margin: 0 auto 32px; }
+    .upload-success-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   </style>
   <link rel="icon" href="/images/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="/images/favicon.ico">
@@ -382,6 +389,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
 
+        <div id="upload-form-section">
         <!-- Cruise details (required for upload) -->
         <div class="card" style="margin-bottom:16px;">
           <span class="label-upper">Step 1 · Tell Us About Your Cruise</span>
@@ -454,6 +462,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         <div class="consent-note" style="margin-top:16px;">
           <p>By uploading and selecting sharing permissions above, you grant Fiordland Expeditions the rights specified. Your originals remain yours. We'll always credit our contributors when featuring your work publicly.</p>
+        </div>
+        </div><!-- /#upload-form-section -->
+
+        <!-- Upload success takeover — replaces the form when every file in a batch uploads cleanly -->
+        <div id="upload-success" class="upload-success card" style="display:none;">
+          <div class="upload-success-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 12l3 3 5-6"/>
+            </svg>
+          </div>
+          <h3>Thanks for sharing!</h3>
+          <p class="upload-success-body">Your photos are filed against your cruise. They'll appear in Your Gallery shortly, and may be featured in the public expedition feed.</p>
+          <div class="upload-success-actions">
+            <button class="btn-primary" onclick="resetUploadForm()">Upload another</button>
+            <button class="btn-secondary" onclick="goToYourGallery()">View Your Gallery</button>
+          </div>
         </div>
       </div>
     </section>
@@ -1045,12 +1070,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
     }
     if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.textContent = 'Submit for Review'; }
-    showToast(successes === pendingFiles.length ? `All ${successes} file(s) uploaded — thank you!` : `${successes}/${pendingFiles.length} uploaded`);
     if (successes === pendingFiles.length) {
       pendingFiles = [];
       document.getElementById('file-input').value = '';
-      setTimeout(() => { renderUploadQueue(); }, 2000);
+      renderUploadQueue();
+      showUploadSuccess();
+    } else {
+      showToast(`${successes}/${pendingFiles.length} uploaded`);
     }
+  }
+
+  function showUploadSuccess() {
+    const form = document.getElementById('upload-form-section');
+    const success = document.getElementById('upload-success');
+    if (form) form.style.display = 'none';
+    if (success) {
+      success.style.display = 'block';
+      success.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function resetUploadForm() {
+    const success = document.getElementById('upload-success');
+    const form = document.getElementById('upload-form-section');
+    if (success) success.style.display = 'none';
+    if (form) form.style.display = 'block';
+    // Clear cruise-details + permissions back to defaults so a second
+    // upload doesn't accidentally inherit the previous guest's name.
+    const lastName = document.getElementById('upload-last-name');
+    if (lastName) lastName.value = '';
+    const cruiseDate = document.getElementById('upload-cruise-date');
+    if (cruiseDate) cruiseDate.value = '';
+    const vessel = document.getElementById('upload-vessel');
+    if (vessel) vessel.value = '';
+    const permMates = document.getElementById('perm-mates');
+    if (permMates) permMates.checked = true;
+    const permPublic = document.getElementById('perm-public');
+    if (permPublic) permPublic.checked = true;
+    if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function goToYourGallery() {
+    // Click the second tab button — Expedition Feed / Your Gallery /
+    // Contribute, so [1] is Your Gallery. Using .click() reuses the
+    // existing switchTab() handler exactly.
+    const tabs = document.querySelectorAll('.tab-btn');
+    if (tabs[1]) tabs[1].click();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   /* QR CODE — points to the GCH URL */
