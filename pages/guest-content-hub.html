@@ -321,19 +321,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="form-grid">
             <div class="form-group">
               <label class="form-label" for="vessel-select">Vessel</label>
-              <select id="vessel-select">
+              <select id="vessel-select" required>
                 <option value="">Select vessel</option>
                 <option value="tutoko2">MV Tutoko II</option>
-                <option value="tutoko1">MV Tutoko</option>
+                <!-- MV Tutoko removed during maintenance; restore when vessel returns to service -->
               </select>
             </div>
             <div class="form-group">
               <label class="form-label" for="cruise-date">Departure Date</label>
-              <input type="date" id="cruise-date">
+              <input type="date" id="cruise-date" required>
             </div>
             <div class="form-group">
               <label class="form-label" for="last-name">Last Name</label>
-              <input type="text" id="last-name" placeholder="e.g. Lindqvist">
+              <input type="text" id="last-name" placeholder="e.g. Lindqvist" required>
             </div>
             <div class="form-group" style="justify-content:flex-end;">
               <button class="btn-primary" onclick="showPrivateGallery()" style="width:100%;justify-content:center;">View My Gallery</button>
@@ -388,19 +388,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="form-grid">
             <div class="form-group">
               <label class="form-label" for="upload-vessel">Vessel</label>
-              <select id="upload-vessel">
+              <select id="upload-vessel" required>
                 <option value="">Select vessel</option>
                 <option value="tutoko2">MV Tutoko II</option>
-                <option value="tutoko1">MV Tutoko</option>
+                <!-- MV Tutoko removed during maintenance; restore when vessel returns to service -->
               </select>
             </div>
             <div class="form-group">
               <label class="form-label" for="upload-cruise-date">Departure Date</label>
-              <input type="date" id="upload-cruise-date">
+              <input type="date" id="upload-cruise-date" required>
             </div>
             <div class="form-group">
               <label class="form-label" for="upload-last-name">Last Name</label>
-              <input type="text" id="upload-last-name" placeholder="e.g. Lindqvist">
+              <input type="text" id="upload-last-name" placeholder="e.g. Lindqvist" required>
             </div>
           </div>
         </div>
@@ -430,14 +430,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <span class="label-upper">Step 3 · Sharing Permissions</span>
           <p style="font-size:0.85rem;margin-bottom:16px;">Choose how you'd like your photos to be used. You can tick both options.</p>
           <label class="permission-item">
-            <input type="checkbox" id="perm-mates" onchange="updateShareState()">
+            <input type="checkbox" id="perm-mates" checked>
             <span class="permission-text">
               <strong>Share with cruise mates</strong>
               <p>Your photos will be visible to other guests on the same cruise. Great for group albums and sharing memories with fellow travellers.</p>
             </span>
           </label>
           <label class="permission-item">
-            <input type="checkbox" id="perm-public" onchange="updateShareState()">
+            <input type="checkbox" id="perm-public" checked>
             <span class="permission-text">
               <strong>Share publicly</strong>
               <p>Fiordland Expeditions may feature your content in the public expedition feed, on our website, and across our social media channels. We'll always credit contributors.</p>
@@ -486,7 +486,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div id="share-preview-list"></div>
 
-    <textarea id="share-caption-text" oninput="updateCaption()">Check out this incredible moment from our Fiordland expedition! 🌊⛵</textarea>
+    <textarea id="share-caption-text">Check out this incredible moment from our Fiordland expedition! 🌊⛵</textarea>
 
     <div class="drawer-hashtags">
       <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandExpeditions">#FiordlandExpeditions</span>
@@ -661,8 +661,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     btn.classList.add('active');
   }
 
-  function updateShareState() {}
-
   function getActiveHashtags() {
     return Array.from(document.querySelectorAll('.hashtag-pill.active')).map(el => el.dataset.tag).join(' ');
   }
@@ -696,8 +694,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     const imgs = selectedImageUrlsLine();
     return imgs ? `${base}\n\n${imgs}` : base;
   }
-
-  function updateCaption() {}
 
   function shareToFacebook() {
     const url = encodeURIComponent(shareTargetUrl());
