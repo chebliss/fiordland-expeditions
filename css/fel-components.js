@@ -40,7 +40,7 @@ function renderNav() {
           <a href="${b}pages/fishing-private-charters.html">Fishing &amp; Private Charters</a>
         </div>
       </li>
-      <li><a href="${b}pages/why-fiordland-expeditions.html">Why Fiordland Expeditions?</a></li>
+      <li><a href="${b}pages/about-us.html">About Us</a></li>
       <li><a href="${b}pages/our-fleet.html">Our Fleet</a></li>
       <li><a href="${b}pages/environment.html">Environment</a></li>
       <li><a href="${b}pages/contact.html">Contact</a></li>
@@ -72,7 +72,7 @@ function renderFooter() {
       <div class="footer-col">
         <h5>Discover</h5>
         <ul>
-          <li><a href="${b}pages/why-fiordland-expeditions.html">Why Choose Us?</a></li>
+          <li><a href="${b}pages/about-us.html">About Us</a></li>
           <li><a href="${b}pages/our-fleet.html">Our Fleet</a></li>
           <li><a href="${b}pages/environment.html">Environment</a></li>
           <li><a href="${b}pages/milford-vs-doubtful-sound.html">Milford vs Doubtful Sound</a></li>

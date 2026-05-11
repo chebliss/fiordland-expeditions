@@ -1,0 +1,63 @@
+# _data/team.yml — Fiordland Expeditions team page
+# Updated: 11 May 2026
+# Source of truth for CloudCannon editing. Mirror these values when
+# editing pages/about-us.html until a build step interpolates this file.
+
+owners:
+  - name: Richard Abernethy
+    role: Co-Owner / Operator
+    photo: https://res.cloudinary.com/dbfwdxsaz/image/upload/v1778225975/fel/derek-2026/06-crew-team/fiordland-expeditions-richard-abernathy-headshot-owner-fiordland-expeditions-c11940.jpg
+    alt: "Richard Abernethy, co-owner of Fiordland Expeditions, portrait"
+
+  - name: Mandy Abernethy
+    role: Co-Owner / Operator
+    photo: https://res.cloudinary.com/dbfwdxsaz/image/upload/v1778225973/fel/derek-2026/06-crew-team/fiordland-expeditions-mandy-abernathy-tawaki-project-portrait-owner-c12019.jpg
+    alt: "Mandy Abernethy, co-owner of Fiordland Expeditions, portrait"
+
+# Optional R&M together portrait (use as hero of R&M blurb instead of/alongside individuals)
+owners_together:
+  photo: https://res.cloudinary.com/dbfwdxsaz/image/upload/fel/derek-2026/06-crew-team/fiordland-expeditions-richard-mandy-abernathy-owners-portrait-mv-tutoko-ii-c12056.jpg
+  alt: "Richard and Mandy Abernethy, co-owners of Fiordland Expeditions, aboard MV Tutoko II"
+
+crew:
+  - name: Mikey Harwood
+    role: Head Chef
+    photo: https://res.cloudinary.com/dbfwdxsaz/image/upload/v1778225813/fel/derek-2026/06-crew-team/fiordland-expeditions-crew-portraits-fiordland-expeditions-c11888.jpg
+    alt: "Mikey Harwood, Head Chef aboard MV Tutoko II, Fiordland Expeditions"
+    bio: "Mikey works the galley aboard MV Tutoko II, cooking the crayfish and blue cod guests catch themselves — with what he reckons is the best kitchen view in New Zealand."
+    quote: "There's no kitchen in New Zealand where you can cook a crayfish or blue cod that fresh — caught by our guests, cooked, on the plate. And the people arrive from everywhere and leave like family. It's a good combination."
+
+  - name: Arturo Patriarca
+    role: Chef
+    photo: https://res.cloudinary.com/dbfwdxsaz/image/upload/v1778225976/fel/derek-2026/06-crew-team/fiordland-expeditions-crew-portraits-fiordland-expeditions-c12077.jpg
+    alt: "Arturo Patriarca, chef aboard MV Tutoko II, Fiordland Expeditions"
+    bio: "Arturo joined MV Tutoko II during the pandemic after twenty years in big hotels and resorts. Seven years on he's still here — cooking what guests pull from the fjord, and still falling for the place."
+    quote: "After twenty years in big hotels and resorts, this was the first time I'd worked in a small family business. I never thought I'd come to love nature. Now every trip is different — I'm still expecting to be here a long time."
+
+  - name: Dave Spiers
+    role: Skipper
+    photo: https://res.cloudinary.com/dbfwdxsaz/image/upload/v1778225956/fel/derek-2026/06-crew-team/fiordland-expeditions-crew-portraits-fiordland-expeditions-c11982.jpg
+    alt: "Dave Spiers, skipper aboard MV Tutoko II, Fiordland Expeditions"
+    bio: "Dave skippers MV Tutoko II down the same stretch of fjord every day and reckons no two days are the same — he prefers calling the shots out here to anywhere structured or corporate."
+    quote: "You can cruise down the same piece of fjord on a daily basis and it's completely different from day to day. Out here you're in charge — you decide what's going to happen and how to give the guests an awesome time. You don't get that anywhere corporate."
+
+  - name: Jo Spiers
+    role: Reservations & Shore Support
+    photo: https://res.cloudinary.com/dbfwdxsaz/image/upload/v1778225815/fel/derek-2026/06-crew-team/fiordland-expeditions-crew-portrait-golden-hour-fiordland-expeditions-c12251.jpg
+    alt: "Jo Spiers, reservations and shore support, Fiordland Expeditions"
+    bio: "Jo handles bookings and shore-side logistics, a working mum who couldn't do nine-to-five in an office — a family-run boat operation gives her the flexibility and balance an office never could."
+    quote: "You're not just a number — you're part of the family. The crew have such passion for the area and the company, and that transcends into the experience they give the guests."
+
+  - name: Hamish Pask
+    role: Deckhand
+    photo: https://res.cloudinary.com/dbfwdxsaz/image/upload/v1778225805/fel/derek-2026/06-crew-team/fiordland-expeditions-crew-portraits-fiordland-expeditions-c11911.jpg
+    alt: "Hamish Pask, deckhand aboard MV Tutoko II, Fiordland Expeditions"
+    bio: "Hamish joined the deck crew six months ago and is still discovering new ecosystems on every voyage — most recently kayaking the salt marshes for the first time."
+    quote: "Even after six months working here there are still new discoveries to be made — beautiful varieties of birds, vegetation, ecosystems I never knew existed. Days like that make me wonder what my next adventure in Fiordland will be."
+
+  - name: Thomas Davis (TJ)
+    role: Skipper
+    photo: https://res.cloudinary.com/dbfwdxsaz/image/upload/v1778458643/fel/derek-2026/06-crew-team/20260501_FEL_C1_1836.jpg
+    alt: "Thomas Davis (TJ), skipper aboard MV Tutoko II, Fiordland Expeditions"
+    bio: "TJ skippers for the isolation — drawn to the quiet places and the chance to share Fiordland's wild backyard with the guests he meets along the way."
+    quote: "Just being out there, away from it all. And connecting with people on the boat — sharing the experiences."

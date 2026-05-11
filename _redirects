@@ -7,3 +7,8 @@
 
 # Preserve deep-links to specific tabs via query string
 # (handled client-side inside guest-content-hub.html)
+
+# About Us page — "Why Us" rebranded to "About Us" (May 2026 team page launch)
+/why-us                                /pages/about-us.html              301
+/pages/why-fiordland-expeditions.html  /pages/about-us.html              301
+/pages/why-us.html                     /pages/about-us.html              301

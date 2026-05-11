@@ -16,7 +16,7 @@
     <li><a href="/pages/overnight-cruise.html" class="${active('overnight')}">Overnight cruise</a></li>
     <li><a href="/pages/charters.html" class="${active('charter')}">Charters</a></li>
     <li><a href="/pages/fleet.html" class="${active('fleet')}">Our fleet</a></li>
-    <li><a href="/pages/why-us.html" class="${active('why')}">Why us</a></li>
+    <li><a href="/pages/about-us.html" class="${active('about')}">About us</a></li>
     <li><a href="/pages/environment.html" class="${active('environment')}">Environment</a></li>
     <li><a href="/pages/contact.html" class="${active('contact')}">Contact</a></li>
     <li><a href="${BOOK}" target="_blank" class="nav-cta">Book now</a></li>
@@ -60,7 +60,7 @@
   </div>
   <div class="footer-col">
     <h4>Company</h4>
-    <a href="/pages/why-us.html">Why Fiordland Expeditions</a>
+    <a href="/pages/about-us.html">About Fiordland Expeditions</a>
     <a href="/pages/environment.html">Environment</a>
     <a href="/pages/contact.html">Contact</a>
     <a href="${BOOK}" target="_blank">Book now</a>
