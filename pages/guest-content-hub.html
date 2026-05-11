@@ -7,26 +7,28 @@
   <meta name="description" content="Browse expedition highlights, access your personal cruise gallery, or share your moments from Doubtful Sound. Fiordland Expeditions Guest Hub.">
   <meta name="robots" content="noindex">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
 
   <style>
     :root {
       --black:        #111111;
       --white:        #ffffff;
-      --bright:       #f5f2ee;
+      --bright:       #F8F4EE;
       --white-bold:   #ffffff;
-      --light-accent: #c9a050;
-      --light-accent-dim: rgba(201,160,80,0.12);
-      --light-accent-border: rgba(201,160,80,0.35);
+      /* Gold consolidated to the main site --gold value (#C9A84C) so the
+         GCH and the rest of FEL share a single accent. */
+      --gold:         #C9A84C;
+      --gold-dim:     rgba(201,168,76,0.12);
+      --gold-border:  rgba(201,168,76,0.35);
       --text-on-dark:   #f9fafb;
       --text-on-light:  #1a1a1a;
       --text-muted:     #6b6b6b;
       --text-muted-light: #9a9a9a;
-      --max-width:    1600px;
+      --max-width:    1200px;
       --page-gutter:  3vw;
       --mobile-gutter: 6vw;
-      --img-radius:   20px;
+      --img-radius:   0;
       --btn-radius:   4px;
       --ease:         0.3s ease;
       --fb-blue:    #1877f2;
@@ -39,7 +41,7 @@
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.6; color: var(--text-on-light); background: var(--white); -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 300; font-size: 16px; line-height: 1.6; color: var(--text-on-light); background: var(--white); -webkit-font-smoothing: antialiased; }
 
     h1,h2,h3,h4,.label-upper { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; line-height: 1.05; }
     h1 { font-size: clamp(2rem, 4.5vw, 3.2rem); }
@@ -47,43 +49,43 @@
     h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
     h4 { font-size: 1rem; }
     p  { font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); }
-    .label-upper { font-size: 0.65rem; letter-spacing: 0.18em; color: var(--light-accent); display: block; margin-bottom: 10px; }
+    .label-upper { font-size: 0.65rem; letter-spacing: 0.18em; color: var(--gold); display: block; margin-bottom: 10px; }
     .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--page-gutter); }
     @media (max-width: 768px) { .container { padding: 0 var(--mobile-gutter); } }
 
     /* HEADER */
-    .site-header { background: var(--black); border-bottom: 2px solid var(--light-accent); padding: 0 var(--page-gutter); position: sticky; top: 0; z-index: 200; }
+    .site-header { background: var(--black); border-bottom: 2px solid var(--gold); padding: 0 var(--page-gutter); position: sticky; top: 0; z-index: 200; }
     .site-header-inner { max-width: var(--max-width); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; }
     .site-header img { height: 40px; width: auto; }
-    .header-page-label { font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--light-accent); }
+    .header-page-label { font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
     .header-back { font-family: 'Anton', sans-serif; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
-    .header-back:hover { color: var(--light-accent); }
+    .header-back:hover { color: var(--gold); }
 
     /* HERO */
-    .hero { background: var(--black); padding: 64px var(--page-gutter) 56px; text-align: center; border-bottom: 2px solid var(--light-accent); }
+    .hero { background: var(--black); padding: 64px var(--page-gutter) 56px; text-align: center; border-bottom: 2px solid var(--gold); }
     .hero h1 { color: var(--white); margin-bottom: 16px; }
-    .gold-underline { text-decoration: underline; text-decoration-color: var(--light-accent); text-underline-offset: 4px; }
+    .gold-underline { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
     .hero p { color: rgba(255,255,255,0.65); max-width: 560px; margin: 0 auto; }
 
     /* TABS */
     .tab-nav { display: flex; background: var(--white); border-bottom: 1px solid #e8e4df; position: sticky; top: 72px; z-index: 100; }
     .tab-btn { flex: 1; padding: 20px 16px; font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all var(--ease); margin-bottom: -1px; }
     .tab-btn:hover { color: var(--text-on-light); }
-    .tab-btn.active { color: var(--text-on-light); border-bottom-color: var(--light-accent); }
+    .tab-btn.active { color: var(--text-on-light); border-bottom-color: var(--gold); }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
     /* SECTIONS */
-    .section-white  { background: var(--white); padding: 60px 0; }
-    .section-bright { background: var(--bright); padding: 60px 0; }
+    .section-white  { background: var(--white); padding: 80px 0; }
+    .section-bright { background: var(--bright); padding: 80px 0; }
     .section-header { margin-bottom: 36px; }
     .section-header h2 { color: var(--text-on-light); margin-top: 4px; }
 
     /* GALLERY */
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
     .gallery-item { aspect-ratio: 1/1; border-radius: var(--img-radius); overflow: hidden; cursor: pointer; position: relative; background: #e8e4df; border: 3px solid transparent; transition: border-color 0.2s ease, transform 0.2s ease; }
-    .gallery-item.selected { border-color: var(--light-accent); transform: scale(0.97); }
-    .gallery-item.selected::after { content: '✓'; position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; background: var(--light-accent); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+    .gallery-item.selected { border-color: var(--gold); transform: scale(0.97); }
+    .gallery-item.selected::after { content: '✓'; position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; background: var(--gold); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
     .gallery-item:hover img { transform: scale(1.05); }
     .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background var(--ease); display: flex; align-items: flex-end; padding: 14px; gap: 8px; }
@@ -92,7 +94,7 @@
     .gallery-item:hover .gallery-overlay .btn-share-small { opacity: 1; transform: translateY(0); }
 
     /* SHARE DRAWER — fixed-bottom, slides up when selection is non-empty */
-    #share-drawer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 500; background: var(--white); border-top: 2px solid var(--light-accent); box-shadow: 0 -6px 24px rgba(0,0,0,0.15); transform: translateY(110%); transition: transform 0.3s ease; max-height: 80vh; overflow-y: auto; }
+    #share-drawer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 500; background: var(--white); border-top: 2px solid var(--gold); box-shadow: 0 -6px 24px rgba(0,0,0,0.15); transform: translateY(110%); transition: transform 0.3s ease; max-height: 80vh; overflow-y: auto; }
     #share-drawer.active { transform: translateY(0); }
     body.has-share-drawer { padding-bottom: 380px; }
     @media (max-width: 640px) { body.has-share-drawer { padding-bottom: 420px; } }
@@ -103,7 +105,7 @@
     .drawer-close { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; background: none; border: 1px solid #d0ccc7; color: var(--text-muted); padding: 6px 12px; border-radius: var(--btn-radius); cursor: pointer; transition: all var(--ease); }
     .drawer-close:hover { border-color: var(--text-on-light); color: var(--text-on-light); }
     #share-preview-list { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
-    .preview-thumb { position: relative; width: 56px; height: 56px; flex-shrink: 0; border-radius: 8px; overflow: hidden; border: 2px solid var(--light-accent); }
+    .preview-thumb { position: relative; width: 56px; height: 56px; flex-shrink: 0; border-radius: 8px; overflow: hidden; border: 2px solid var(--gold); }
     .preview-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .preview-thumb-remove { position: absolute; top: 2px; right: 2px; width: 18px; height: 18px; border-radius: 50%; background: rgba(17,17,17,0.78); color: var(--white); border: none; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
     .preview-thumb-remove:hover { background: var(--black); }
@@ -120,21 +122,30 @@
     }
 
     /* EMPTY STATE */
-    .empty-state { text-align: center; padding: 80px 24px; border: 1px dashed var(--light-accent-border); border-radius: var(--img-radius); background: var(--light-accent-dim); }
+    .empty-state { text-align: center; padding: 80px 24px; border: 1px dashed var(--gold-border); border-radius: var(--img-radius); background: var(--gold-dim); }
     .empty-state h3 { color: var(--text-on-light); margin-bottom: 8px; font-size: 1.1rem; }
     .empty-state p { font-size: 0.88rem; }
 
     /* BUTTONS */
-    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--text-on-light); color: var(--white); font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; border: none; padding: 14px 28px; border-radius: var(--btn-radius); cursor: pointer; transition: opacity var(--ease), transform 0.15s ease; text-decoration: none; }
+    /* Primary button — Montserrat 11/600/0.16em to match the main FEL
+       site button spec; kept on a dark fill so it reads on the white
+       GCH surface (gold fill would be too loud here). */
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--text-on-light); color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; border: none; padding: 14px 28px; border-radius: 0; cursor: pointer; transition: opacity var(--ease), transform 0.15s ease; text-decoration: none; }
     .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
     .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text-on-light); font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--text-on-light); padding: 13px 28px; border-radius: var(--btn-radius); cursor: pointer; transition: all var(--ease); text-decoration: none; }
     .btn-secondary:hover { background: var(--text-on-light); color: var(--white); }
     .btn-share-small { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; background: var(--white); color: var(--text-on-light); border: none; padding: 7px 16px; border-radius: var(--btn-radius); cursor: pointer; transition: opacity var(--ease); }
     .btn-share-small:hover { opacity: 0.85; }
 
-    /* CARD */
-    .card { border: 1px solid #e8e4df; border-radius: var(--img-radius); padding: 36px; background: var(--white); }
-    .card-accent { border-color: var(--light-accent-border); }
+    /* CARD — ported from main FEL site: 40px padding, 32x2px gold top
+       rule via ::before, soft-grey border retained (main site keeps its
+       border + rule combo, so the GCH mirrors that). */
+    .card { border: 1px solid #e8e4df; border-radius: var(--img-radius); padding: 40px; background: var(--white); }
+    .card::before { content: ''; display: block; width: 32px; height: 2px; background: var(--gold); margin-bottom: 20px; }
+    /* The upload-success card is centred / icon-led — suppress the
+       rule so it doesn't sit left-aligned above the centred icon. */
+    .upload-success::before { display: none; }
+    .card-accent { border-color: var(--gold-border); }
     .card h3 { color: var(--text-on-light); margin-bottom: 8px; }
     .card p  { font-size: 0.88rem; margin-bottom: 20px; }
 
@@ -186,8 +197,8 @@
     .result-header { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #e8e4df; }
 
     /* UPLOAD */
-    .upload-zone { border: 1px dashed var(--light-accent-border); border-radius: var(--img-radius); padding: 48px 32px; text-align: center; background: var(--light-accent-dim); cursor: pointer; transition: all var(--ease); position: relative; }
-    .upload-zone:hover { border-color: var(--light-accent); background: rgba(201,160,80,0.1); }
+    .upload-zone { border: 1px dashed var(--gold-border); border-radius: var(--img-radius); padding: 48px 32px; text-align: center; background: var(--gold-dim); cursor: pointer; transition: all var(--ease); position: relative; }
+    .upload-zone:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); }
     .upload-zone h3 { color: var(--text-on-light); margin-bottom: 8px; font-size: 1.1rem; }
     .upload-icon { width: 48px; height: 48px; margin: 0 auto 16px; opacity: 0.3; }
     .upload-icon svg { width: 100%; height: 100%; }
@@ -196,7 +207,7 @@
     .qr-section { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; margin-top: 24px; padding: 28px; background: var(--bright); border-radius: var(--img-radius); border: 1px solid #e8e4df; }
     .qr-wrap { background: var(--white); padding: 10px; border-radius: 12px; border: 1px solid #e8e4df; flex-shrink: 0; }
     .qr-info { flex: 1; min-width: 200px; }
-    .qr-info .label-upper { color: var(--light-accent); }
+    .qr-info .label-upper { color: var(--gold); }
     .qr-info p { font-size: 0.88rem; margin-bottom: 12px; }
 
     /* LIGHTBOX */
@@ -213,14 +224,14 @@
     .lb-share:hover { opacity: 0.85; }
 
     /* CONSENT */
-    .consent-note { margin-top: 20px; padding: 16px 20px; background: var(--bright); border-radius: var(--btn-radius); border-left: 3px solid var(--light-accent); }
+    .consent-note { margin-top: 20px; padding: 16px 20px; background: var(--bright); border-radius: var(--btn-radius); border-left: 3px solid var(--gold); }
     .consent-note p { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
 
     /* FOOTER */
-    .site-footer { background: var(--black); padding: 40px var(--page-gutter); text-align: center; border-top: 2px solid var(--light-accent); }
+    .site-footer { background: var(--black); padding: 40px var(--page-gutter); text-align: center; border-top: 2px solid var(--gold); }
     .site-footer img { height: 32px; margin: 0 auto 12px; display: block; opacity: 0.7; }
     .site-footer p { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
-    .site-footer a { color: var(--light-accent); text-decoration: none; }
+    .site-footer a { color: var(--gold); text-decoration: none; }
 
     /* TOAST */
     #toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text-on-light); color: var(--white); font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; border-radius: var(--btn-radius); z-index: 99999; opacity: 0; transition: all 0.3s ease; pointer-events: none; white-space: nowrap; }
@@ -243,7 +254,7 @@
     }
     /* Upload success takeover — shown after all files in a batch succeed */
     .upload-success { padding: 72px 32px; text-align: center; margin-bottom: 16px; }
-    .upload-success-icon { width: 72px; height: 72px; margin: 0 auto 24px; color: var(--light-accent); display: block; }
+    .upload-success-icon { width: 72px; height: 72px; margin: 0 auto 24px; color: var(--gold); display: block; }
     .upload-success-icon svg { width: 100%; height: 100%; }
     .upload-success h3 { font-size: 2rem; margin-bottom: 14px; color: var(--text-on-light); }
     .upload-success-body { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); max-width: 480px; margin: 0 auto 32px; }
@@ -974,7 +985,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (!pendingFiles.length) { q.style.display = 'none'; q.innerHTML = ''; return; }
     q.style.display = 'block';
     q.innerHTML = `
-      <div style="font-family:'Anton',sans-serif;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--light-accent);margin:20px 0 12px;">${pendingFiles.length} file${pendingFiles.length > 1 ? 's' : ''} queued</div>
+      <div style="font-family:'Anton',sans-serif;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin:20px 0 12px;">${pendingFiles.length} file${pendingFiles.length > 1 ? 's' : ''} queued</div>
       ${pendingFiles.map((f, i) => `<div class="queue-item" id="queue-item-${i}"><span>${f.name}</span><span style="font-size:0.8rem;color:var(--text-muted-light);" id="queue-status-${i}">${(f.size/1024/1024).toFixed(1)} MB · ready</span></div>`).join('')}
       <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
         <button class="btn-primary" id="btn-submit-upload" onclick="submitUpload()">Submit for Review</button>
