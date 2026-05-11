@@ -44,6 +44,7 @@ function renderNav() {
       <li><a href="${b}pages/our-fleet.html">Our Fleet</a></li>
       <li><a href="${b}pages/environment.html">Environment</a></li>
       <li><a href="${b}pages/contact.html">Contact</a></li>
+      <li><a href="${b}pages/guest-content-hub.html">Guest Hub</a></li>
     </ul>
     <a href="${FH_BOOK}" target="_blank" class="nav-cta">Book Now</a>
     <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
@@ -104,7 +105,6 @@ function renderFooter() {
         <a href="${b}pages/landing-dynasty-builder.html" style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:8px 18px;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">Dynasty Builder</a>
         <a href="${b}pages/landing-milestone-celebrator.html" style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:8px 18px;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">Milestone Celebrator</a>
         <a href="${b}pages/landing-pilgrim-trophy.html" style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:8px 18px;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">Pilgrim &amp; Trophy</a>
-        <a href="${b}pages/guest-content-hub.html" style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:8px 18px;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">Guest Content Hub</a>
         <a href="${b}pages/milford-vs-doubtful-sound.html" style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:8px 18px;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">Milford vs Doubtful</a>
       </div>
     </div>

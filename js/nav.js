@@ -19,6 +19,7 @@
     <li><a href="/pages/about-us.html" class="${active('about')}">About us</a></li>
     <li><a href="/pages/environment.html" class="${active('environment')}">Environment</a></li>
     <li><a href="/pages/contact.html" class="${active('contact')}">Contact</a></li>
+    <li><a href="/pages/guest-content-hub.html" class="${active('guest-content-hub')}">Guest hub</a></li>
     <li><a href="${BOOK}" target="_blank" class="nav-cta">Book now</a></li>
   </ul>
   <button class="nav-toggle" id="nav-toggle" aria-label="Menu">

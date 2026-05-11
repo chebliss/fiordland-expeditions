@@ -329,7 +329,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="form-group">
               <label class="form-label" for="cruise-date">Departure Date</label>
-              <input type="date" id="cruise-date" required>
+              <select id="cruise-date" required>
+                <option value="">Loading available dates…</option>
+              </select>
             </div>
             <div class="form-group">
               <label class="form-label" for="last-name">Last Name</label>
@@ -396,7 +398,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="form-group">
               <label class="form-label" for="upload-cruise-date">Departure Date</label>
-              <input type="date" id="upload-cruise-date" required>
+              <select id="upload-cruise-date" required>
+                <option value="">Loading available dates…</option>
+              </select>
             </div>
             <div class="form-group">
               <label class="form-label" for="upload-last-name">Last Name</label>
@@ -653,6 +657,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     } catch (e) { /* keep the hardcoded demo feed on failure */ }
   }
   loadFeaturedFeed();
+
+  // Populate the cruise-date <select>s from the whitelist function.
+  // Both forms (gallery lookup, upload) share the same date list — the
+  // function acts as the access-control gate so guests can only pick
+  // dates that correspond to real cruises.
+  async function populateCruiseDates() {
+    const selects = ['cruise-date', 'upload-cruise-date']
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+    try {
+      const res = await fetch('/.netlify/functions/gch-cruise-dates');
+      const data = await res.json();
+      if (!res.ok || !data.ok || !Array.isArray(data.dates)) throw new Error('bad response');
+      selects.forEach((sel) => {
+        sel.innerHTML = '<option value="">Select cruise date</option>'
+          + data.dates.map((d) => `<option value="${d.value}">${d.label}</option>`).join('');
+      });
+    } catch (e) {
+      selects.forEach((sel) => {
+        sel.innerHTML = '<option value="">Dates unavailable — please contact us</option>';
+        sel.disabled = true;
+      });
+    }
+  }
+  populateCruiseDates();
 
   function switchTab(name, btn) {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
