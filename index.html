@@ -102,6 +102,48 @@
       pointer-events: none;
     }
     .discover-hero-hint svg { stroke: var(--gold-light); flex-shrink: 0; }
+
+    /* Promo banner — thin strip at top of <body>, above the main nav.
+       Scrolls away with the page; the JS at end of <body> nudges the
+       fixed nav's `top` down while the banner is in viewport so they
+       don't overlap, and snaps the nav back to top:0 once the banner
+       has scrolled off. */
+    .promo-bar {
+      display: block;
+      background: var(--navy);
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      position: relative; z-index: 99;
+      transition: background 0.2s;
+    }
+    .promo-bar:hover { background: var(--navy-mid); }
+    .promo-bar-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; flex-wrap: wrap;
+      text-align: center;
+    }
+    .promo-bar-eyebrow {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .promo-bar-body {
+      font-size: 13px; font-weight: 400; color: var(--text-body);
+      letter-spacing: 0.04em;
+    }
+    .promo-bar-arrow {
+      font-size: 14px; color: var(--gold);
+      transition: transform 0.2s;
+      display: inline-block;
+    }
+    .promo-bar:hover .promo-bar-arrow { transform: translateX(3px); }
+    @media (max-width: 640px) {
+      .promo-bar-inner { gap: 6px 10px; padding: 10px 16px; }
+      .promo-bar-eyebrow { font-size: 9px; letter-spacing: 0.18em; }
+      .promo-bar-body { font-size: 12px; }
+    }
   </style>
   <!-- FareHarbor Lightframe API -->
   <script src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes"></script>
@@ -132,6 +174,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+
+<!-- PROMO BANNER — Photography Expedition Oct 2026 (index.html only) -->
+<a class="promo-bar" href="pages/photography-expedition.html">
+  <div class="promo-bar-inner">
+    <span class="promo-bar-eyebrow">Photography Expedition</span>
+    <span class="promo-bar-body">Doubtful Sound with Derek Morrison · October 2026</span>
+    <span class="promo-bar-arrow" aria-hidden="true">→</span>
+  </div>
+</a>
 
 <!-- NAVIGATION -->
 <nav class="nav" id="fel-nav"></nav>
@@ -526,6 +577,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="css/fel-components.js"></script>
 <script>
   window.addEventListener('load', () => GLightbox({ selector: '.glightbox' }));
+
+  // Promo banner ↔ fixed nav sync: the main nav is `position: fixed; top: 0`
+  // (from css/fel.css), so the banner above it in the DOM would otherwise be
+  // hidden under the nav on page load. Push the nav down by the banner's
+  // visible height; snap to top:0 once the banner has scrolled off.
+  (function(){
+    function syncNav() {
+      var promo = document.querySelector('.promo-bar');
+      var nav = document.querySelector('.nav');
+      if (!promo || !nav) return;
+      var bottom = promo.getBoundingClientRect().bottom;
+      nav.style.top = bottom > 0 ? bottom + 'px' : '0';
+    }
+    window.addEventListener('load', syncNav);
+    window.addEventListener('scroll', syncNav, { passive: true });
+    window.addEventListener('resize', syncNav);
+  })();
 </script>
 </body>
 </html>
