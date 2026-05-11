@@ -31,12 +31,6 @@
       --img-radius:   0;
       --btn-radius:   4px;
       --ease:         0.3s ease;
-      --fb-blue:    #1877f2;
-      --ig-grad-a:  #f09433;
-      --ig-grad-b:  #e6683c;
-      --ig-grad-c:  #dc2743;
-      --ig-grad-d:  #cc2366;
-      --ig-grad-e:  #bc1888;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -113,13 +107,7 @@
     #drawer-caption:focus { outline: none; border-color: var(--text-on-light); }
     .drawer-hashtags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
     .drawer-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-    .drawer-buttons .share-btn-social { font-size: 0.58rem; padding: 9px 14px; }
-    .btn-x { background: #000; color: var(--white); }
-    .btn-snapchat { background: #fffc00; color: #000; }
-    .btn-tiktok { background: #010101; color: var(--white); }
-    @media (max-width: 640px) {
-      .drawer-buttons .share-btn-social { flex: 1 1 calc(50% - 8px); justify-content: center; }
-    }
+    .drawer-buttons .btn-primary { flex: 1; min-width: 160px; justify-content: center; }
 
     /* EMPTY STATE */
     .empty-state { text-align: center; padding: 80px 24px; border: 1px dashed var(--gold-border); border-radius: var(--img-radius); background: var(--gold-dim); }
@@ -169,10 +157,10 @@
     .permission-text strong { display: block; font-family: 'Anton', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-on-light); margin-bottom: 3px; }
     .permission-text p { font-size: 0.8rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
 
-    /* SOCIAL SHARING */
-    .share-panel { margin-top: 20px; border: 1px solid #e8e4df; border-radius: var(--img-radius); overflow: hidden; background: var(--white); }
-    .share-panel-header { padding: 16px 24px; border-bottom: 1px solid #e8e4df; display: flex; align-items: center; justify-content: space-between; }
-    .share-panel-header .label-upper { margin-bottom: 0; }
+    /* SOCIAL SHARING — drawer-only now; the per-platform panel and
+       its button family were removed when the share UI collapsed to a
+       single native Web Share button. Caption + hashtag styles are
+       retained because the drawer still surfaces them. */
     .share-caption { padding: 16px 24px; border-bottom: 1px solid #e8e4df; }
     .share-caption label { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 8px; }
     .share-caption textarea { width: 100%; border: 1px solid #d0ccc7; border-radius: var(--btn-radius); padding: 12px 14px; font-family: inherit; font-size: 0.88rem; color: var(--text-on-light); background: var(--white); resize: vertical; min-height: 80px; line-height: 1.6; transition: border-color var(--ease); }
@@ -182,15 +170,6 @@
     .hashtag-pill { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.08em; background: var(--white); border: 1px solid #d0ccc7; color: var(--text-muted); padding: 5px 12px; border-radius: 999px; cursor: pointer; transition: all var(--ease); user-select: none; }
     .hashtag-pill.active { background: var(--text-on-light); border-color: var(--text-on-light); color: var(--white); }
     .hashtag-pill:hover:not(.active) { border-color: var(--text-on-light); color: var(--text-on-light); }
-    .share-platforms { padding: 20px 24px; display: flex; flex-wrap: wrap; gap: 10px; }
-    .share-btn-social { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: var(--btn-radius); border: none; cursor: pointer; font-family: 'Anton', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: opacity var(--ease), transform 0.15s ease; }
-    .share-btn-social:hover { opacity: 0.88; transform: translateY(-1px); }
-    .share-btn-social svg { width: 18px; height: 18px; flex-shrink: 0; }
-    .btn-facebook { background: var(--fb-blue); color: var(--white); }
-    .btn-instagram { background: linear-gradient(45deg, var(--ig-grad-a), var(--ig-grad-b), var(--ig-grad-c), var(--ig-grad-d), var(--ig-grad-e)); color: var(--white); }
-    .btn-copy { background: var(--text-on-light); color: var(--white); }
-    .btn-native { background: var(--bright); color: var(--text-on-light); border: 1px solid #d0ccc7; }
-    .share-platform-note { padding: 0 24px 16px; font-size: 0.78rem; color: var(--text-muted-light); font-style: italic; }
 
     /* PRIVATE RESULT */
     #private-result { display: none; margin-top: 40px; animation: fadeUp 0.35s ease; }
@@ -249,8 +228,6 @@
       .result-header { flex-direction: column; align-items: flex-start; }
       .qr-section { flex-direction: column; }
       .tab-btn { font-size: 0.6rem; padding: 16px 8px; }
-      .share-platforms { padding: 16px; }
-      .share-btn-social { font-size: 0.6rem; padding: 10px 14px; }
     }
     /* Upload success takeover — shown after all files in a batch succeed */
     .upload-success { padding: 72px 32px; text-align: center; margin-bottom: 16px; }
@@ -539,13 +516,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div class="drawer-buttons">
-      <button class="share-btn-social btn-facebook" onclick="shareToFacebook()">Facebook</button>
-      <button class="share-btn-social btn-instagram" onclick="shareToInstagram()">Instagram</button>
-      <button class="share-btn-social btn-x" onclick="shareToX()">X</button>
-      <button class="share-btn-social btn-snapchat" onclick="shareToSnapchat()">Snapchat</button>
-      <button class="share-btn-social btn-tiktok" onclick="shareToTiktok()">TikTok</button>
-      <button class="share-btn-social btn-copy" onclick="copyToClipboard()">Copy</button>
-      <button class="share-btn-social btn-native" onclick="nativeShare()" id="btn-native-share">More</button>
+      <button class="btn-primary" onclick="handleShare()">Share</button>
     </div>
   </div>
 </div>
@@ -760,57 +731,59 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     return imgs ? `${base}\n\n${imgs}` : base;
   }
 
-  function shareToFacebook() {
-    const url = encodeURIComponent(shareTargetUrl());
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=500');
-  }
-
-  function shareToX() {
-    const caption = document.getElementById('share-caption-text').value.trim();
+  // Single share entry point. Tries the canonical Web Share API file
+  // pattern first (so the guest's OS share sheet gets the actual image
+  // file, not just a URL), falls back to URL-only share, and finally
+  // falls back to clipboard. Reads the drawer state directly:
+  // selectedShareImages may hold 0..N images; the caption + hashtags
+  // are read from the drawer textarea/pills.
+  async function handleShare() {
+    const caption = (document.getElementById('share-caption-text')?.value || '').trim();
     const hashtags = getActiveHashtags();
-    const text = encodeURIComponent(`${caption}\n\n${hashtags}`);
-    const url = encodeURIComponent(shareTargetUrl());
-    window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'width=600,height=500');
-  }
+    const composed = [caption, hashtags].filter(Boolean).join('\n\n');
+    const text = composed || 'Doubtful Sound — Fiordland Expeditions';
+    const selection = selectedShareImages.slice();
 
-  function shareToInstagram() {
-    copyText(buildShareTextWithImageUrls() + '\n\n' + FEL_IG_HANDLE);
-    showToast(selectedShareImages.length ? 'Caption + image URLs copied — save images to phone and paste in Instagram' : 'Caption copied — open Instagram to post!');
-    setTimeout(() => { window.open(FEL_INSTAGRAM_URL, '_blank'); }, 800);
-  }
+    try {
+      // No images selected — share the page URL with the caption.
+      if (!selection.length) {
+        const url = shareTargetUrl();
+        if (navigator.share) {
+          await navigator.share({ url, title: 'Fiordland Expeditions', text });
+          return;
+        }
+        await navigator.clipboard.writeText(`${text}\n\n${url}`);
+        showToast('Link copied to clipboard');
+        return;
+      }
 
-  function shareToSnapchat() {
-    copyText(buildShareTextWithImageUrls());
-    showToast('Caption + image URLs copied — paste into Snapchat');
-  }
+      // Try to share the actual image file(s) via the OS share sheet.
+      const files = await Promise.all(selection.map(async (img) => {
+        const blob = await fetch(img.src).then((r) => r.blob());
+        const filename = img.src.split('/').pop() || 'fel-image.jpg';
+        return new File([blob], filename, { type: blob.type });
+      }));
 
-  function shareToTiktok() {
-    copyText(buildShareTextWithImageUrls());
-    showToast('Caption + image URLs copied — paste into TikTok');
-    setTimeout(() => { window.open('https://www.tiktok.com/', '_blank'); }, 600);
-  }
+      if (navigator.canShare && navigator.canShare({ files })) {
+        await navigator.share({ files, title: 'Fiordland Expeditions', text });
+        return;
+      }
 
-  function copyToClipboard() {
-    copyText(buildShareTextWithImageUrls() + '\n\n' + FEL_IG_HANDLE + '  |  ' + FEL_FB_HANDLE);
-    showToast(selectedShareImages.length ? (selectedShareImages.length > 1 ? `${selectedShareImages.length} image links + caption copied!` : 'Image link + caption copied!') : 'Caption & link copied!');
-  }
+      // Native share without file support — share the first URL only.
+      if (navigator.share) {
+        await navigator.share({ url: selection[0].src, title: 'Fiordland Expeditions', text });
+        return;
+      }
 
-  async function nativeShare() {
-    if (navigator.share) {
-      try { await navigator.share({ title: 'Fiordland Expeditions', text: buildShareTextWithImageUrls(), url: shareTargetUrl() }); } catch(e) {}
-    } else { copyToClipboard(); }
-  }
-
-  async function shareImage(idx) {
-    const img = activeImages[idx] || images[idx];
-    currentImageUrl = img.src;
-    const hashtags = '#FiordlandExpeditions #DoubtfulSound #FiordlandNZ #NewZealand';
-    const text = `${img.caption} — Doubtful Sound, Fiordland NZ.\n\n${hashtags}\n\n${GCH_URL}`;
-    if (navigator.share) {
-      try { await navigator.share({ title: 'Fiordland Expeditions', text, url: img.src }); } catch(e) {}
-    } else {
-      copyText(`${text}\n\n${img.src}`);
-      showToast('Link & hashtags copied!');
+      // No Web Share API at all — copy URLs + caption to clipboard.
+      const lines = [text, '', ...selection.map((i) => i.src)].join('\n');
+      await navigator.clipboard.writeText(lines);
+      showToast(selection.length > 1 ? `${selection.length} image links copied` : 'Link copied to clipboard');
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        console.error('Share failed:', err);
+        showToast("Couldn't share — try again");
+      }
     }
   }
 
@@ -1144,11 +1117,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
   }
 
-  if (!navigator.share) {
-    const nb = document.getElementById('btn-native-share');
-    if (nb) nb.style.display = 'none';
-  }
-
   // ── GCH dataLayer event instrumentation ──────────────────
   // GTM tags subscribe to these and forward to GA4 as engagement events.
   // Wraps existing functions so original behaviour is preserved.
@@ -1176,12 +1144,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // Conversion: upload + consent
   gchWrap('submitUpload');
 
-  // Sharing (each platform a separate event)
-  ['Facebook','Instagram','X','Snapchat','Tiktok'].forEach(function(p){
-    gchWrap('shareTo' + p, function(){ return { platform: p.toLowerCase() }; });
+  // Sharing — single native-share entry point now; the per-platform
+  // events were retired alongside the legacy social share buttons.
+  gchWrap('handleShare', function(){
+    return { platform: 'native_share', image_count: (typeof selectedShareImages !== 'undefined' ? selectedShareImages.length : 0) };
   });
-  gchWrap('copyToClipboard', function(){ return { platform: 'copy_link' }; });
-  gchWrap('nativeShare', function(){ return { platform: 'native_share' }; });
 </script>
 
 </body>
