@@ -88,6 +88,14 @@
     .gallery-overlay .btn-share-small { opacity: 0; transform: translateY(6px); transition: all 0.25s ease; }
     .gallery-item:hover .gallery-overlay .btn-share-small { opacity: 1; transform: translateY(0); }
 
+    /* SHARE FEATURE — disabled at launch. <body class="share-disabled"> applied
+       by JS (SHARE_ENABLED flag) hides every share-related affordance.
+       Re-enable by flipping SHARE_ENABLED to true and removing this block. */
+    body.share-disabled .lb-share,
+    body.share-disabled .btn-share-small,
+    body.share-disabled #share-drawer { display: none !important; }
+    body.share-disabled.has-share-drawer { padding-bottom: 0 !important; }
+
     /* SHARE DRAWER — fixed-bottom, slides up when selection is non-empty */
     #share-drawer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 500; background: var(--white); border-top: 2px solid var(--gold); box-shadow: 0 -6px 24px rgba(0,0,0,0.15); transform: translateY(110%); transition: transform 0.3s ease; max-height: 80vh; overflow-y: auto; }
     #share-drawer.active { transform: translateY(0); }
@@ -290,7 +298,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="section-header">
           <span class="label-upper">Live from the Fiord</span>
           <h2>Doubtful Sound Highlights</h2>
-          <p style="margin-top:8px;">A curated window into life aboard Fiordland Expeditions. Hover any image to share.</p>
+          <p style="margin-top:8px;">A curated window into life aboard Fiordland Expeditions.</p>
         </div>
         <div class="gallery-grid" id="public-grid"></div>
         <div class="empty-state" id="feed-empty" style="display:none;">
@@ -567,6 +575,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // cross-tab (Expedition Feed + Your Gallery both contribute). A non-empty
   // array slides up the bottom share drawer.
   let selectedShareImages = [];
+
+  // SHARE FEATURE FLAG — disabled for launch (Web Share fallback was failing
+  // on guest devices, not worth debugging pre-launch). Flip to true to bring
+  // the whole share flow back; the underlying state machine is preserved.
+  const SHARE_ENABLED = false;
+  if (!SHARE_ENABLED) document.body.classList.add('share-disabled');
 
   function setActiveGrid(gridId) {
     activeImages = (gridId === 'private-grid' && privateImages.length) ? privateImages : publicImages;
