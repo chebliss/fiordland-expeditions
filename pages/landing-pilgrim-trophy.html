@@ -176,7 +176,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 class="section-title data-cms-edit="source" fade-up" style="text-align:center;">Expedition <em>Enquiry</em></h2>
     <div class="rule rule-center fade-up"></div>
     <div class="enquiry-box fade-up" style="margin-top:40px;">
-      <form action="mailto:charters@fiordlandexpeditions.co.nz" method="get" enctype="text/plain">
+      <form name="pilgrim-trophy-enquiry" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="pilgrim-trophy-enquiry" />
+        <p style="position:absolute;left:-9999px;" aria-hidden="true"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
         <div class="grid-2" style="gap:20px;">
           <div class="form-group">
             <label class="form-label" for="name">Your Name</label>
