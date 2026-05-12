@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+  <script src="https://unpkg.com/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
 
   <style>
     :root {
@@ -409,7 +410,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="card" style="margin-bottom:16px;">
           <span class="label-upper">Step 2 · Browse &amp; Upload</span>
           <h3>Select Files from This Device</h3>
-          <p>Photos and videos accepted. Max 200MB per file.</p>
+          <p>Photos and videos accepted. Max 200MB per file. Photos may be compressed for web sharing.</p>
           <div class="upload-zone" onclick="triggerFileInput()" style="margin-top:16px;">
             <div class="upload-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -997,6 +998,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   async function uploadOne(file, idx, form) {
+    // Cloudinary's free tier caps signed image uploads at 10MB. Compress >=8MB
+    // images client-side to stay under that. Videos and smaller files pass
+    // through unchanged.
+    let uploadFile = file;
+    if (file.type && file.type.startsWith('image/') && file.size >= 8 * 1024 * 1024) {
+      setQueueStatus(idx, 'compressing...');
+      try {
+        const originalSize = file.size;
+        const compressed = await window.imageCompression(file, {
+          maxSizeMB: 8,
+          maxWidthOrHeight: 2400,
+          useWebWorker: true,
+          fileType: 'image/jpeg',
+          initialQuality: 0.85,
+        });
+        uploadFile = compressed;
+        setQueueStatus(idx, `${(originalSize/1024/1024).toFixed(1)}MB → ${(compressed.size/1024/1024).toFixed(1)}MB`);
+      } catch (err) {
+        console.warn('Compression failed, falling back to original:', err);
+      }
+    }
+
     setQueueStatus(idx, 'requesting signature...');
     const sigRes = await fetch('/.netlify/functions/gch-upload', {
       method: 'POST',
@@ -1013,7 +1036,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     setQueueStatus(idx, 'uploading to Cloudinary...');
     const fd = new FormData();
-    fd.append('file', file);
+    fd.append('file', uploadFile, file.name);
     fd.append('api_key', sig.api_key);
     fd.append('timestamp', sig.timestamp);
     fd.append('signature', sig.signature);
