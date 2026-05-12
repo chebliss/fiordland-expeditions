@@ -184,6 +184,39 @@ function initFAQs() {
 // ── dataLayer click tracking ───────────────────────────────
 // GTM tags subscribe to these Custom Events and forward to GA4 + Ads.
 window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+
+// ── Attribution: GA4 cross-domain linker + UTM forwarding ──
+// Configures the GA4 SDK's automatic linker so cross-domain
+// sessions to fareharbor.com preserve attribution through the
+// booking handoff. send_page_view:false avoids duplicating
+// pageviews if the existing GTM container also fires GA4 for
+// the same property (GTM-52CH2F83 → G-H3DM3E4BMV).
+gtag('config', 'G-H3DM3E4BMV', {
+  send_page_view: false,
+  linker: { domains: ['fareharbor.com'] }
+});
+
+// UTM / click-id forwarding — when the visitor landed with ad
+// tracking params, decorate any outbound FareHarbor link at click
+// time so the source survives the booking handoff. Combined with
+// the linker config above, this preserves Google Ads (gclid),
+// Meta (fbclid), and UTM attribution through the FH booking flow.
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var forward = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid'];
+  var carry = forward.filter(function(k){ return params.has(k); })
+    .map(function(k){ return k + '=' + encodeURIComponent(params.get(k)); })
+    .join('&');
+  if (!carry) return;
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a');
+    if (!a || !a.href) return;
+    if (a.href.indexOf('fareharbor.com') === -1) return;
+    var sep = a.href.indexOf('?') === -1 ? '?' : '&';
+    a.href = a.href + sep + carry;
+  }, true);
+})();
 
 function felParseFareharborItem(url) {
   const m = url.match(/\/items\/(\d+)/);

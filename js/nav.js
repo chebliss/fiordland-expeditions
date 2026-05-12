@@ -97,4 +97,29 @@
       if (!wasOpen) item.classList.add('open');
     });
   });
+
+  // ── Attribution: GA4 cross-domain linker + UTM forwarding ──
+  // Mirrors css/fel-components.js so the legacy-nav page
+  // (discerning-explorer) carries the same attribution behaviour.
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+  gtag('config', 'G-H3DM3E4BMV', {
+    send_page_view: false,
+    linker: { domains: ['fareharbor.com'] }
+  });
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var forward = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','fbclid'];
+    var carry = forward.filter(function(k){ return params.has(k); })
+      .map(function(k){ return k + '=' + encodeURIComponent(params.get(k)); })
+      .join('&');
+    if (!carry) return;
+    document.addEventListener('click', function(e) {
+      var a = e.target.closest('a');
+      if (!a || !a.href) return;
+      if (a.href.indexOf('fareharbor.com') === -1) return;
+      var sep = a.href.indexOf('?') === -1 ? '?' : '&';
+      a.href = a.href + sep + carry;
+    }, true);
+  })();
 })();
