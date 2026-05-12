@@ -162,68 +162,84 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
       <div class="fade-up">
-        <!-- Gallery — 9 frames from the Derek Morrison shoot (Apr 29 – May 1 2026).
-             Pattern matches the photo-grid used on our-fleet.html and the overnight
-             cruise page (.photo-grid → .photo-grid-item → .photo-grid-img with
-             role="img" + aria-label). Captions intentionally omitted — this is a
-             photography portfolio surface, image-only. -->
-        <div class="photo-grid">
-          <div class="photo-grid-item">
-            <div class="photo-grid-img"
-                 role="img"
-                 aria-label="MV Tutoko II from above, Doubtful Sound, Fiordland Expeditions"
-                 style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476219/fel/derek-2026/All/20260501_FEL_DJI_0313.jpg')"></div>
-          </div>
-          <div class="photo-grid-item">
-            <div class="photo-grid-img"
-                 role="img"
-                 aria-label="Aerial of Doubtful Sound at twilight, Fiordland"
-                 style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476211/fel/derek-2026/All/20260501_FEL_DJI_0276.jpg')"></div>
-          </div>
-          <div class="photo-grid-item">
-            <div class="photo-grid-img"
-                 role="img"
-                 aria-label="Aerial of Fiordland's inner fiords"
-                 style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476209/fel/derek-2026/All/20260501_FEL_DJI_0270.jpg')"></div>
-          </div>
-          <div class="photo-grid-item">
-            <div class="photo-grid-img"
-                 role="img"
-                 aria-label="Aboard MV Tutoko II in Doubtful Sound, Fiordland Expeditions"
-                 style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476206/fel/derek-2026/All/20260501_FEL_C1_2246.jpg')"></div>
-          </div>
-          <div class="photo-grid-item">
-            <div class="photo-grid-img"
-                 role="img"
-                 aria-label="Aerial of Doubtful Sound, Fiordland Expeditions"
-                 style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476142/fel/derek-2026/All/20260430_FEL_DJI_0178.jpg')"></div>
-          </div>
-          <div class="photo-grid-item">
-            <div class="photo-grid-img"
-                 role="img"
-                 aria-label="MV Tutoko II in Fiordland's inner waters"
-                 style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476110/fel/derek-2026/All/20260430_FEL_C2_1649.jpg')"></div>
-          </div>
-          <div class="photo-grid-item">
-            <div class="photo-grid-img"
-                 role="img"
-                 aria-label="MV Tutoko II in Fiordland, Fiordland Expeditions"
-                 style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476110/fel/derek-2026/All/20260430_FEL_C2_1569.jpg')"></div>
-          </div>
-          <div class="photo-grid-item">
-            <div class="photo-grid-img"
-                 role="img"
-                 aria-label="Aboard MV Tutoko II in Doubtful Sound"
-                 style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476036/fel/derek-2026/All/20260429_FEL_C1_1063.jpg')"></div>
-          </div>
-          <div class="photo-grid-item">
-            <div class="photo-grid-img"
-                 role="img"
-                 aria-label="Doubtful Sound from MV Tutoko II, Fiordland Expeditions"
-                 style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476026/fel/derek-2026/All/20260429_FEL_C1_0957.jpg')"></div>
-          </div>
-        </div>
+        <!-- Single feature image, paired with the Day 1-4 itinerary on
+             the left. Matches the proportions of the previous
+             inner-fiord.jpg placeholder. The 9-image gallery lives in
+             its own full-width section below. -->
+        <div role="img"
+             aria-label="Aboard MV Tutoko II, Doubtful Sound — Derek Morrison photography expedition"
+             style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476206/fel/derek-2026/All/20260501_FEL_C1_2246.jpg');background-size:cover;background-position:center;height:560px;border-radius:0;"></div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY — full-width photo grid from the Derek Morrison shoot
+     (Apr 29 – May 1 2026). Same pattern as our-fleet.html's photo-grid
+     section: section.section-dark with custom padding + border-top, an
+     eyebrow + heading + gold rule, then .photo-grid with image-only
+     items (no .photo-grid-caption — this is a photography portfolio
+     surface). -->
+<section class="section section-dark" style="padding:48px 0 64px;border-top:1px solid var(--border);">
+  <div class="section-inner" style="text-align:center;margin-bottom:40px;">
+    <p class="section-label">Frames From The Shoot</p>
+    <h2 class="section-title">Doubtful Sound, <em>In The Light.</em></h2>
+    <div class="rule rule-center"></div>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-grid-item">
+      <div class="photo-grid-img"
+           role="img"
+           aria-label="MV Tutoko II from above, Doubtful Sound, Fiordland Expeditions"
+           style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476219/fel/derek-2026/All/20260501_FEL_DJI_0313.jpg')"></div>
+    </div>
+    <div class="photo-grid-item">
+      <div class="photo-grid-img"
+           role="img"
+           aria-label="Aerial of Doubtful Sound at twilight, Fiordland"
+           style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476211/fel/derek-2026/All/20260501_FEL_DJI_0276.jpg')"></div>
+    </div>
+    <div class="photo-grid-item">
+      <div class="photo-grid-img"
+           role="img"
+           aria-label="Aerial of Fiordland's inner fiords"
+           style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476209/fel/derek-2026/All/20260501_FEL_DJI_0270.jpg')"></div>
+    </div>
+    <div class="photo-grid-item">
+      <div class="photo-grid-img"
+           role="img"
+           aria-label="Aboard MV Tutoko II in Doubtful Sound, Fiordland Expeditions"
+           style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476206/fel/derek-2026/All/20260501_FEL_C1_2246.jpg')"></div>
+    </div>
+    <div class="photo-grid-item">
+      <div class="photo-grid-img"
+           role="img"
+           aria-label="Aerial of Doubtful Sound, Fiordland Expeditions"
+           style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476142/fel/derek-2026/All/20260430_FEL_DJI_0178.jpg')"></div>
+    </div>
+    <div class="photo-grid-item">
+      <div class="photo-grid-img"
+           role="img"
+           aria-label="MV Tutoko II in Fiordland's inner waters"
+           style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476110/fel/derek-2026/All/20260430_FEL_C2_1649.jpg')"></div>
+    </div>
+    <div class="photo-grid-item">
+      <div class="photo-grid-img"
+           role="img"
+           aria-label="MV Tutoko II in Fiordland, Fiordland Expeditions"
+           style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476110/fel/derek-2026/All/20260430_FEL_C2_1569.jpg')"></div>
+    </div>
+    <div class="photo-grid-item">
+      <div class="photo-grid-img"
+           role="img"
+           aria-label="Aboard MV Tutoko II in Doubtful Sound"
+           style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476036/fel/derek-2026/All/20260429_FEL_C1_1063.jpg')"></div>
+    </div>
+    <div class="photo-grid-item">
+      <div class="photo-grid-img"
+           role="img"
+           aria-label="Doubtful Sound from MV Tutoko II, Fiordland Expeditions"
+           style="background-image:url('https://res.cloudinary.com/dbfwdxsaz/image/upload/f_auto,q_auto,w_1200/v1778476026/fel/derek-2026/All/20260429_FEL_C1_0957.jpg')"></div>
     </div>
   </div>
 </section>
