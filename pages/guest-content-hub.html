@@ -410,7 +410,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="card" style="margin-bottom:16px;">
           <span class="label-upper">Step 2 · Browse &amp; Upload</span>
           <h3>Select Files from This Device</h3>
-          <p>Photos and videos accepted. Max 200MB per file. Photos may be compressed for web sharing.</p>
+          <p>Photos welcome. Max 25MB per file. Photos may be compressed for web sharing.</p>
           <div class="upload-zone" onclick="triggerFileInput()" style="margin-top:16px;">
             <div class="upload-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -420,9 +420,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               </svg>
             </div>
             <h3>Drop files here or click to browse</h3>
-            <p style="font-size:0.82rem;margin-top:6px;">Photos and videos welcome · Max 200MB per file</p>
+            <p style="font-size:0.82rem;margin-top:6px;">Photos welcome · Max 25MB per file</p>
           </div>
-          <input type="file" id="file-input" multiple accept="image/*,video/mp4,video/quicktime" style="display:none" onchange="handleFileSelect(event)">
+          <input type="file" id="file-input" multiple accept="image/*" style="display:none" onchange="handleFileSelect(event)">
           <div id="upload-queue"></div>
         </div>
 
@@ -955,7 +955,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   /* Upload pipeline state */
   const UPLOAD_TYPE = new URLSearchParams(location.search).get('crew') === '1' ? 'crew' : 'guest';
-  const MAX_BYTES = 200 * 1024 * 1024;
+  const MAX_BYTES = 25 * 1024 * 1024;
   let pendingFiles = [];
 
   function handleFileSelect(e) {
@@ -963,7 +963,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     if (!files.length) return;
     const accepted = files.filter(f => f.size <= MAX_BYTES);
     if (accepted.length < files.length) {
-      showToast(`${files.length - accepted.length} file(s) over 200MB skipped`);
+      showToast(`${files.length - accepted.length} file(s) over 25MB skipped`);
     }
     pendingFiles = accepted;
     renderUploadQueue();
@@ -999,10 +999,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   async function uploadOne(file, idx, form) {
     // Cloudinary's free tier caps signed image uploads at 10MB. Compress >=8MB
-    // images client-side to stay under that. Videos and smaller files pass
-    // through unchanged.
+    // images client-side to stay under that; smaller files pass through.
     let uploadFile = file;
-    if (file.type && file.type.startsWith('image/') && file.size >= 8 * 1024 * 1024) {
+    if (file.size >= 8 * 1024 * 1024) {
       setQueueStatus(idx, 'compressing...');
       try {
         const originalSize = file.size;
