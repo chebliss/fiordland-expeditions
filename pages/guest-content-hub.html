@@ -827,6 +827,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       return;
     }
 
+    if (window.__gchPendingUploadId && !data.expired) {
+      const pendingId = window.__gchPendingUploadId;
+      const present = Array.isArray(data.assets) && data.assets.some((a) => a.upload_id === pendingId);
+      if (!present) {
+        showToast('Syncing your recent upload...');
+        await new Promise((r) => setTimeout(r, 1500));
+        try {
+          const res2 = await fetch(`/.netlify/functions/gch-gallery?${qs}&_=${Date.now()}`, { method: 'GET' });
+          const data2 = await res2.json();
+          if (res2.ok && data2.ok) data = data2;
+        } catch (_) { /* fall through with original data */ }
+      }
+      window.__gchPendingUploadId = null;
+    }
+
     if (data.expired) {
       grid.innerHTML = '';
       showToast('This gallery has expired (90-day window)');
@@ -1028,6 +1043,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
     const consent = await consentRes.json();
     if (!consentRes.ok || !consent.ok) throw new Error(consent.error || 'Consent record failed');
+
+    // Airtable's filterByFormula has a 1-3s eventual-consistency window after
+    // insert; flag the upload so showPrivateGallery() can retry if it's missing.
+    window.__gchPendingUploadId = cld.public_id || null;
 
     setQueueStatus(idx, UPLOAD_TYPE === 'crew' ? 'uploaded · approved' : 'uploaded · pending review');
   }
