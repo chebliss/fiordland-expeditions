@@ -103,17 +103,17 @@
     }
     .discover-hero-hint svg { stroke: var(--gold-light); flex-shrink: 0; }
 
-    /* Promo banner — thin strip at top of <body>, above the main nav.
-       Scrolls away with the page; the JS at end of <body> nudges the
-       fixed nav's `top` down while the banner is in viewport so they
-       don't overlap, and snaps the nav back to top:0 once the banner
-       has scrolled off. */
+    /* Promo banner — sits above the sticky nav in normal document
+       flow. Scrolls away naturally with the page; the nav (now
+       position: sticky in fel.css) sticks to viewport top once the
+       banner has scrolled off. Update text + href below for new
+       promos. Do NOT add position: fixed/sticky/absolute here —
+       breaks the load-time layout we just fixed. */
     .promo-bar {
       display: block;
       background: var(--navy);
       border-bottom: 1px solid var(--border);
       text-decoration: none;
-      position: relative; z-index: 99;
       transition: background 0.2s;
     }
     .promo-bar:hover { background: var(--navy-mid); }
@@ -579,23 +579,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script src="css/fel-components.js"></script>
 <script>
   window.addEventListener('load', () => GLightbox({ selector: '.glightbox' }));
-
-  // Promo banner ↔ fixed nav sync: the main nav is `position: fixed; top: 0`
-  // (from css/fel.css), so the banner above it in the DOM would otherwise be
-  // hidden under the nav on page load. Push the nav down by the banner's
-  // visible height; snap to top:0 once the banner has scrolled off.
-  (function(){
-    function syncNav() {
-      var promo = document.querySelector('.promo-bar');
-      var nav = document.querySelector('.nav');
-      if (!promo || !nav) return;
-      var bottom = promo.getBoundingClientRect().bottom;
-      nav.style.top = bottom > 0 ? bottom + 'px' : '0';
-    }
-    window.addEventListener('load', syncNav);
-    window.addEventListener('scroll', syncNav, { passive: true });
-    window.addEventListener('resize', syncNav);
-  })();
 </script>
 </body>
 </html>

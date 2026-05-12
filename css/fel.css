@@ -27,7 +27,18 @@
 
   --max-w: 1200px;
   --section-pad: 100px 24px;
+  /* Rendered height of .nav at the unscrolled state (logo 48px +
+     padding 20×2 = 88). Drives hero min-height + anchor scroll
+     offset. Update if .nav padding/logo height changes. */
+  --nav-height: 88px;
 }
+
+/* Anchor scroll offset — keeps in-page anchor jumps from landing
+   under the sticky nav. Scoped to section-level elements with an
+   id so non-anchor-target ids (form inputs etc.) aren't affected. */
+section[id],
+article[id],
+.anchor-target { scroll-margin-top: var(--nav-height); }
 
 /* ---- RESET ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -44,11 +55,15 @@ img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
 button { cursor: pointer; font-family: var(--font-sans); }
 
-/* ---- NAVIGATION ---- */
+/* ---- NAVIGATION ----
+   Sticky (not fixed) — sits in normal document flow so a promo
+   banner above it can render without overlap. Sticks to the
+   viewport top once the page scrolls past it. */
 .nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  position: sticky; top: 0; z-index: 100;
   display: flex; align-items: center; justify-content: space-between;
   padding: 20px 40px;
+  background: var(--navy);
   transition: background 0.4s, padding 0.4s;
 }
 .nav.scrolled {
@@ -101,9 +116,11 @@ button { cursor: pointer; font-family: var(--font-sans); }
 .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; }
 .nav-hamburger span { display: block; width: 24px; height: 1.5px; background: var(--white); }
 
-/* ---- HERO ---- */
+/* ---- HERO ----
+   Compensates for the now-sticky nav (which takes flow space)
+   so the hero fills exactly viewport-minus-nav. */
 .hero {
-  position: relative; min-height: 100vh;
+  position: relative; min-height: calc(100vh - var(--nav-height));
   display: flex; align-items: center; justify-content: center;
   overflow: hidden; text-align: center;
 }
