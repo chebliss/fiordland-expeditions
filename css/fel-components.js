@@ -92,13 +92,9 @@ function renderFooter() {
       </div>
     </div>
 
-    <!-- STAKEHOLDER PREVIEW BOX -->
-    <div style="border:1px dashed rgba(201,168,76,0.4);padding:24px 32px;margin-bottom:32px;display:flex;align-items:center;flex-wrap:wrap;gap:24px;">
-      <div style="flex-shrink:0;">
-        <p style="font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Stakeholder Preview</p>
-        <p style="font-size:11px;color:var(--text-dim);line-height:1.5;">Persona landing pages, not in public navigation</p>
-      </div>
-      <div style="width:1px;height:40px;background:rgba(201,168,76,0.2);flex-shrink:0;"></div>
+    <!-- Persona / preview link strip — pages not in public nav.
+         Dashed-border container retained as a visual delimiter. -->
+    <div style="border:1px dashed rgba(201,168,76,0.4);padding:24px 32px;margin-bottom:32px;display:flex;align-items:center;flex-wrap:wrap;gap:10px;justify-content:center;">
       <div style="display:flex;flex-wrap:wrap;gap:10px;">
         <a href="${b}pages/photography-expedition.html" style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:8px 18px;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">Photography Expedition · Oct 2026</a>
         <a href="${b}pages/landing-seclusionist.html" style="font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.35);padding:8px 18px;text-decoration:none;" onmouseover="this.style.background='rgba(201,168,76,0.1)'" onmouseout="this.style.background='transparent'">The Seclusionist</a>
