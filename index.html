@@ -453,8 +453,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="section-label data-cms-edit="source" fade-up">Stay in the Know</p>
     <h2 class="section-title data-cms-edit="source" fade-up" style="font-size:32px;">Be the First to <em>Hear</em></h2>
     <p class="section-body data-cms-edit="source" fade-up" style="margin:16px auto 28px;">New cruises, special experiences, and exclusive updates from Fiordland Expeditions. We respect your privacy and will never share your information.</p>
-    <form class="fade-up" style="display:flex;gap:12px;max-width:440px;margin:0 auto;" onsubmit="return false;">
-      <input type="email" class="form-input" placeholder="Your email address" style="flex:1;" />
+    <form class="fade-up" name="newsletter-signup" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="bot-field" style="display:flex;gap:12px;max-width:440px;margin:0 auto;flex-wrap:wrap;">
+      <input type="hidden" name="form-name" value="newsletter-signup" />
+      <p style="position:absolute;left:-9999px;" aria-hidden="true"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+      <input type="email" name="email" required class="form-input" placeholder="Your email address" style="flex:1;min-width:200px;" />
       <button type="submit" class="btn-primary" style="white-space:nowrap;">Sign Up</button>
     </form>
   </div>
