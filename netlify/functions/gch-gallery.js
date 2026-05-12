@@ -1,9 +1,11 @@
 // netlify/functions/gch-gallery.js
 //
 // Guest Content Hub — private gallery reader.
-// Given a vessel + cruise_date + guest_last_name, returns the approved
-// Cloudinary URLs for that cruise. Guests see every approved asset from their
-// cruise (not only their own uploads) — shared memories across cruise mates.
+// Given a vessel + cruise_date + guest_last_name, returns approved Cloudinary
+// URLs for that cruise. Visibility respects each uploader's consent_mates
+// choice: records where consent_mates=TRUE are shared with everyone on the
+// cruise; records where consent_mates=FALSE are returned only to the
+// uploader themselves (matched by guest_last_name, case-insensitive).
 // Enforces a 90-day expiry window from the cruise_date.
 
 const AIRTABLE_API_KEY = (process.env.AIRTABLE_API_KEY || '').trim();
@@ -98,8 +100,10 @@ exports.handler = async (event) => {
   }
   const vessel = sanitiseVessel(params.vessel);
   const cruiseDate = sanitiseCruiseDate(params.cruise_date);
-  // guest_last_name is accepted but not used as a filter — any guest on the
-  // cruise can retrieve the shared gallery. We log/echo it for audit only.
+  // guest_last_name is the requesting guest. Used to apply the consent_mates
+  // privacy gate (see filter construction below) so a guest who unticked
+  // "Share with cruise mates" still sees their own uploads in their gallery,
+  // while other authenticated guests on the same cruise do not.
   const guestLastName = typeof params.guest_last_name === 'string' ? params.guest_last_name.trim().slice(0, 80) : '';
 
   if (!vessel || !cruiseDate) {
@@ -123,7 +127,16 @@ exports.handler = async (event) => {
   // cruise_date is an Airtable Date field. Direct equality with a string
   // literal is unreliable across Airtable's formula engine — coerce both
   // sides to the same YYYY-MM-DD string before comparing.
-  const filter = `AND({vessel}="${escapeFormulaString(vessel)}",DATETIME_FORMAT({cruise_date},"YYYY-MM-DD")="${escapeFormulaString(cruiseDate)}",OR({status}="approved",{status}="featured"))`;
+  //
+  // Privacy gate: a record is visible if either the uploader granted
+  // consent_mates, or the requester is the uploader themselves (matched
+  // case-insensitively on last name). If no name was supplied, fall back
+  // to consent_mates-only to avoid surfacing records that match an empty
+  // guest_last_name field.
+  const ownerClause = guestLastName
+    ? `OR({consent_mates}=TRUE(),LOWER({guest_last_name})="${escapeFormulaString(guestLastName.toLowerCase())}")`
+    : `{consent_mates}=TRUE()`;
+  const filter = `AND({vessel}="${escapeFormulaString(vessel)}",DATETIME_FORMAT({cruise_date},"YYYY-MM-DD")="${escapeFormulaString(cruiseDate)}",${ownerClause},OR({status}="approved",{status}="featured"))`;
 
   const url = new URL(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`);
   url.searchParams.set('filterByFormula', filter);
