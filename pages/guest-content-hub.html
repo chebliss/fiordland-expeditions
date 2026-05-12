@@ -1136,12 +1136,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   }
 
   function goToYourGallery() {
-    // Click the second tab button — Expedition Feed / Your Gallery /
-    // Contribute, so [1] is Your Gallery. Using .click() reuses the
-    // existing switchTab() handler exactly.
+    // Carry the upload form's values into the gallery lookup form so the guest
+    // doesn't have to re-enter them — they just authenticated by uploading.
+    const v = document.getElementById('upload-vessel').value;
+    const d = document.getElementById('upload-cruise-date').value;
+    const n = document.getElementById('upload-last-name').value.trim();
+    if (v) document.getElementById('vessel-select').value = v;
+    if (d) document.getElementById('cruise-date').value = d;
+    if (n) document.getElementById('last-name').value = n;
+
+    // tabs[1] is Your Gallery (Expedition Feed / Your Gallery / Contribute).
     const tabs = document.querySelectorAll('.tab-btn');
     if (tabs[1]) tabs[1].click();
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Auto-load if all three carried across; otherwise fall back to manual entry.
+    if (v && d && n) showPrivateGallery();
   }
 
   /* QR CODE — points to the GCH URL */
