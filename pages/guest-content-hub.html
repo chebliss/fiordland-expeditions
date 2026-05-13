@@ -372,21 +372,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <p style="margin-top:8px;">Your best shots could feature in our expedition feed or marketing materials. All uploads are reviewed by our crew before going live.</p>
         </div>
 
-        <!-- QR -->
-        <div class="card" style="margin-bottom:16px;">
-          <span class="label-upper">On-Vessel Upload</span>
-          <h3>Scan to Upload from Your Phone</h3>
-          <p>Point your camera — no app needed.</p>
-          <div class="qr-section">
-            <div class="qr-wrap"><canvas id="qr-canvas"></canvas></div>
-            <div class="qr-info">
-              <span class="label-upper">Direct Upload Link</span>
-              <p>Scan to open the upload experience on your phone. Works on Starlink — no mobile data needed while on the vessel.</p>
-              <code style="font-size:0.78rem;color:var(--text-muted);word-break:break-all;">fiordlandexpeditions.co.nz/gch</code>
-            </div>
-          </div>
-        </div>
-
         <div id="upload-form-section">
         <!-- Cruise details (required for upload) -->
         <div class="card" style="margin-bottom:16px;">
@@ -476,6 +461,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="upload-success-actions">
             <button class="btn-primary" onclick="resetUploadForm()">Upload another</button>
             <button class="btn-secondary" onclick="goToYourGallery()">View Your Gallery</button>
+          </div>
+        </div>
+
+        <!-- QR -->
+        <div class="card" style="margin-bottom:16px;">
+          <span class="label-upper">On-Vessel Upload</span>
+          <h3>Scan to Upload from Your Phone</h3>
+          <p>Point your camera — no app needed.</p>
+          <div class="qr-section">
+            <div class="qr-wrap"><canvas id="qr-canvas"></canvas></div>
+            <div class="qr-info">
+              <span class="label-upper">Direct Upload Link</span>
+              <p>Scan to open the upload experience on your phone. Works on Starlink — no mobile data needed while on the vessel.</p>
+              <code style="font-size:0.78rem;color:var(--text-muted);word-break:break-all;">fiordlandexpeditions.co.nz/gch</code>
+            </div>
           </div>
         </div>
       </div>
