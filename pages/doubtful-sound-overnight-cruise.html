@@ -70,6 +70,11 @@
   <!-- GLightbox — Middle Earth gallery -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
   <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js" defer></script>
+
+  <!-- FareHarbor lightframe API — auto-converts any fareharbor.com link
+       on this page (including ones rendered by the calendar embed below)
+       into an in-page lightframe popup. -->
+  <script src="https://fareharbor.com/embeds/api/v1/?autolightframe=yes"></script>
   <style>
     .me-hero-link { display:block; cursor:zoom-in; text-decoration:none; }
     .me-hero-hint {
@@ -513,6 +518,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li style="font-size:13px;color:var(--text-body);">✦ <a href="/pages/milestone-celebration.html" style="color:var(--gold-light);text-decoration:none;">Milestone Celebration</a> — birthdays, anniversaries, retirements with Heli-Hero arrival</li>
         <li style="font-size:13px;color:var(--text-body);">✦ <a href="/pages/anglers-and-hunters.html" style="color:var(--gold-light);text-decoration:none;">Anglers &amp; Hunters</a> — dedicated fishing, hunting, dive expeditions on MV Tutoko</li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CHECK AVAILABILITY (FareHarbor calendar embed) -->
+<section class="section section-card" style="padding:60px 24px;">
+  <div class="section-inner" style="max-width:960px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:32px;">
+      <p class="section-label fade-up" data-cms-edit="source">Live Availability</p>
+      <h2 class="section-title fade-up" data-cms-edit="source">Check <em>Availability</em></h2>
+      <div class="rule rule-center fade-up"></div>
+      <p class="section-body fade-up" style="margin:24px auto 0;" data-cms-edit="source">Select your preferred date below and secure your berth aboard MV Tutoko II.</p>
+    </div>
+    <div class="fade-up" style="background:var(--navy-card);border:1px solid var(--border);padding:40px;">
+      <!-- FareHarbor calendar — flow/back/g4 params match the working
+           Book Now buttons so date clicks route into the same optimised
+           booking flow and carry GA4 cross-domain attribution. -->
+      <script src="https://fareharbor.com/embeds/script/calendar/fiordlandexpeditionsnz/?fallback=simple&full-items=yes&flow=554429&back=https://fiordlandexpeditions.co.nz/&g4=yes"></script>
     </div>
   </div>
 </section>

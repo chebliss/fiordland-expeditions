@@ -441,8 +441,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
   <div class="section-inner fade-up" style="max-width:960px;margin:0 auto;">
     <div style="background:var(--navy-card);border:1px solid var(--border);padding:40px;">
-      <!-- FareHarbor calendar -->
-      <script src="https://fareharbor.com/embeds/script/calendar/fiordlandexpeditionsnz/?fallback=simple&full-items=yes"></script>
+      <!-- FareHarbor calendar — flow/back/g4 params match the working
+           Book Now buttons so date clicks route into the same optimised
+           booking flow and carry GA4 cross-domain attribution. -->
+      <script src="https://fareharbor.com/embeds/script/calendar/fiordlandexpeditionsnz/?fallback=simple&full-items=yes&flow=554429&back=https://fiordlandexpeditions.co.nz/&g4=yes"></script>
     </div>
   </div>
 </section>
