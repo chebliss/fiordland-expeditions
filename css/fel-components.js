@@ -159,6 +159,13 @@ function initNav() {
 
 function initFadeUp() {
   const els = document.querySelectorAll('.fade-up');
+  // Respect prefers-reduced-motion — show content immediately, skip
+  // the IntersectionObserver entirely. CSS in fel.css also covers this
+  // as defence-in-depth, in case the script never runs.
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    els.forEach(el => el.classList.add('visible'));
+    return;
+  }
   if (!('IntersectionObserver' in window)) {
     els.forEach(el => el.classList.add('visible'));
     return;

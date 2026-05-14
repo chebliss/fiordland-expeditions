@@ -498,6 +498,12 @@ button { cursor: pointer; font-family: var(--font-sans); }
 /* ---- SCROLL ANIMATION ---- */
 .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.6s, transform 0.6s; }
 .fade-up.visible { opacity: 1; transform: none; }
+/* Accessibility — show content immediately for visitors who prefer
+   reduced motion. Belt-and-braces with the JS guard in fel-components.js
+   initFadeUp(). */
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { opacity: 1; transform: none; transition: none; }
+}
 
 /* ---- NAV SCROLL JS HOOK ---- */
 /* handled in each page's inline script */
