@@ -5,6 +5,8 @@
 # Block all crawlers on staging
 User-agent: *
 Disallow: /
+Disallow: /_legal_drafts/
+Disallow: /_derek_shoot_planning/
 
 # Allow only production
 Host: https://fiordlandexpeditions.co.nz

@@ -80,4 +80,16 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://fiordlandexpeditions.co.nz/pages/privacy.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://fiordlandexpeditions.co.nz/pages/terms.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
 </urlset>

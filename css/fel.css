@@ -649,6 +649,76 @@ button { cursor: pointer; font-family: var(--font-sans); }
   .spec-grid { grid-template-columns: 1fr; }
 }
 
+/* ---- LEGAL DOCUMENT STYLES ----
+   For legal pages (privacy.html, terms.html). Includes the DRAFT banner
+   (pre-review warning), inline placeholder markers (for stubbed-out
+   sections awaiting legal input), and document-grade H2/H3 heading
+   variants smaller than the page H1. Localised red palette on the
+   warning components — single-use, not promoted to site-wide tokens. */
+
+/* Page-top DRAFT warning. Sits above the H1 in main content. */
+.draft-banner {
+  background: #FEF2F2;
+  border-left: 4px solid #B91C1C;
+  color: var(--navy);
+  padding: 18px 22px;
+  margin: 0 0 32px;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: var(--font-sans);
+}
+.draft-banner strong {
+  font-weight: 700;
+  color: #B91C1C;
+  letter-spacing: 0.04em;
+}
+
+/* Inline placeholder block — flags sections where legal/copy review must
+   fill in missing detail before publish. The "PLACEHOLDER —" prefix is
+   auto-added via ::before so the HTML body holds only the actual prompt. */
+.draft-placeholder {
+  display: block;
+  background: #FEF2F2;
+  border-left: 3px solid #B91C1C;
+  color: var(--navy);
+  padding: 14px 18px;
+  margin: 18px 0;
+  font-size: 13px;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.65;
+}
+.draft-placeholder::before {
+  content: 'PLACEHOLDER — ';
+  font-weight: 700;
+  color: #B91C1C;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Numbered top-level section heading inside a legal document (e.g.
+   "1. About this policy"). Smaller than the page H1 (.section-title at
+   42px on legal pages) so the hierarchy reads cleanly. */
+.legal-h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 48px 0 16px;
+}
+
+/* Sub-section heading inside a legal document (e.g. "3.1 Information
+   you provide directly"). One level below .legal-h2. */
+.legal-h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.3;
+  margin: 32px 0 12px;
+}
+
 /* ---- QUAD CABIN OPTION ---- */
 .cabin-option {
   border: 1px solid var(--border); padding: 28px;
