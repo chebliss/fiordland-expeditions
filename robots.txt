@@ -1,14 +1,10 @@
 # robots.txt — Fiordland Expeditions
 # Production: fiordlandexpeditions.co.nz
-# Staging: fel-staging.netlify.app
 
-# Block all crawlers on staging
 User-agent: *
-Disallow: /
+Allow: /
 Disallow: /_legal_drafts/
 Disallow: /_derek_shoot_planning/
 
-# Allow only production
-Host: https://fiordlandexpeditions.co.nz
-
+# Sitemap
 Sitemap: https://fiordlandexpeditions.co.nz/sitemap.xml
