@@ -1,0 +1,10 @@
+# robots-staging.txt — Fiordland Expeditions (STAGING ONLY)
+# Served at fel-staging.netlify.app/robots.txt via the host-based
+# rewrite rule in _redirects. Production (fiordlandexpeditions.co.nz)
+# serves the separate robots.txt with crawlers allowed.
+
+# Block all crawlers on staging
+User-agent: *
+Disallow: /
+Disallow: /_legal_drafts/
+Disallow: /_derek_shoot_planning/

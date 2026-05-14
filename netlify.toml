@@ -1,0 +1,28 @@
+# Netlify build configuration for Fiordland Expeditions
+# https://docs.netlify.com/configure-builds/file-based-configuration/
+
+[build]
+  # Publish the repo root as the site (static HTML site, no build step)
+  publish = "."
+  # Location of serverless functions (Guest Content Hub backend)
+  functions = "netlify/functions"
+
+# Default Node.js runtime for serverless functions
+[build.environment]
+  NODE_VERSION = "20"
+
+# Function-specific settings
+[functions]
+  # Bundle with esbuild for fast cold starts
+  node_bundler = "esbuild"
+  # External node modules that should not be bundled (none for now)
+  external_node_modules = []
+
+# Security headers for function responses
+# (Page-level headers are handled in the root _headers file)
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"

@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guest Hub — Fiordland Expeditions</title>
+  <meta name="description" content="Browse expedition highlights, access your personal cruise gallery, or share your moments from Doubtful Sound. Fiordland Expeditions Guest Hub.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+  <script src="https://unpkg.com/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+
+  <style>
+    :root {
+      --black:        #111111;
+      --white:        #ffffff;
+      --bright:       #F8F4EE;
+      --white-bold:   #ffffff;
+      /* Gold consolidated to the main site --gold value (#C9A84C) so the
+         GCH and the rest of FEL share a single accent. */
+      --gold:         #C9A84C;
+      --gold-dim:     rgba(201,168,76,0.12);
+      --gold-border:  rgba(201,168,76,0.35);
+      --text-on-dark:   #f9fafb;
+      --text-on-light:  #1a1a1a;
+      --text-muted:     #6b6b6b;
+      --text-muted-light: #9a9a9a;
+      --max-width:    1200px;
+      --page-gutter:  3vw;
+      --mobile-gutter: 6vw;
+      --img-radius:   0;
+      --btn-radius:   4px;
+      --ease:         0.3s ease;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 300; font-size: 16px; line-height: 1.6; color: var(--text-on-light); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+    h1,h2,h3,h4,.label-upper { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; line-height: 1.05; }
+    h1 { font-size: clamp(2rem, 4.5vw, 3.2rem); }
+    h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); }
+    h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
+    h4 { font-size: 1rem; }
+    p  { font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); }
+    .label-upper { font-size: 0.65rem; letter-spacing: 0.18em; color: var(--gold); display: block; margin-bottom: 10px; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--page-gutter); }
+    @media (max-width: 768px) { .container { padding: 0 var(--mobile-gutter); } }
+
+    /* HEADER */
+    .site-header { background: var(--black); border-bottom: 2px solid var(--gold); padding: 0 var(--page-gutter); position: sticky; top: 0; z-index: 200; }
+    .site-header-inner { max-width: var(--max-width); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .site-header img { height: 40px; width: auto; }
+    .header-page-label { font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+    .header-back { font-family: 'Anton', sans-serif; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .header-back:hover { color: var(--gold); }
+
+    /* HERO */
+    .hero { background: var(--black); padding: 64px var(--page-gutter) 56px; text-align: center; border-bottom: 2px solid var(--gold); }
+    .hero h1 { color: var(--white); margin-bottom: 16px; }
+    .gold-underline { text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: 4px; }
+    .hero p { color: rgba(255,255,255,0.65); max-width: 560px; margin: 0 auto; }
+
+    /* TABS */
+    .tab-nav { display: flex; background: var(--white); border-bottom: 1px solid #e8e4df; position: sticky; top: 72px; z-index: 100; }
+    .tab-btn { flex: 1; padding: 20px 16px; font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all var(--ease); margin-bottom: -1px; }
+    .tab-btn:hover { color: var(--text-on-light); }
+    .tab-btn.active { color: var(--text-on-light); border-bottom-color: var(--gold); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* SECTIONS */
+    .section-white  { background: var(--white); padding: 80px 0; }
+    .section-bright { background: var(--bright); padding: 80px 0; }
+    .section-header { margin-bottom: 36px; }
+    .section-header h2 { color: var(--text-on-light); margin-top: 4px; }
+
+    /* GALLERY */
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+    .gallery-item { aspect-ratio: 1/1; border-radius: var(--img-radius); overflow: hidden; cursor: pointer; position: relative; background: #e8e4df; border: 3px solid transparent; transition: border-color 0.2s ease, transform 0.2s ease; }
+    .gallery-item.selected { border-color: var(--gold); transform: scale(0.97); }
+    .gallery-item.selected::after { content: '✓'; position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; background: var(--gold); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .gallery-item:hover img { transform: scale(1.05); }
+    .gallery-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background var(--ease); display: flex; align-items: flex-end; padding: 14px; gap: 8px; }
+    .gallery-item:hover .gallery-overlay { background: rgba(0,0,0,0.32); }
+    .gallery-overlay .btn-share-small { opacity: 0; transform: translateY(6px); transition: all 0.25s ease; }
+    .gallery-item:hover .gallery-overlay .btn-share-small { opacity: 1; transform: translateY(0); }
+
+    /* SHARE FEATURE — disabled at launch. <body class="share-disabled"> applied
+       by JS (SHARE_ENABLED flag) hides every share-related affordance.
+       Re-enable by flipping SHARE_ENABLED to true and removing this block. */
+    body.share-disabled .lb-share,
+    body.share-disabled .btn-share-small,
+    body.share-disabled #share-drawer { display: none !important; }
+    body.share-disabled.has-share-drawer { padding-bottom: 0 !important; }
+
+    /* SHARE DRAWER — fixed-bottom, slides up when selection is non-empty */
+    #share-drawer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 500; background: var(--white); border-top: 2px solid var(--gold); box-shadow: 0 -6px 24px rgba(0,0,0,0.15); transform: translateY(110%); transition: transform 0.3s ease; max-height: 80vh; overflow-y: auto; }
+    #share-drawer.active { transform: translateY(0); }
+    body.has-share-drawer { padding-bottom: 380px; }
+    @media (max-width: 640px) { body.has-share-drawer { padding-bottom: 420px; } }
+    .drawer-inner { max-width: var(--max-width); margin: 0 auto; padding: 14px var(--page-gutter); }
+    .drawer-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .drawer-title { font-family: 'Anton', sans-serif; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-on-light); }
+    .drawer-close { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; background: none; border: 1px solid #d0ccc7; color: var(--text-muted); padding: 6px 12px; border-radius: var(--btn-radius); cursor: pointer; transition: all var(--ease); }
+    .drawer-close:hover { border-color: var(--text-on-light); color: var(--text-on-light); }
+    #share-preview-list { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+    .preview-thumb { position: relative; width: 56px; height: 56px; flex-shrink: 0; border-radius: 8px; overflow: hidden; border: 2px solid var(--gold); }
+    .preview-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .preview-thumb-remove { position: absolute; top: 2px; right: 2px; width: 18px; height: 18px; border-radius: 50%; background: rgba(17,17,17,0.78); color: var(--white); border: none; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
+    .preview-thumb-remove:hover { background: var(--black); }
+    #drawer-caption { width: 100%; border: 1px solid #d0ccc7; border-radius: var(--btn-radius); padding: 10px 12px; font-family: inherit; font-size: 0.88rem; color: var(--text-on-light); background: var(--white); resize: vertical; min-height: 56px; line-height: 1.5; margin-top: 10px; }
+    #drawer-caption:focus { outline: none; border-color: var(--text-on-light); }
+    .drawer-hashtags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .drawer-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .drawer-buttons .btn-primary { flex: 1; min-width: 160px; justify-content: center; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 80px 24px; border: 1px dashed var(--gold-border); border-radius: var(--img-radius); background: var(--gold-dim); }
+    .empty-state h3 { color: var(--text-on-light); margin-bottom: 8px; font-size: 1.1rem; }
+    .empty-state p { font-size: 0.88rem; }
+
+    /* BUTTONS */
+    /* Primary button — Montserrat 11/600/0.16em to match the main FEL
+       site button spec; kept on a dark fill so it reads on the white
+       GCH surface (gold fill would be too loud here). */
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--text-on-light); color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; border: none; padding: 14px 28px; border-radius: 0; cursor: pointer; transition: opacity var(--ease), transform 0.15s ease; text-decoration: none; }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--text-on-light); font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid var(--text-on-light); padding: 13px 28px; border-radius: var(--btn-radius); cursor: pointer; transition: all var(--ease); text-decoration: none; }
+    .btn-secondary:hover { background: var(--text-on-light); color: var(--white); }
+    .btn-share-small { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; background: var(--white); color: var(--text-on-light); border: none; padding: 7px 16px; border-radius: var(--btn-radius); cursor: pointer; transition: opacity var(--ease); }
+    .btn-share-small:hover { opacity: 0.85; }
+
+    /* CARD — ported from main FEL site: 40px padding, 32x2px gold top
+       rule via ::before, soft-grey border retained (main site keeps its
+       border + rule combo, so the GCH mirrors that). */
+    .card { border: 1px solid #e8e4df; border-radius: var(--img-radius); padding: 40px; background: var(--white); }
+    .card::before { content: ''; display: block; width: 32px; height: 2px; background: var(--gold); margin-bottom: 20px; }
+    /* The upload-success card is centred / icon-led — suppress the
+       rule so it doesn't sit left-aligned above the centred icon. */
+    .upload-success::before { display: none; }
+    .card-accent { border-color: var(--gold-border); }
+    .card h3 { color: var(--text-on-light); margin-bottom: 8px; }
+    .card p  { font-size: 0.88rem; margin-bottom: 20px; }
+
+    /* FORMS */
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-top: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
+    input[type="text"], input[type="date"], select { background: var(--white); border: 1px solid #d0ccc7; color: var(--text-on-light); padding: 12px 14px; border-radius: var(--btn-radius); font-family: inherit; font-size: 0.9rem; transition: border-color var(--ease); width: 100%; appearance: none; }
+    input[type="text"]:focus, input[type="date"]:focus, select:focus { outline: none; border-color: var(--text-on-light); }
+    input[type="text"]::placeholder { color: var(--text-muted-light); }
+
+    /* PERMISSIONS */
+    .permission-group { margin-top: 20px; padding: 20px 24px; background: var(--bright); border-radius: var(--img-radius); border: 1px solid #e8e4df; }
+    .permission-group .label-upper { margin-bottom: 14px; }
+    .permission-item { display: flex; align-items: flex-start; gap: 14px; padding: 14px 0; border-bottom: 1px solid #e8e4df; cursor: pointer; }
+    .permission-item:last-child { border-bottom: none; }
+    .permission-item input[type="checkbox"] { width: 20px; height: 20px; min-width: 20px; border: 1.5px solid #c0bcb7; border-radius: 4px; background: var(--white); appearance: none; cursor: pointer; position: relative; transition: all var(--ease); padding: 0; }
+    .permission-item input[type="checkbox"]:checked { background: var(--text-on-light); border-color: var(--text-on-light); }
+    .permission-item input[type="checkbox"]:checked::after { content: ''; position: absolute; left: 5px; top: 2px; width: 6px; height: 10px; border: 2px solid var(--white); border-top: none; border-left: none; transform: rotate(45deg); }
+    .permission-text { flex: 1; }
+    .permission-text strong { display: block; font-family: 'Anton', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-on-light); margin-bottom: 3px; }
+    .permission-text p { font-size: 0.8rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
+
+    /* SOCIAL SHARING — drawer-only now; the per-platform panel and
+       its button family were removed when the share UI collapsed to a
+       single native Web Share button. Caption + hashtag styles are
+       retained because the drawer still surfaces them. */
+    .share-caption { padding: 16px 24px; border-bottom: 1px solid #e8e4df; }
+    .share-caption label { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 8px; }
+    .share-caption textarea { width: 100%; border: 1px solid #d0ccc7; border-radius: var(--btn-radius); padding: 12px 14px; font-family: inherit; font-size: 0.88rem; color: var(--text-on-light); background: var(--white); resize: vertical; min-height: 80px; line-height: 1.6; transition: border-color var(--ease); }
+    .share-caption textarea:focus { outline: none; border-color: var(--text-on-light); }
+    .hashtag-strip { padding: 12px 24px; border-bottom: 1px solid #e8e4df; background: var(--bright); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .hashtag-strip .label-upper { margin-bottom: 0; flex-shrink: 0; }
+    .hashtag-pill { font-family: 'Anton', sans-serif; font-size: 0.6rem; letter-spacing: 0.08em; background: var(--white); border: 1px solid #d0ccc7; color: var(--text-muted); padding: 5px 12px; border-radius: 999px; cursor: pointer; transition: all var(--ease); user-select: none; }
+    .hashtag-pill.active { background: var(--text-on-light); border-color: var(--text-on-light); color: var(--white); }
+    .hashtag-pill:hover:not(.active) { border-color: var(--text-on-light); color: var(--text-on-light); }
+
+    /* PRIVATE RESULT */
+    #private-result { display: none; margin-top: 40px; animation: fadeUp 0.35s ease; }
+    .result-header { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #e8e4df; }
+
+    /* UPLOAD */
+    .upload-zone { border: 1px dashed var(--gold-border); border-radius: var(--img-radius); padding: 48px 32px; text-align: center; background: var(--gold-dim); cursor: pointer; transition: all var(--ease); position: relative; }
+    .upload-zone:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); }
+    .upload-zone h3 { color: var(--text-on-light); margin-bottom: 8px; font-size: 1.1rem; }
+    .upload-icon { width: 48px; height: 48px; margin: 0 auto 16px; opacity: 0.3; }
+    .upload-icon svg { width: 100%; height: 100%; }
+
+    /* QR */
+    .qr-section { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; margin-top: 24px; padding: 28px; background: var(--bright); border-radius: var(--img-radius); border: 1px solid #e8e4df; }
+    .qr-wrap { background: var(--white); padding: 10px; border-radius: 12px; border: 1px solid #e8e4df; flex-shrink: 0; }
+    .qr-info { flex: 1; min-width: 200px; }
+    .qr-info .label-upper { color: var(--gold); }
+    .qr-info p { font-size: 0.88rem; margin-bottom: 12px; }
+
+    /* LIGHTBOX */
+    #lightbox { display: none; position: fixed; inset: 0; z-index: 9000; background: rgba(17,17,17,0.97); justify-content: center; align-items: center; flex-direction: column; gap: 20px; }
+    #lightbox.open { display: flex; }
+    #lightbox-img { max-width: min(90vw, 960px); max-height: 66vh; border-radius: var(--img-radius); object-fit: contain; animation: fadeUp 0.25s ease; }
+    .lb-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; padding: 0 20px; }
+    .lb-btn { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: var(--white); width: 44px; height: 44px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--ease); flex-shrink: 0; }
+    .lb-btn:hover { background: var(--white); color: var(--black); }
+    .lb-close { position: absolute; top: 24px; right: 28px; background: none; border: none; color: rgba(255,255,255,0.6); font-size: 1.8rem; cursor: pointer; transition: color var(--ease); line-height: 1; }
+    .lb-close:hover { color: var(--white); }
+    .lb-counter { font-family: 'Anton', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+    .lb-share { background: var(--white); color: var(--black); border: none; font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; border-radius: var(--btn-radius); cursor: pointer; transition: opacity var(--ease); }
+    .lb-share:hover { opacity: 0.85; }
+
+    /* CONSENT */
+    .consent-note { margin-top: 20px; padding: 16px 20px; background: var(--bright); border-radius: var(--btn-radius); border-left: 3px solid var(--gold); }
+    .consent-note p { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
+
+    /* FOOTER */
+    .site-footer { background: var(--black); padding: 40px var(--page-gutter); text-align: center; border-top: 2px solid var(--gold); }
+    .site-footer img { height: 32px; margin: 0 auto 12px; display: block; opacity: 0.7; }
+    .site-footer p { font-size: 0.75rem; color: rgba(255,255,255,0.4); }
+    .site-footer a { color: var(--gold); text-decoration: none; }
+
+    /* TOAST */
+    #toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text-on-light); color: var(--white); font-family: 'Anton', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 14px 28px; border-radius: var(--btn-radius); z-index: 99999; opacity: 0; transition: all 0.3s ease; pointer-events: none; white-space: nowrap; }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    #upload-queue { margin-top: 20px; display: none; }
+    .queue-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #e8e4df; font-size: 0.88rem; color: var(--text-muted); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse  { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+      .card { padding: 24px 20px; }
+      .result-header { flex-direction: column; align-items: flex-start; }
+      .qr-section { flex-direction: column; }
+      .tab-btn { font-size: 0.6rem; padding: 16px 8px; }
+    }
+    /* Upload success takeover — shown after all files in a batch succeed */
+    .upload-success { padding: 72px 32px; text-align: center; margin-bottom: 16px; }
+    .upload-success-icon { width: 72px; height: 72px; margin: 0 auto 24px; color: var(--gold); display: block; }
+    .upload-success-icon svg { width: 100%; height: 100%; }
+    .upload-success h3 { font-size: 2rem; margin-bottom: 14px; color: var(--text-on-light); }
+    .upload-success-body { font-size: 0.95rem; line-height: 1.6; color: var(--text-muted); max-width: 480px; margin: 0 auto 32px; }
+    .upload-success-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  </style>
+  <link rel="icon" href="/images/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/images/favicon.ico">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-52CH2F83');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52CH2F83"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="https://fiordlandexpeditions.co.nz">
+      <img src="/images/fle-logo-white.png" alt="Fiordland Expeditions">
+    </a>
+    <span class="header-page-label">Guest Hub</span>
+    <a href="https://fiordlandexpeditions.co.nz" class="header-back">← Back to Site</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="label-upper">Fiordland Expeditions</span>
+  <h1>Your Expedition,<br><span class="gold-underline">Captured.</span></h1>
+  <p style="margin-top:16px;">Browse expedition highlights, access your personal cruise gallery, or share your moments from the water.</p>
+</div>
+
+<!-- TAB NAV -->
+<nav class="tab-nav">
+  <button class="tab-btn active" onclick="switchTab('feed', this)">Expedition Feed</button>
+  <button class="tab-btn" onclick="switchTab('private', this)">Your Gallery</button>
+  <button class="tab-btn" onclick="switchTab('upload', this)">Contribute</button>
+</nav>
+
+<main>
+
+  <!-- TAB 1: PUBLIC FEED -->
+  <div id="tab-feed" class="tab-panel active">
+    <section class="section-white">
+      <div class="container">
+        <div class="section-header">
+          <span class="label-upper">Live from the Fiord</span>
+          <h2>Doubtful Sound Highlights</h2>
+          <p style="margin-top:8px;">A curated window into life aboard Fiordland Expeditions.</p>
+        </div>
+        <div class="gallery-grid" id="public-grid"></div>
+        <div class="empty-state" id="feed-empty" style="display:none;">
+          <h3>First Expedition Coming Soon</h3>
+          <p>The expedition feed launches with Derek Morrison's shoot — April 2026.<br>Check back after your cruise to see your moments here.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- TAB 2: PRIVATE GALLERY -->
+  <div id="tab-private" class="tab-panel">
+    <section class="section-bright">
+      <div class="container">
+        <div class="section-header">
+          <span class="label-upper">Exclusive Access</span>
+          <h2>Your Cruise Gallery</h2>
+          <p style="margin-top:8px;">Enter your cruise details to access photos and video from your expedition.</p>
+        </div>
+        <div class="card card-accent">
+          <span class="label-upper">Retrieve Your Assets</span>
+          <h3>Find Your Gallery</h3>
+          <p>Enter the vessel, your departure date, and your last name.</p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="vessel-select">Vessel</label>
+              <select id="vessel-select" required>
+                <option value="">Select vessel</option>
+                <option value="tutoko2">MV Tutoko II</option>
+                <!-- MV Tutoko removed during maintenance; restore when vessel returns to service -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="cruise-date">Departure Date</label>
+              <select id="cruise-date" required>
+                <option value="">Loading available dates…</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="last-name">Last Name</label>
+              <input type="text" id="last-name" placeholder="e.g. Lindqvist" required>
+            </div>
+            <div class="form-group" style="justify-content:flex-end;">
+              <button class="btn-primary" onclick="showPrivateGallery()" style="width:100%;justify-content:center;">View My Gallery</button>
+            </div>
+          </div>
+        </div>
+        <div id="private-result">
+          <div class="result-header">
+            <div>
+              <span class="label-upper" id="private-eyebrow">Your Expedition</span>
+              <h2 id="private-title">Gallery</h2>
+            </div>
+            <button class="btn-secondary" onclick="downloadAll()">Download All</button>
+          </div>
+          <div class="gallery-grid" id="private-grid"></div>
+          <p style="margin-top:24px;padding-top:20px;border-top:1px solid #e8e4df;font-size:0.82rem;">Your images are available for 90 days from your cruise date.</p>
+          <p style="margin-top:8px;font-size:0.82rem;color:var(--text-muted);">Need a photo removed? Email <a href="mailto:info@fiordlandexpeditions.co.nz" style="color:inherit;text-decoration:underline;">info@fiordlandexpeditions.co.nz</a> and we'll take care of it.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- TAB 3: CONTRIBUTE -->
+  <div id="tab-upload" class="tab-panel">
+    <section class="section-white">
+      <div class="container">
+        <div class="section-header">
+          <span class="label-upper">Guest Contributor</span>
+          <h2>Share Your Journey</h2>
+          <p style="margin-top:8px;">Your best shots could feature in our expedition feed or marketing materials. All uploads are reviewed by our crew before going live.</p>
+        </div>
+
+        <div id="upload-form-section">
+        <!-- Cruise details (required for upload) -->
+        <div class="card" style="margin-bottom:16px;">
+          <span class="label-upper">Step 1 · Tell Us About Your Cruise</span>
+          <h3>Your Cruise Details</h3>
+          <p>So we can file your photos to the right gallery.</p>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="upload-vessel">Vessel</label>
+              <select id="upload-vessel" required>
+                <option value="">Select vessel</option>
+                <option value="tutoko2">MV Tutoko II</option>
+                <!-- MV Tutoko removed during maintenance; restore when vessel returns to service -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="upload-cruise-date">Departure Date</label>
+              <select id="upload-cruise-date" required>
+                <option value="">Loading available dates…</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="upload-last-name">Last Name</label>
+              <input type="text" id="upload-last-name" placeholder="e.g. Lindqvist" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- File upload -->
+        <div class="card" style="margin-bottom:16px;">
+          <span class="label-upper">Step 2 · Browse &amp; Upload</span>
+          <h3>Select Files from This Device</h3>
+          <p>Photos welcome. Max 25MB per file. Photos may be compressed for web sharing.</p>
+          <div class="upload-zone" onclick="triggerFileInput()" style="margin-top:16px;">
+            <div class="upload-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <h3>Drop files here or click to browse</h3>
+            <p style="font-size:0.82rem;margin-top:6px;">Photos welcome · Max 25MB per file</p>
+          </div>
+          <input type="file" id="file-input" multiple accept="image/*" style="display:none" onchange="handleFileSelect(event)">
+          <div id="upload-queue"></div>
+        </div>
+
+        <!-- PERMISSIONS -->
+        <div class="permission-group">
+          <span class="label-upper">Step 3 · Sharing Permissions</span>
+          <p style="font-size:0.85rem;margin-bottom:16px;">Choose how you'd like your photos to be used. You can tick both options.</p>
+          <label class="permission-item">
+            <input type="checkbox" id="perm-mates" checked>
+            <span class="permission-text">
+              <strong>Share with cruise mates</strong>
+              <p>Your photos will be visible to other guests on the same cruise. Great for group albums and sharing memories with fellow travellers.</p>
+            </span>
+          </label>
+          <label class="permission-item">
+            <input type="checkbox" id="perm-public" checked>
+            <span class="permission-text">
+              <strong>Share publicly</strong>
+              <p>Fiordland Expeditions may feature your content in the public expedition feed, on our website, and across our social media channels. We'll always credit contributors.</p>
+            </span>
+          </label>
+        </div>
+
+        <!-- SOCIAL SHARING PANEL MOVED — now lives inside the Your Gallery tab
+             so guests can share the specific image they've just viewed. -->
+
+        <div class="consent-note" style="margin-top:16px;">
+          <p>By uploading and selecting sharing permissions above, you grant Fiordland Expeditions the rights specified. Your originals remain yours. We'll always credit our contributors when featuring your work publicly.</p>
+        </div>
+        </div><!-- /#upload-form-section -->
+
+        <!-- Upload success takeover — replaces the form when every file in a batch uploads cleanly -->
+        <div id="upload-success" class="upload-success card" style="display:none;">
+          <div class="upload-success-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 12l3 3 5-6"/>
+            </svg>
+          </div>
+          <h3>Thanks for sharing!</h3>
+          <p class="upload-success-body">Your photos are filed against your cruise. They'll appear in Your Gallery shortly, and may be featured in the public expedition feed.</p>
+          <div class="upload-success-actions">
+            <button class="btn-primary" onclick="resetUploadForm()">Upload another</button>
+            <button class="btn-secondary" onclick="goToYourGallery()">View Your Gallery</button>
+          </div>
+        </div>
+
+        <!-- QR -->
+        <div class="card" style="margin-bottom:16px;">
+          <span class="label-upper">On-Vessel Upload</span>
+          <h3>Scan to Upload from Your Phone</h3>
+          <p>Point your camera — no app needed.</p>
+          <div class="qr-section">
+            <div class="qr-wrap"><canvas id="qr-canvas"></canvas></div>
+            <div class="qr-info">
+              <span class="label-upper">Direct Upload Link</span>
+              <p>Scan to open the upload experience on your phone. Works on Starlink — no mobile data needed while on the vessel.</p>
+              <code style="font-size:0.78rem;color:var(--text-muted);word-break:break-all;">fiordlandexpeditions.co.nz/gch</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="Expedition image">
+  <div class="lb-controls">
+    <button class="lb-btn" onclick="changeImage(-1)">&#8592;</button>
+    <span class="lb-counter" id="lb-counter">1 / 6</span>
+    <button class="lb-btn" onclick="changeImage(1)">&#8594;</button>
+    <button class="lb-share" onclick="selectFromLightbox()">Share This Memory</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <img src="/images/fle-logo-white.png" alt="Fiordland Expeditions">
+  <p>Fiordland Expeditions Ltd — Manapouri, Fiordland, New Zealand</p>
+  <p style="margin-top:6px;"><a href="https://fiordlandexpeditions.co.nz">fiordlandexpeditions.co.nz</a></p>
+</footer>
+
+<!-- BOTTOM SHARE DRAWER — slides up whenever 1+ images are selected -->
+<div id="share-drawer" aria-live="polite">
+  <div class="drawer-inner">
+    <div class="drawer-header">
+      <span class="drawer-title"><span id="share-count-label">Gallery link</span> · Share Your Expedition</span>
+      <button class="drawer-close" onclick="clearShareSelection()">Clear all</button>
+    </div>
+
+    <div id="share-preview-list"></div>
+
+    <textarea id="share-caption-text">Check out this incredible moment from our Fiordland expedition! 🌊⛵</textarea>
+
+    <div class="drawer-hashtags">
+      <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandExpeditions">#FiordlandExpeditions</span>
+      <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#DoubtfulSound">#DoubtfulSound</span>
+      <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#FiordlandNZ">#FiordlandNZ</span>
+      <span class="hashtag-pill active" onclick="toggleHashtag(this)" data-tag="#NewZealand">#NewZealand</span>
+      <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#NZTravel">#NZTravel</span>
+      <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#Fiordland">#Fiordland</span>
+      <span class="hashtag-pill" onclick="toggleHashtag(this)" data-tag="#NZAdventure">#NZAdventure</span>
+    </div>
+
+    <div class="drawer-buttons">
+      <button class="btn-primary" onclick="handleShare()">Share</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  const FEL_FACEBOOK_URL = 'https://www.facebook.com/Fiordlandexpeditionstutoko/';
+  const FEL_INSTAGRAM_URL = 'https://www.instagram.com/fiordland_expeditions/';
+  const FEL_SITE_URL = 'https://fiordlandexpeditions.co.nz';
+  const GCH_URL = 'https://fiordlandexpeditions.co.nz/gch';
+  const FEL_IG_HANDLE = '@fiordland_expeditions';
+  const FEL_FB_HANDLE = '@Fiordlandexpeditionstutoko';
+
+  /* IMAGE DATA — replace with API call when backend is live */
+  const images = [
+    /* Fiordland landscapes & vessel */
+    { src: '/images/charters-fishing.webp', thumb: '/images/charters-fishing.webp', caption: 'Doubtful Sound at dusk' },
+    { src: '/images/crew.webp', thumb: '/images/crew.webp', caption: 'MV Tutoko II on the Sound' },
+    { src: '/images/crooked-arm.webp', thumb: '/images/crooked-arm.webp', caption: 'Crooked Arm' },
+    { src: '/images/CRW_0150-ed1.webp', thumb: '/images/CRW_0150-ed1.webp', caption: 'Wilderness anchorage' },
+    { src: '/images/crooked-arm-060513.webp', thumb: '/images/crooked-arm-060513.webp', caption: 'Morning on the fiord' },
+    { src: '/images/MG_7535a.webp', thumb: '/images/MG_7535a.webp', caption: 'Expedition life' },
+    /* On-board experience */
+    { src: 'https://lh3.googleusercontent.com/d/1DIqtAImyPM6Bf6TrTiprIJ11cditt1ur', thumb: 'https://lh3.googleusercontent.com/d/1DIqtAImyPM6Bf6TrTiprIJ11cditt1ur', caption: 'Hauling the cray pots — Dave and Hamish, MV Tutoko II' },
+    { src: 'https://lh3.googleusercontent.com/d/1h6fot1asPRQUtn37IdgN4BESuuYTdyCO', thumb: 'https://lh3.googleusercontent.com/d/1h6fot1asPRQUtn37IdgN4BESuuYTdyCO', caption: 'Crayfish plates stacked for the evening feast' },
+    { src: 'https://lh3.googleusercontent.com/d/195mC7rLpNMygCjRCFB8Gn_B1oPiPrvy4', thumb: 'https://lh3.googleusercontent.com/d/195mC7rLpNMygCjRCFB8Gn_B1oPiPrvy4', caption: 'Crayfish dinner aboard MV Tutoko II' },
+    { src: 'https://lh3.googleusercontent.com/d/1umfRs5lV45d6463a-tvHoli9ZCgrnULd', thumb: 'https://lh3.googleusercontent.com/d/1umfRs5lV45d6463a-tvHoli9ZCgrnULd', caption: 'The day\'s harvest — two magnificent crayfish' },
+    { src: 'https://lh3.googleusercontent.com/d/1EY-urrK1nOhkEjwSPgeEQYi9bKCNLw2w', thumb: 'https://lh3.googleusercontent.com/d/1EY-urrK1nOhkEjwSPgeEQYi9bKCNLw2w', caption: 'Bunk room view — MV Tutoko II' },
+    /* Helicopter */
+    { src: 'https://lh3.googleusercontent.com/d/1LklN9stXh9P_Neo4DHzaYfM9AWK02iaV', thumb: 'https://lh3.googleusercontent.com/d/1LklN9stXh9P_Neo4DHzaYfM9AWK02iaV', caption: 'Helicopter arrival — the Heli-Hero entrance into Doubtful Sound' },
+    /* Diving & underwater */
+    { src: 'https://lh3.googleusercontent.com/d/1EOhmOGKy_anziTw9LBzNNyGbIf0z_MH2', thumb: 'https://lh3.googleusercontent.com/d/1EOhmOGKy_anziTw9LBzNNyGbIf0z_MH2', caption: 'Diver photographs kelp — Fiordland\'s unique underwater world' },
+    { src: 'https://lh3.googleusercontent.com/d/10xw_0_sVIwAns87IhOSnFwiEYeSHbZ2m', thumb: 'https://lh3.googleusercontent.com/d/10xw_0_sVIwAns87IhOSnFwiEYeSHbZ2m', caption: 'Diver emerges with camera — surfacing from the black water' },
+    { src: 'https://lh3.googleusercontent.com/d/1fGmO002lodJ57ZJEaZg0Uhi9pdAFkSd2', thumb: 'https://lh3.googleusercontent.com/d/1fGmO002lodJ57ZJEaZg0Uhi9pdAFkSd2', caption: 'Black coral — endemic to Fiordland\'s deep fiords' },
+    { src: 'https://lh3.googleusercontent.com/d/11ryOge0DNNVygLXVEI4xxwP4kVjtENLn', thumb: 'https://lh3.googleusercontent.com/d/11ryOge0DNNVygLXVEI4xxwP4kVjtENLn', caption: 'Crayfish under rock — wide angle' },
+    { src: 'https://lh3.googleusercontent.com/d/1fmFmZwgX4Kxw6AW7uN98McsP0kSOMbSI', thumb: 'https://lh3.googleusercontent.com/d/1fmFmZwgX4Kxw6AW7uN98McsP0kSOMbSI', caption: 'Crayfish in formation — Fiordland' },
+    { src: '/images/gch-gallery-1.webp', thumb: '/images/gch-gallery-1.webp', caption: 'Blue cod — the benchmark of Fiordland fishing' },
+  ];
+
+  let currentIndex = 0;
+  let activeImages = images;
+  let publicImages = images.slice();
+  let privateImages = [];
+  let currentImageUrl = images[0].src;
+  // Array of image objects the guest has picked for share. Selection is
+  // cross-tab (Expedition Feed + Your Gallery both contribute). A non-empty
+  // array slides up the bottom share drawer.
+  let selectedShareImages = [];
+
+  // SHARE FEATURE FLAG — disabled for launch (Web Share fallback was failing
+  // on guest devices, not worth debugging pre-launch). Flip to true to bring
+  // the whole share flow back; the underlying state machine is preserved.
+  const SHARE_ENABLED = false;
+  if (!SHARE_ENABLED) document.body.classList.add('share-disabled');
+
+  function setActiveGrid(gridId) {
+    activeImages = (gridId === 'private-grid' && privateImages.length) ? privateImages : publicImages;
+  }
+
+  function isShareSelected(img) {
+    return !!img && selectedShareImages.some((s) => s.src === img.src);
+  }
+
+  function toggleShareSelection(img) {
+    if (!img) return;
+    const idx = selectedShareImages.findIndex((s) => s.src === img.src);
+    if (idx >= 0) selectedShareImages.splice(idx, 1);
+    else selectedShareImages.push(img);
+    renderSharePanel();
+  }
+
+  function clearShareSelection() {
+    selectedShareImages = [];
+    renderSharePanel();
+  }
+
+  function renderSharePanel() {
+    const drawer = document.getElementById('share-drawer');
+    const count = selectedShareImages.length;
+    if (drawer) drawer.classList.toggle('active', count > 0);
+    document.body.classList.toggle('has-share-drawer', count > 0);
+
+    // Mark thumbnails with .selected across BOTH grids
+    const mark = (gridId, set) => {
+      const items = document.querySelectorAll(`#${gridId} .gallery-item`);
+      items.forEach((el, i) => {
+        const img = set[i];
+        el.classList.toggle('selected', !!img && isShareSelected(img));
+      });
+    };
+    mark('private-grid', privateImages);
+    mark('public-grid', publicImages);
+
+    const label = document.getElementById('share-count-label');
+    if (label) label.textContent = count ? `${count} image${count > 1 ? 's' : ''} selected` : 'Gallery link';
+
+    const list = document.getElementById('share-preview-list');
+    if (list) {
+      list.innerHTML = selectedShareImages.map((img, i) => `
+        <div class="preview-thumb" title="Click to deselect">
+          <img src="${img.thumb || img.src}" alt="">
+          <button class="preview-thumb-remove" onclick="toggleShareSelection(selectedShareImages[${i}])" aria-label="Deselect">×</button>
+        </div>
+      `).join('');
+    }
+  }
+
+  // Backwards-compat: some call sites still expect the single-image API.
+  function selectShareImage(img) {
+    if (!img) { clearShareSelection(); return; }
+    if (!isShareSelected(img)) toggleShareSelection(img);
+  }
+
+  function renderGrid(targetId, imageSet) {
+    const grid = document.getElementById(targetId);
+    if (!imageSet.length) {
+      if (targetId === 'public-grid') document.getElementById('feed-empty').style.display = 'block';
+      return;
+    }
+    grid.innerHTML = imageSet.map((img, i) => `
+      <div class="gallery-item" onclick="openLightbox(${i}, '${targetId}')">
+        <img src="${img.thumb}" alt="${img.caption}" loading="lazy">
+        <div class="gallery-overlay">
+          <button class="btn-share-small" onclick="event.stopPropagation(); gridShareClick(${i}, '${targetId}')">Select</button>
+        </div>
+      </div>
+    `).join('');
+    // After re-render, reapply .selected markers (the DOM just got replaced)
+    renderSharePanel();
+  }
+
+  renderGrid('public-grid', publicImages);
+
+  // Pull featured content from Airtable and prepend to the demo images.
+  // Moderator flips a record's status to 'featured' to promote it here.
+  async function loadFeaturedFeed() {
+    try {
+      const res = await fetch('/.netlify/functions/gch-feed');
+      if (!res.ok) return;
+      const data = await res.json();
+      if (!data.ok || !Array.isArray(data.assets) || !data.assets.length) return;
+      const featured = data.assets.map((a) => ({
+        upload_id: a.upload_id || '',
+        src: a.cloudinary_url,
+        thumb: a.cloudinary_url.replace('/upload/', '/upload/w_600,c_limit,q_auto,f_auto/'),
+        caption: a.notes || (a.guest_last_name ? `Shared by ${a.guest_last_name}` : 'Expedition highlight'),
+      }));
+      publicImages = [...featured, ...images];
+      renderGrid('public-grid', publicImages);
+    } catch (e) { /* keep the hardcoded demo feed on failure */ }
+  }
+  loadFeaturedFeed();
+
+  // Populate the cruise-date <select>s from the whitelist function.
+  // Both forms (gallery lookup, upload) share the same date list — the
+  // function acts as the access-control gate so guests can only pick
+  // dates that correspond to real cruises.
+  async function populateCruiseDates() {
+    const selects = ['cruise-date', 'upload-cruise-date']
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+    try {
+      const res = await fetch('/.netlify/functions/gch-cruise-dates');
+      const data = await res.json();
+      if (!res.ok || !data.ok || !Array.isArray(data.dates)) throw new Error('bad response');
+      selects.forEach((sel) => {
+        sel.innerHTML = '<option value="">Select cruise date</option>'
+          + data.dates.map((d) => `<option value="${d.value}">${d.label}</option>`).join('');
+      });
+    } catch (e) {
+      selects.forEach((sel) => {
+        sel.innerHTML = '<option value="">Dates unavailable — please contact us</option>';
+        sel.disabled = true;
+      });
+    }
+  }
+  populateCruiseDates();
+
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function getActiveHashtags() {
+    return Array.from(document.querySelectorAll('.hashtag-pill.active')).map(el => el.dataset.tag).join(' ');
+  }
+
+  function toggleHashtag(el) { el.classList.toggle('active'); }
+
+  // Share URL policy:
+  //   - Exactly 1 image selected, with an upload_id → ?img=<upload_id> deep link.
+  //   - Multiple or zero selected (or single without upload_id) → the hub URL.
+  // Always points at fiordlandexpeditions.co.nz, never at raw Cloudinary.
+  function shareTargetUrl() {
+    if (selectedShareImages.length === 1 && selectedShareImages[0].upload_id) {
+      return `${GCH_URL}?img=${encodeURIComponent(selectedShareImages[0].upload_id)}`;
+    }
+    return GCH_URL;
+  }
+
+  function selectedImageUrlsLine() {
+    if (!selectedShareImages.length) return '';
+    return selectedShareImages.map((i) => i.src).join('\n');
+  }
+
+  function buildShareText() {
+    const caption = document.getElementById('share-caption-text').value.trim();
+    const hashtags = getActiveHashtags();
+    return `${caption}\n\n${hashtags}\n\n${shareTargetUrl()}`;
+  }
+
+  function buildShareTextWithImageUrls() {
+    const base = buildShareText();
+    const imgs = selectedImageUrlsLine();
+    return imgs ? `${base}\n\n${imgs}` : base;
+  }
+
+  // Single share entry point. Tries the canonical Web Share API file
+  // pattern first (so the guest's OS share sheet gets the actual image
+  // file, not just a URL), falls back to URL-only share, and finally
+  // falls back to clipboard. Reads the drawer state directly:
+  // selectedShareImages may hold 0..N images; the caption + hashtags
+  // are read from the drawer textarea/pills.
+  async function handleShare() {
+    const caption = (document.getElementById('share-caption-text')?.value || '').trim();
+    const hashtags = getActiveHashtags();
+    const composed = [caption, hashtags].filter(Boolean).join('\n\n');
+    const text = composed || 'Doubtful Sound — Fiordland Expeditions';
+    const selection = selectedShareImages.slice();
+
+    try {
+      // No images selected — share the page URL with the caption.
+      if (!selection.length) {
+        const url = shareTargetUrl();
+        if (navigator.share) {
+          await navigator.share({ url, title: 'Fiordland Expeditions', text });
+          return;
+        }
+        await navigator.clipboard.writeText(`${text}\n\n${url}`);
+        showToast('Link copied to clipboard');
+        return;
+      }
+
+      // Try to share the actual image file(s) via the OS share sheet.
+      const files = await Promise.all(selection.map(async (img) => {
+        const blob = await fetch(img.src).then((r) => r.blob());
+        const filename = img.src.split('/').pop() || 'fel-image.jpg';
+        return new File([blob], filename, { type: blob.type });
+      }));
+
+      if (navigator.canShare && navigator.canShare({ files })) {
+        await navigator.share({ files, title: 'Fiordland Expeditions', text });
+        return;
+      }
+
+      // Native share without file support — share the first URL only.
+      if (navigator.share) {
+        await navigator.share({ url: selection[0].src, title: 'Fiordland Expeditions', text });
+        return;
+      }
+
+      // No Web Share API at all — copy URLs + caption to clipboard.
+      const lines = [text, '', ...selection.map((i) => i.src)].join('\n');
+      await navigator.clipboard.writeText(lines);
+      showToast(selection.length > 1 ? `${selection.length} image links copied` : 'Link copied to clipboard');
+    } catch (err) {
+      if (err.name !== 'AbortError') {
+        console.error('Share failed:', err);
+        showToast("Couldn't share — try again");
+      }
+    }
+  }
+
+  async function copyText(str) {
+    try { await navigator.clipboard.writeText(str); }
+    catch(e) { const el = document.createElement('textarea'); el.value = str; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el); }
+  }
+
+  async function showPrivateGallery() {
+    const vessel = document.getElementById('vessel-select').value;
+    const date   = document.getElementById('cruise-date').value;
+    const name   = document.getElementById('last-name').value.trim();
+    if (!vessel || !date || !name) { showToast('Please complete all fields'); return; }
+
+    const vLabel = vessel === 'tutoko2' ? 'MV Tutoko II' : 'MV Tutoko';
+    document.getElementById('private-eyebrow').textContent = `${vLabel} · ${formatDate(date)}`;
+    document.getElementById('private-title').textContent   = name.toUpperCase() + ' EXPEDITION';
+
+    const grid = document.getElementById('private-grid');
+    grid.innerHTML = '';
+    // Clear any empty-state divs from a previous search so they don't stack
+    grid.parentElement.querySelectorAll('.empty-state').forEach((el) => el.remove());
+    // Reset share drawer for a fresh cruise lookup
+    clearShareSelection();
+    const result = document.getElementById('private-result');
+    result.style.display = 'block';
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    showToast('Loading your gallery...');
+
+    const qs = new URLSearchParams({ vessel, cruise_date: date, guest_last_name: name }).toString();
+    let data;
+    try {
+      const res = await fetch(`/.netlify/functions/gch-gallery?${qs}`, { method: 'GET' });
+      data = await res.json();
+      if (!res.ok || !data.ok) {
+        showToast(data.error || 'Gallery unavailable — try again shortly');
+        return;
+      }
+    } catch (e) {
+      showToast('Network error — check your connection');
+      return;
+    }
+
+    if (window.__gchPendingUploadId && !data.expired) {
+      const pendingId = window.__gchPendingUploadId;
+      const present = Array.isArray(data.assets) && data.assets.some((a) => a.upload_id === pendingId);
+      if (!present) {
+        showToast('Syncing your recent upload...');
+        await new Promise((r) => setTimeout(r, 1500));
+        try {
+          const res2 = await fetch(`/.netlify/functions/gch-gallery?${qs}&_=${Date.now()}`, { method: 'GET' });
+          const data2 = await res2.json();
+          if (res2.ok && data2.ok) data = data2;
+        } catch (_) { /* fall through with original data */ }
+      }
+      window.__gchPendingUploadId = null;
+    }
+
+    if (data.expired) {
+      grid.innerHTML = '';
+      showToast('This gallery has expired (90-day window)');
+      const empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.innerHTML = `<h3>Gallery Expired</h3><p>${data.message || 'Galleries are available for 90 days after the cruise date.'}</p>`;
+      grid.parentElement.insertBefore(empty, grid);
+      return;
+    }
+
+    const assets = Array.isArray(data.assets) ? data.assets : [];
+    if (!assets.length) {
+      const empty = document.createElement('div');
+      empty.className = 'empty-state';
+      empty.innerHTML = `<h3>No Photos Yet</h3><p>Nothing approved for this cruise yet. Check back after moderation — uploads typically go live within 24 hours.</p>`;
+      grid.parentElement.insertBefore(empty, grid);
+      return;
+    }
+
+    privateImages = assets.map((a) => ({
+      upload_id: a.upload_id || '',
+      src: a.cloudinary_url,
+      thumb: a.cloudinary_url.replace('/upload/', '/upload/w_600,c_limit,q_auto,f_auto/'),
+      caption: a.guest_last_name ? `Shared by ${a.guest_last_name}` : 'Expedition moment',
+    }));
+    renderGrid('private-grid', privateImages);
+  }
+
+  function formatDate(d) {
+    return new Date(d + 'T00:00:00').toLocaleDateString('en-NZ', { day:'numeric', month:'long', year:'numeric' });
+  }
+
+  function downloadAll() {
+    if (!privateImages.length) { showToast('No images to download'); return; }
+    showToast(`Downloading ${privateImages.length} image${privateImages.length > 1 ? 's' : ''}...`);
+    // Cloudinary's fl_attachment flag forces Content-Disposition: attachment so
+    // the browser triggers a download dialog instead of navigating to the image.
+    privateImages.forEach((img, i) => {
+      const dlUrl = img.src.replace('/upload/', '/upload/fl_attachment/');
+      const filename = (dlUrl.split('/').pop() || `fiordland-${i + 1}.jpg`).split('?')[0];
+      const a = document.createElement('a');
+      a.href = dlUrl;
+      a.download = filename;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      // Space the clicks so browsers don't throttle multi-downloads as popups.
+      setTimeout(() => { a.click(); document.body.removeChild(a); }, i * 400);
+    });
+  }
+
+  function openLightbox(idx, gridId) {
+    setActiveGrid(gridId);
+    currentIndex = idx;
+    currentImageUrl = activeImages[idx].src;
+    updateLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Select-for-share flow. Toggles the image in/out of the selection array.
+  // Called from the thumbnail Select button and the lightbox Share button,
+  // on both private and public grids.
+  function selectFromLightbox() {
+    const img = activeImages[currentIndex];
+    if (!img) return;
+    toggleShareSelection(img);
+    closeLightbox();
+    showToast(isShareSelected(img) ? 'Image selected — open the share drawer below' : 'Image removed from selection');
+  }
+
+  function gridShareClick(idx, gridId) {
+    const set = (gridId === 'private-grid') ? privateImages : publicImages;
+    const img = set[idx];
+    if (!img) return;
+    toggleShareSelection(img);
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function changeImage(step) {
+    currentIndex = (currentIndex + step + activeImages.length) % activeImages.length;
+    currentImageUrl = activeImages[currentIndex].src;
+    updateLightbox();
+  }
+
+  function updateLightbox() {
+    const img = document.getElementById('lightbox-img');
+    img.style.opacity = '0';
+    setTimeout(() => {
+      img.src = activeImages[currentIndex].src;
+      img.alt = activeImages[currentIndex].caption;
+      img.style.transition = 'opacity 0.2s ease';
+      img.style.opacity = '1';
+    }, 80);
+    document.getElementById('lb-counter').textContent = `${currentIndex + 1} / ${activeImages.length}`;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox').classList.contains('open')) return;
+    if (e.key === 'ArrowLeft')  changeImage(-1);
+    if (e.key === 'ArrowRight') changeImage(1);
+    if (e.key === 'Escape')     closeLightbox();
+  });
+
+  function triggerFileInput() { document.getElementById('file-input').click(); }
+
+  /* Upload pipeline state */
+  const UPLOAD_TYPE = new URLSearchParams(location.search).get('crew') === '1' ? 'crew' : 'guest';
+  const MAX_BYTES = 25 * 1024 * 1024;
+  let pendingFiles = [];
+
+  function handleFileSelect(e) {
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
+    const accepted = files.filter(f => f.size <= MAX_BYTES);
+    if (accepted.length < files.length) {
+      showToast(`${files.length - accepted.length} file(s) over 25MB skipped`);
+    }
+    pendingFiles = accepted;
+    renderUploadQueue();
+  }
+
+  function renderUploadQueue() {
+    const q = document.getElementById('upload-queue');
+    if (!pendingFiles.length) { q.style.display = 'none'; q.innerHTML = ''; return; }
+    q.style.display = 'block';
+    q.innerHTML = `
+      <div style="font-family:'Anton',sans-serif;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin:20px 0 12px;">${pendingFiles.length} file${pendingFiles.length > 1 ? 's' : ''} queued</div>
+      ${pendingFiles.map((f, i) => `<div class="queue-item" id="queue-item-${i}"><span>${f.name}</span><span style="font-size:0.8rem;color:var(--text-muted-light);" id="queue-status-${i}">${(f.size/1024/1024).toFixed(1)} MB · ready</span></div>`).join('')}
+      <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+        <button class="btn-primary" id="btn-submit-upload" onclick="submitUpload()">Submit for Review</button>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin:0;">Files sync via Starlink and are reviewed before going live.</p>
+      </div>
+    `;
+  }
+
+  function setQueueStatus(i, text) {
+    const el = document.getElementById(`queue-status-${i}`);
+    if (el) el.textContent = text;
+  }
+
+  function readUploadFormFields() {
+    const vessel = document.getElementById('upload-vessel').value;
+    const cruiseDate = document.getElementById('upload-cruise-date').value;
+    const lastName = document.getElementById('upload-last-name').value.trim();
+    const consentMates = document.getElementById('perm-mates').checked;
+    const consentPublic = document.getElementById('perm-public').checked;
+    return { vessel, cruiseDate, lastName, consentMates, consentPublic };
+  }
+
+  async function uploadOne(file, idx, form) {
+    // Cloudinary's free tier caps signed image uploads at 10MB. Compress >=8MB
+    // images client-side to stay under that; smaller files pass through.
+    let uploadFile = file;
+    if (file.size >= 8 * 1024 * 1024) {
+      setQueueStatus(idx, 'compressing...');
+      try {
+        const originalSize = file.size;
+        const compressed = await window.imageCompression(file, {
+          maxSizeMB: 8,
+          maxWidthOrHeight: 2400,
+          useWebWorker: true,
+          fileType: 'image/jpeg',
+          initialQuality: 0.85,
+        });
+        uploadFile = compressed;
+        setQueueStatus(idx, `${(originalSize/1024/1024).toFixed(1)}MB → ${(compressed.size/1024/1024).toFixed(1)}MB`);
+      } catch (err) {
+        console.warn('Compression failed, falling back to original:', err);
+      }
+    }
+
+    setQueueStatus(idx, 'requesting signature...');
+    const sigRes = await fetch('/.netlify/functions/gch-upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        vessel: form.vessel,
+        cruise_date: form.cruiseDate,
+        guest_last_name: form.lastName,
+        upload_type: UPLOAD_TYPE,
+      }),
+    });
+    const sig = await sigRes.json();
+    if (!sigRes.ok) throw new Error(sig.error || 'Signature request failed');
+
+    setQueueStatus(idx, 'uploading to Cloudinary...');
+    const fd = new FormData();
+    fd.append('file', uploadFile, file.name);
+    fd.append('api_key', sig.api_key);
+    fd.append('timestamp', sig.timestamp);
+    fd.append('signature', sig.signature);
+    fd.append('folder', sig.folder);
+    fd.append('tags', sig.tags);
+
+    const cldRes = await fetch(sig.upload_url, { method: 'POST', body: fd });
+    const cld = await cldRes.json();
+    if (!cldRes.ok) throw new Error((cld.error && cld.error.message) || 'Cloudinary upload failed');
+
+    setQueueStatus(idx, 'recording consent...');
+    const consentRes = await fetch('/.netlify/functions/gch-consent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        upload_id: cld.public_id,
+        cloudinary_url: cld.secure_url,
+        cloudinary_folder: sig.folder,
+        vessel: form.vessel,
+        cruise_date: form.cruiseDate,
+        guest_last_name: form.lastName,
+        upload_type: UPLOAD_TYPE,
+        file_type: cld.resource_type === 'video' ? 'video' : 'image',
+        consent_mates: form.consentMates,
+        consent_public: form.consentPublic,
+      }),
+    });
+    const consent = await consentRes.json();
+    if (!consentRes.ok || !consent.ok) throw new Error(consent.error || 'Consent record failed');
+
+    // Airtable's filterByFormula has a 1-3s eventual-consistency window after
+    // insert; flag the upload so showPrivateGallery() can retry if it's missing.
+    window.__gchPendingUploadId = cld.public_id || null;
+
+    setQueueStatus(idx, UPLOAD_TYPE === 'crew' ? 'uploaded · approved' : 'uploaded · pending review');
+  }
+
+  async function submitUpload() {
+    const form = readUploadFormFields();
+    if (!form.vessel || !form.cruiseDate || !form.lastName) {
+      showToast('Please fill in vessel, date, and last name'); return;
+    }
+    if (!pendingFiles.length) { showToast('No files selected'); return; }
+    if (!form.consentMates && !form.consentPublic) {
+      showToast('Tick at least one sharing permission'); return;
+    }
+
+    const btn = document.getElementById('btn-submit-upload');
+    if (btn) { btn.disabled = true; btn.textContent = 'Uploading...'; btn.style.opacity = '0.6'; }
+    let successes = 0;
+    for (let i = 0; i < pendingFiles.length; i++) {
+      try {
+        await uploadOne(pendingFiles[i], i, form);
+        successes++;
+      } catch (err) {
+        setQueueStatus(i, `failed: ${err.message || 'unknown error'}`);
+      }
+    }
+    if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.textContent = 'Submit for Review'; }
+    if (successes === pendingFiles.length) {
+      pendingFiles = [];
+      document.getElementById('file-input').value = '';
+      renderUploadQueue();
+      showUploadSuccess();
+    } else {
+      showToast(`${successes}/${pendingFiles.length} uploaded`);
+    }
+  }
+
+  function showUploadSuccess() {
+    const form = document.getElementById('upload-form-section');
+    const success = document.getElementById('upload-success');
+    if (form) form.style.display = 'none';
+    if (success) {
+      success.style.display = 'block';
+      success.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function resetUploadForm() {
+    const success = document.getElementById('upload-success');
+    const form = document.getElementById('upload-form-section');
+    if (success) success.style.display = 'none';
+    if (form) form.style.display = 'block';
+    // Clear cruise-details + permissions back to defaults so a second
+    // upload doesn't accidentally inherit the previous guest's name.
+    const lastName = document.getElementById('upload-last-name');
+    if (lastName) lastName.value = '';
+    const cruiseDate = document.getElementById('upload-cruise-date');
+    if (cruiseDate) cruiseDate.value = '';
+    const vessel = document.getElementById('upload-vessel');
+    if (vessel) vessel.value = '';
+    const permMates = document.getElementById('perm-mates');
+    if (permMates) permMates.checked = true;
+    const permPublic = document.getElementById('perm-public');
+    if (permPublic) permPublic.checked = true;
+    if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function goToYourGallery() {
+    // Carry the upload form's values into the gallery lookup form so the guest
+    // doesn't have to re-enter them — they just authenticated by uploading.
+    const v = document.getElementById('upload-vessel').value;
+    const d = document.getElementById('upload-cruise-date').value;
+    const n = document.getElementById('upload-last-name').value.trim();
+    if (v) document.getElementById('vessel-select').value = v;
+    if (d) document.getElementById('cruise-date').value = d;
+    if (n) document.getElementById('last-name').value = n;
+
+    // tabs[1] is Your Gallery (Expedition Feed / Your Gallery / Contribute).
+    const tabs = document.querySelectorAll('.tab-btn');
+    if (tabs[1]) tabs[1].click();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Auto-load if all three carried across; otherwise fall back to manual entry.
+    if (v && d && n) showPrivateGallery();
+  }
+
+  /* QR CODE — points to the GCH URL */
+  QRCode.toCanvas(document.getElementById('qr-canvas'), GCH_URL, {
+    width: 130, margin: 1, color: { dark: '#111111', light: '#ffffff' }
+  });
+
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // ── GCH dataLayer event instrumentation ──────────────────
+  // GTM tags subscribe to these and forward to GA4 as engagement events.
+  // Wraps existing functions so original behaviour is preserved.
+  window.dataLayer = window.dataLayer || [];
+  function gchPush(event, params) {
+    window.dataLayer.push(Object.assign({event: event}, params || {}));
+  }
+  function gchWrap(name, paramFn) {
+    if (typeof window[name] !== 'function') return;
+    const orig = window[name];
+    window[name] = function() {
+      try { gchPush('gch_' + name, paramFn ? paramFn.apply(this, arguments) : {}); } catch(e){}
+      return orig.apply(this, arguments);
+    };
+  }
+
+  // Top of funnel: tab switches, gallery access
+  gchWrap('switchTab', function(tab) { return { tab: tab }; });
+  gchWrap('showPrivateGallery');
+
+  // Engagement: lightbox, download
+  gchWrap('openLightbox', function(idx, src) { return { source: src, image_index: idx }; });
+  gchWrap('downloadAll');
+
+  // Conversion: upload + consent
+  gchWrap('submitUpload');
+
+  // Sharing — single native-share entry point now; the per-platform
+  // events were retired alongside the legacy social share buttons.
+  gchWrap('handleShare', function(){
+    return { platform: 'native_share', image_count: (typeof selectedShareImages !== 'undefined' ? selectedShareImages.length : 0) };
+  });
+</script>
+
+</body>
+</html>

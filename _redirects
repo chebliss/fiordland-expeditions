@@ -1,0 +1,76 @@
+# Netlify redirects — URL rewrites for the FEL site
+
+# Staging-specific robots.txt — block all crawlers on fel-staging.netlify.app
+# Production (fiordlandexpeditions.co.nz) gets the default robots.txt.
+# Uses Netlify's documented full-URL form for host-based redirects: the
+# hostname goes in the from-side rather than as a Host= condition (which
+# Netlify silently ignores). The 200! force flag is required because
+# /robots.txt exists as a real file in the build; without it Netlify
+# serves the file directly and the rewrite is bypassed.
+https://fel-staging.netlify.app/robots.txt  /robots-staging.txt  200!
+
+# Guest Content Hub — clean, thumb-typable URLs for vessel QR codes
+# and guest-facing print collateral
+/gch       /pages/guest-content-hub.html   200
+/share     /pages/guest-content-hub.html   200
+
+# Preserve deep-links to specific tabs via query string
+# (handled client-side inside guest-content-hub.html)
+
+# About Us page — "Why Us" rebranded to "About Us" (May 2026 team page launch)
+/why-us                                /pages/about-us.html              301
+/pages/why-fiordland-expeditions.html  /pages/about-us.html              301
+/pages/why-us.html                     /pages/about-us.html              301
+
+# ============================================================================
+# Squarespace migration — clean-URL mappings from the old site. Preserves
+# SEO equity (impressions, backlinks) by 301-ing every known old URL to its
+# current FEL page. No catch-all: unmapped URLs serve 404.html cleanly,
+# which Google handles correctly. A catch-all-to-homepage would trigger
+# soft-404 penalties.
+#
+# Left-hand paths preserved character-for-character from Squarespace —
+# including singular/plural inconsistency (/historic-fiordland-charter
+# vs /research-charters) and American "inquiries" spelling
+# (/charter-inquiries). Those are historical URLs Google has indexed;
+# we don't get to edit history.
+# ============================================================================
+
+# === Direct path mappings ===
+/doubtful-sound-overnight-cruise              /pages/doubtful-sound-overnight-cruise.html   301
+/our-fleet                                    /pages/our-fleet.html                          301
+/environment                                  /pages/environment.html                        301
+/about-us                                     /pages/about-us.html                           301
+/contact                                      /pages/contact.html                            301
+
+# === Variants and consolidations ===
+/contact-us                                   /pages/contact.html                            301
+/why-fiordland-expeditions                    /pages/about-us.html                           301
+/our-team                                     /pages/about-us.html                           301
+/environmental                                /pages/environment.html                        301
+/contact-thanks                               /pages/thank-you.html                          301
+
+# === Charters consolidation ===
+/fishing-charters                             /pages/fishing-private-charters.html           301
+/fiordland-fishing-and-private-charters       /pages/fishing-private-charters.html           301
+/charters                                     /pages/fishing-private-charters.html           301
+/charter-inquiries                            /pages/fishing-private-charters.html           301
+/historic-fiordland-charter                   /pages/fishing-private-charters.html#historic-charters   301
+/research-charters                            /pages/fishing-private-charters.html#research-charters   301
+
+# === Cruise consolidation ===
+/cruises                                      /pages/doubtful-sound-overnight-cruise.html    301
+/cruises-charters                             /pages/doubtful-sound-overnight-cruise.html    301
+/fiordland-discovery-cruise                   /pages/doubtful-sound-overnight-cruise.html#multi-night   301
+/fiordland-multi-night-discovery-cruise       /pages/doubtful-sound-overnight-cruise.html#multi-night   301
+
+# === Anchor-based intent preservation ===
+/cabins                                       /pages/doubtful-sound-overnight-cruise.html#cabins        301
+
+# === Content / info pages ===
+/what-to-bring                                /pages/what-to-bring.html                      301
+/gallery                                      /pages/our-fleet.html                          301
+/tawaki-research-sponsorship                  /pages/environment.html                        301
+
+# === Internal test page — explicit 410 Gone, not redirect ===
+/test                                         /404.html                                      410
