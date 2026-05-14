@@ -1,12 +1,10 @@
-Fiordland Expeditions Limited — Privacy Policy **(DRAFT)**
+Fiordland Expeditions Limited — Privacy Policy
 
 **PRIVACY POLICY**
 
 Fiordland Expeditions Limited
 
-**DRAFT — FOR LEGAL REVIEW**
-
-*Last updated: [DATE TO BE INSERTED ON PUBLICATION]*
+*Last updated: 15 May 2026*
 
 # **1. About this policy**
 
@@ -146,17 +144,21 @@ You can control cookies through your browser settings. Disabling cookies may aff
 
 # **8. Data retention**
 
-We retain personal information only for as long as necessary for the purposes set out in this policy, or as required by law. In general:
+We retain personal information only for as long as necessary for the purposes set out in this policy, or as required by law:
 
-- Booking and guest records are retained for the period required for tax, accounting, and regulatory purposes
+- **Booking records and customer information:** 7 years from the date of the booking, in line with the requirements of the Inland Revenue Department for accounting records.
 
-**[PLACEHOLDER — Confirm exact retention periods for booking records, accounting records, and DOC manifest records with FEL]**
+- **Accounting and financial records:** 7 years, as required by the Inland Revenue Department.
 
-- Marketing contact details are retained until you unsubscribe or request deletion
+- **DOC manifest records:** retained for the period required by our Department of Conservation concession (currently AUTH-20202007), and any subsequent permits.
 
-- Website analytics data is retained according to Google Analytics 4 default settings
+- **Marketing and newsletter subscriptions:** retained until you unsubscribe, or for 36 months following your last interaction with us, whichever comes first.
 
-- Enquiries that do not result in a booking are retained for 24 months, then deleted
+- **Website analytics data:** 24 months.
+
+- **Booking enquiries that do not result in a confirmed booking:** 24 months.
+
+We may retain certain information for longer periods where required by law, or to defend legal claims.
 
 # **9. Your rights**
 
@@ -214,6 +216,3 @@ Email: info@fiordlandexpeditions.co.nz
 
 Phone: 0508 888 656
 
-***END OF DRAFT — FOR LEGAL REVIEW***
-
-Page  of
