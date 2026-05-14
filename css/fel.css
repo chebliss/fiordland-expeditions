@@ -429,6 +429,37 @@ button { cursor: pointer; font-family: var(--font-sans); }
   flex-wrap: wrap; gap: 16px;
 }
 .footer-legal { font-size: 12px; color: var(--text-dim); }
+
+/* Compliance/legal links strip — sits at the very bottom of the footer,
+   below the badges/socials row. Privacy + Terms + Contact + copyright. */
+.footer-legal-bar {
+  max-width: var(--max-w);
+  margin: 24px auto 0;
+  padding: 20px 24px 0;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-legal-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+.footer-legal-links a {
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.footer-legal-links a:hover { color: var(--gold-light); }
+.footer-legal-sep {
+  color: var(--text-dim);
+  opacity: 0.5;
+}
+
 @media(max-width:900px) {
   .footer-inner { grid-template-columns: 1fr 1fr; }
 }

@@ -105,7 +105,6 @@ function renderFooter() {
     </div>
 
     <div class="footer-bottom">
-      <span class="footer-legal">© 2026 Fiordland Expeditions Ltd. All rights reserved.</span>
       <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
         <!-- TripAdvisor owl logo → links to FEL TripAdvisor listing -->
         <a href="https://www.tripadvisor.com/Attraction_Review-g1205733-d8541914-Reviews-Fiordland_Expeditions_Doubtful_Sound_Overnight_Cruises_Multi_Day_Charters-Manapo.html" target="_blank" rel="noopener" title="Fiordland Expeditions on TripAdvisor">
@@ -126,6 +125,17 @@ function renderFooter() {
         </div>
       </div>
       <span class="footer-legal">Site by <a href="https://blissconsultancy.co.nz" style="color:var(--gold)">Bliss&amp;Co</a></span>
+    </div>
+
+    <div class="footer-legal-bar">
+      <div class="footer-legal-links">
+        <a href="${b}pages/privacy.html">Privacy Policy</a>
+        <span class="footer-legal-sep">·</span>
+        <a href="${b}pages/terms.html">Terms &amp; Conditions</a>
+        <span class="footer-legal-sep">·</span>
+        <a href="${b}pages/contact.html">Contact</a>
+      </div>
+      <span class="footer-legal">© 2026 Fiordland Expeditions Limited. All rights reserved.</span>
     </div>
   `;
 }
