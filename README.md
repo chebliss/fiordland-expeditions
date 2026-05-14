@@ -20,10 +20,10 @@ Static HTML site for Fiordland Expeditions Ltd. Built for CloudCannon CMS, deplo
 │   ├── environment.html
 │   ├── contact.html
 │   ├── milford-vs-doubtful-sound.html
-│   ├── landing-dynasty-builder.html        Persona: generational travel
-│   ├── landing-milestone-celebrator.html   Persona: anniversaries, milestones
-│   ├── landing-pilgrim-trophy.html         Persona: bucket-list, trophy
-│   ├── photography-expedition.html         Stakeholder, noindex
+│   ├── family-voyage.html                  Persona: multi-generational family travel
+│   ├── milestone-celebration.html          Persona: anniversaries, milestones
+│   ├── anglers-and-hunters.html            Persona: fishing, hunting, diving charters
+│   ├── photography-expedition.html         Photography expedition with Derek Morrison (Oct 2026)
 │   ├── guest-content-hub.html              GCH (dynamic, see netlify/functions)
 │   └── discerning-explorer.html            Persona: escape the crowds, exclusivity
 ├── css/

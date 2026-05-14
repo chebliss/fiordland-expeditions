@@ -102,7 +102,7 @@ This file is the source of truth. Claude Code reads the populated slots below an
 
 # Batch 3 — `pages/discerning-explorer.html`
 
-**Page note:** Discerning Explorer is the canonical paid-campaign landing page for the "escape the crowds" archetype (HNW 65+ USA, Doubtful Sound under AUTH-20202007). An earlier draft of this doc routed Batch 3 to `landing-seclusionist.html` — that page targeted the same audience as Discerning Explorer and was deleted as duplicate content during the FEL branch consolidation. Slot 3.1 now lands directly on `discerning-explorer.html`. The other three persona pages (`landing-dynasty-builder`, `landing-milestone-celebrator`, `landing-pilgrim-trophy`) keep their existing hero imagery for Phase 1; extending Derek-shoot heroes to all four personas is a Phase 1.5 task.
+**Page note:** Discerning Explorer is the canonical hybrid paid + organic landing page for the "escape the crowds" archetype (HNW 65+ USA, Doubtful Sound under AUTH-20202007). An earlier draft of this doc routed Batch 3 to `landing-seclusionist.html` — that page targeted the same audience as Discerning Explorer and was deleted as duplicate content during the FEL branch consolidation. Slot 3.1 now lands directly on `discerning-explorer.html`. The other three persona pages (`family-voyage`, `milestone-celebration`, `anglers-and-hunters`) keep their existing hero imagery for Phase 1; extending Derek-shoot heroes to all four personas is a Phase 1.5 task.
 
 6 image slots. The richest persona landing page — targeting HNW 65+ USA travellers seeking exclusivity and silence.
 
@@ -331,12 +331,12 @@ Heroes get `loading="eager"` + `fetchpriority="high"`. All other images get `loa
 
 # Phase 1.5 follow-up (post-launch)
 
-Phase 1 ships hero imagery for 8 page targets. FEL has 4 persona landing pages (`discerning-explorer`, `landing-dynasty-builder`, `landing-milestone-celebrator`, `landing-pilgrim-trophy`) plus 2 topic pages (`photography-expedition`, `milford-vs-doubtful-sound`) — only `discerning-explorer.html` is covered in Phase 1 (slot 3.1).
+Phase 1 ships hero imagery for 8 page targets. FEL has 4 persona pages (`discerning-explorer`, `family-voyage`, `milestone-celebration`, `anglers-and-hunters`) plus 2 topic pages (`photography-expedition`, `milford-vs-doubtful-sound`) — only `discerning-explorer.html` is covered in Phase 1 (slot 3.1).
 
 **Phase 1.5 will extend Derek-shoot heroes to:**
-- `landing-dynasty-builder.html` — generational/family travel angle (consider images with multi-generational guest groups)
-- `landing-milestone-celebrator.html` — anniversaries/milestones (consider celebration moments, golden hour, intimate dining)
-- `landing-pilgrim-trophy.html` — bucket-list/achievement (consider dramatic landscape, "I made it here" moments)
+- `family-voyage.html` — multi-generational family travel angle (consider images with multi-generational guest groups)
+- `milestone-celebration.html` — anniversaries/milestones (consider celebration moments, golden hour, intimate dining)
+- `anglers-and-hunters.html` — fishing/hunting/diving (consider catch-and-cook moments, deck-rod hero shots, dramatic Fiordland landscape)
 - `photography-expedition.html` — likely benefits from a dedicated landscape or wildlife hero
 - `milford-vs-doubtful-sound.html` — comparison page; may need split hero or paired imagery
 
