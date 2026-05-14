@@ -554,6 +554,95 @@ button { cursor: pointer; font-family: var(--font-sans); }
   padding: 4px 12px; margin-bottom: 20px;
 }
 
+/* ---- TRUST / CREDENTIAL COMPONENTS ----
+   Three reusable patterns lifted from the original
+   pages/discerning-explorer.html bespoke styling and harmonized to the
+   standard FEL token system. Use on any page that needs to surface
+   permits, certifications, regulatory references, or vessel specs. */
+
+/* Trust bar — compact row of credentials. Layout-only (no background);
+   wrap in <section class="section section-card"> or section-mid for
+   the dark background tier. */
+.trust-bar {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.trust-item {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 22px;
+  color: var(--text-dim);
+  border-right: 1px solid rgba(255,255,255,0.06);
+  white-space: nowrap;
+}
+.trust-item:last-child { border-right: none; }
+.trust-item strong { color: var(--gold); font-weight: 600; }
+
+/* Permit / regulatory artifact block — DOC permits, certifications,
+   regulatory references rendered in a "document-extract" aesthetic. */
+.permit-block {
+  background: var(--navy-light);
+  border-left: 3px solid var(--gold);
+  padding: 18px 22px;
+  margin: 20px 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  color: var(--gold-light);
+  line-height: 1.9;
+}
+.permit-block-label {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+.permit-block-meta { color: var(--text-dim); }
+
+/* Spec grid — vessel or experience specs. 2-col grid, collapses to
+   1-col under 600px. .spec-val-sm is the text-label variant for
+   non-numeric values like "Premium + economy" that would wrap at the
+   default display size. */
+.spec-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 20px;
+}
+.spec {
+  background: var(--navy-card);
+  padding: 18px 20px;
+  border-left: 2px solid var(--gold);
+}
+.spec-val {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 28px;
+  color: var(--white);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.spec-val em { font-style: italic; color: var(--gold-light); }
+.spec-val-sm { font-size: 18px; }
+.spec-key {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+}
+@media(max-width:600px) {
+  .spec-grid { grid-template-columns: 1fr; }
+}
+
 /* ---- QUAD CABIN OPTION ---- */
 .cabin-option {
   border: 1px solid var(--border); padding: 28px;
