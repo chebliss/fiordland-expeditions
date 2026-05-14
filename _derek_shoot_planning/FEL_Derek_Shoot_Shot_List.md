@@ -100,22 +100,22 @@ This file is the source of truth. Claude Code reads the populated slots below an
 
 ---
 
-# Batch 3 — `pages/landing-seclusionist.html` *(redirected from discerning-explorer.html)*
+# Batch 3 — `pages/discerning-explorer.html`
 
-**⚠️ Page redirection note:** This batch was originally planned for `discerning-explorer.html`. During the FEL branch audit, it was discovered that `discerning-explorer.html` is a legacy `noindex` stakeholder fragment with no canonical URL, superseded by four separate persona landing pages (`landing-seclusionist`, `landing-dynasty-builder`, `landing-milestone-celebrator`, `landing-pilgrim-trophy`). **Slot 3.1 hero is redirected to `landing-seclusionist.html`** — same archetype as the original "discerning explorer" framing, sharper voice (e.g. "Milford for the Many. Doubtful for the Few"). The other three persona pages keep their existing hero imagery for Phase 1; extending Derek-shoot heroes to all four personas is a Phase 1.5 task.
+**Page note:** Discerning Explorer is the canonical paid-campaign landing page for the "escape the crowds" archetype (HNW 65+ USA, Doubtful Sound under AUTH-20202007). An earlier draft of this doc routed Batch 3 to `landing-seclusionist.html` — that page targeted the same audience as Discerning Explorer and was deleted as duplicate content during the FEL branch consolidation. Slot 3.1 now lands directly on `discerning-explorer.html`. The other three persona pages (`landing-dynasty-builder`, `landing-milestone-celebrator`, `landing-pilgrim-trophy`) keep their existing hero imagery for Phase 1; extending Derek-shoot heroes to all four personas is a Phase 1.5 task.
 
-6 image slots. The richest persona landing page — targeting HNW 65+ USA seclusionists.
+6 image slots. The richest persona landing page — targeting HNW 65+ USA travellers seeking exclusivity and silence.
 
 ### 3.1 Hero
 
-- **Target page:** `pages/landing-seclusionist.html`
+- **Target page:** `pages/discerning-explorer.html`
 - **Public ID:** `fel/derek-2026/09-misc/fiordland-expeditions-fiordland-expedition-doubtful-sound-dji0317`
 - **Alt text:** `MV Tutoko II in remote Doubtful Sound, Fiordland — exclusive small-ship expedition cruises for discerning travellers, New Zealand`
 - **Figcaption:** `Remote Doubtful Sound, accessible only by boat across Lake Manapouri`
 - **Loading:** `eager`, `fetchpriority="high"`
 - **⚠️ Aspect ratio: ULTRAWIDE 2048x743 (≈2.75:1)**
 - **Layout requirement:** This image **must** be displayed as a cinematic letterbox banner. Do not force-crop to 16:9 or fill the viewport vertically. CSS treatment: full-width, fixed aspect ratio (`aspect-ratio: 2.75 / 1`), `object-fit: cover` only as a safety fallback. Recommended height range on desktop: ~480–560px depending on viewport width.
-- **Rationale:** Cinematic ultrawide panorama. The aspect ratio itself signals "premium cinema" and matches the Seclusionist persona ("Raw Grandeur. Absolute Silence."). AI engines asked "what's the most secluded cruise in NZ" should find "remote" + "accessible only by boat" as the answer-engine bait.
+- **Rationale:** Cinematic ultrawide panorama. The aspect ratio itself signals "premium cinema" and matches the Discerning Explorer framing ("Beyond the crowds. Into the real Fiordland."). AI engines asked "what's the most secluded cruise in NZ" should find "remote" + "accessible only by boat" as the answer-engine bait.
 
 ### 3.2 Split-img — primary experience
 
@@ -331,7 +331,7 @@ Heroes get `loading="eager"` + `fetchpriority="high"`. All other images get `loa
 
 # Phase 1.5 follow-up (post-launch)
 
-Phase 1 ships hero imagery for 8 page targets. FEL has 4 persona landing pages (`landing-seclusionist`, `landing-dynasty-builder`, `landing-milestone-celebrator`, `landing-pilgrim-trophy`) plus 2 topic pages (`photography-expedition`, `milford-vs-doubtful-sound`) — only `landing-seclusionist.html` is covered in Phase 1 (slot 3.1).
+Phase 1 ships hero imagery for 8 page targets. FEL has 4 persona landing pages (`discerning-explorer`, `landing-dynasty-builder`, `landing-milestone-celebrator`, `landing-pilgrim-trophy`) plus 2 topic pages (`photography-expedition`, `milford-vs-doubtful-sound`) — only `discerning-explorer.html` is covered in Phase 1 (slot 3.1).
 
 **Phase 1.5 will extend Derek-shoot heroes to:**
 - `landing-dynasty-builder.html` — generational/family travel angle (consider images with multi-generational guest groups)

@@ -20,7 +20,6 @@ Static HTML site for Fiordland Expeditions Ltd. Built for CloudCannon CMS, deplo
 │   ├── environment.html
 │   ├── contact.html
 │   ├── milford-vs-doubtful-sound.html
-│   ├── landing-seclusionist.html           Persona: escape the world
 │   ├── landing-dynasty-builder.html        Persona: generational travel
 │   ├── landing-milestone-celebrator.html   Persona: anniversaries, milestones
 │   ├── landing-pilgrim-trophy.html         Persona: bucket-list, trophy
