@@ -1,36 +1,34 @@
-Fiordland Expeditions Limited — Terms and Conditions **(DRAFT)**
+Fiordland Expeditions Limited — Terms and Conditions
 
 **TERMS AND CONDITIONS**
 
 Fiordland Expeditions Limited
 
-**DRAFT — FOR LEGAL REVIEW**
-
-*Last updated: [DATE TO BE INSERTED ON PUBLICATION]*
+*Last updated: 15 May 2026*
 
 # **1. About these terms**
 
-These Terms and Conditions ("Terms") apply to all bookings made with Fiordland Expeditions Limited ("FEL", "we", "us", "our") for cruises, charters, and related services. Please read them carefully before making a booking. By making a booking, you agree to be bound by these Terms.
+These Terms and Conditions ("Terms") are binding on both parties and apply to all bookings made with Fiordland Expeditions Limited ("FEL", "we", "us", "our") for cruises, charters, and related services. Please read them carefully before making a booking. To enable FEL to confirm your booking, you must first agree to these Terms.
 
-If you are booking on behalf of others (for example, family members or a group), you confirm that you have authority to accept these Terms on their behalf and that they will be bound by these Terms.
+If you are booking on behalf of others (for example, family members or a group), you confirm that you have authority to accept these Terms on their behalf and that they will be bound by these Terms. You also accept responsibility for ensuring those other passengers meet all requirements for travel with FEL or its subcontractors. Failure to comply may result in forfeiture of any potential refunds.
 
 # **2. Definitions**
 
-**"****Booking****"**** **means a confirmed reservation for one of our services, as set out in your confirmation email or itinerary.
+**"Booking"** means a confirmed reservation for one of our services, as set out in your confirmation email or itinerary.
 
-**"****Guest****"**** **means each person travelling with us under a Booking.
+**"Guest"** means each person travelling with us under a Booking.
 
-**"****Charter****"**** **means a private hire of one of our Vessels.
+**"Charter"** means a private hire of one of our Vessels.
 
-**"****Cruise****"**** **means a scheduled or by-arrangement journey aboard one of our Vessels.
+**"Cruise"** means a scheduled or by-arrangement journey aboard one of our Vessels.
 
-**"****Operator****"**** **means Fiordland Expeditions Limited.
+**"Operator"** means Fiordland Expeditions Limited.
 
-**"****Skipper****"**** **means the master of the Vessel on a given Cruise or Charter.
+**"Skipper"** means the master of the Vessel on a given Cruise or Charter.
 
-**"****Vessel****"**** **means MV Tutoko II, MV Tutoko, or any other vessel operated by FEL.
+**"Vessel"** means MV Tutoko II, MV Tutoko, or any other vessel operated by FEL.
 
-**"****Website****"**** **means fiordlandexpeditions.co.nz and any related online platforms operated by FEL.
+**"Website"** means fiordlandexpeditions.co.nz and any related online platforms operated by FEL.
 
 # **3. Our services**
 
@@ -50,21 +48,31 @@ Specific inclusions, exclusions, and itinerary details are confirmed in your boo
 
 # **4. Bookings and payment**
 
-## **4.1 Confirmation**
+## **4.1 Booking confirmation**
 
-Bookings can be made through our online booking system (FareHarbor), by email, or by phone. Your booking is confirmed only when you receive written confirmation from us.
+Bookings can be made through our online booking system (FareHarbor), by email, or by phone. You will be contacted by email at the time of booking to confirm receipt of your booking request, and email is the primary method for all further correspondence.
 
-## **4.2 Payment**
+Your booking is confirmed once we have sighted your payment in our bank account, either by way of the specified deposit at the time of booking, or in full. Confirmation of your booking request does not in itself constitute confirmation of receipt of payment.
 
-Payment terms are as set out at the time of booking. Generally, full payment is required to confirm your booking. For private and multi-night charters, a deposit may be required at the time of booking with the balance due before departure. Specific terms will be confirmed in writing.
+## **4.2 Minimum passenger requirement**
 
-**[PLACEHOLDER — Confirm exact payment terms and deposit amounts for each product type with FEL]**
+Our scheduled overnight cruises are only confirmed once a minimum of two passengers are booked and paid for. If you are travelling alone, please be aware that your departure depends on at least one additional booking for the same date.
 
-## **4.3 Pricing**
+If this minimum is not achieved by the date of departure, you agree that our liability is limited to a maximum of a full refund of the affected booking.
 
-All prices are in New Zealand Dollars (NZD) and include GST where applicable. Prices are subject to change without notice, but the price quoted and accepted at the time of booking will be honoured.
+## **4.3 Payment**
 
-## **4.4 Payment processing**
+Bookings must be paid in full no later than nine (9) days prior to departure. Bookings not paid in full by this time will be released for resale, and FEL offers no express right to the original booking holder for the original dates or any other dates if the booking is resold.
+
+For private and multi-night charters, a deposit is required at the time of booking with the balance due before departure. Specific deposit amounts and balance due dates are confirmed in writing at the time of booking.
+
+We accept credit cards, debit cards, and direct credit. Payments are deducted in New Zealand Dollars (NZD) at the value specified at the time of booking. Refunds, where due, are made at international exchange rates current at the time of refund; FEL is not liable for fluctuations in exchange rates between booking and refund.
+
+## **4.4 Pricing**
+
+All prices are in New Zealand Dollars (NZD) and include GST where applicable. Prices are subject to change without notice, but the price quoted and accepted at the time of booking will be honoured. FEL reserves the right at any time to alter ticket pricing for future bookings.
+
+## **4.5 Payment processing**
 
 Payments are processed through our third-party booking and payment providers. We do not store credit card details on our own systems.
 
@@ -72,9 +80,13 @@ Payments are processed through our third-party booking and payment providers. We
 
 ## **5.1 Guest-initiated cancellations**
 
-If you need to cancel or change your booking, please contact us as soon as possible. Cancellation charges may apply depending on how far in advance you cancel.
+If you need to cancel or change your booking, please contact us as soon as possible. Cancellation charges depend on how far in advance of departure the cancellation is made:
 
-**[PLACEHOLDER — Insert FEL****'****s specific cancellation policy. Example structure for a NZ tourism operator (must be confirmed by FEL): More than 30 days before departure: full refund less administration fee. 15-30 days: 50% cancellation charge. 7-14 days: 75% cancellation charge. Less than 7 days: 100% cancellation charge / no refund. Different terms may apply to private charters, multi-night bookings, and peak-season departures.]**
+- **More than 72 hours before departure:** 15% of the booking value is retained; the balance is refunded.
+
+- **Less than 72 hours before departure:** no refund.
+
+Different terms may apply to private charters, multi-night bookings, and peak-season departures, which will be confirmed in writing at the time of booking.
 
 We strongly recommend travel insurance to cover unexpected cancellations and changes of plan.
 
@@ -102,13 +114,15 @@ The Skipper has absolute discretion to vary, postpone, or cancel any Cruise or C
 
 - Cancelling activities such as fishing, kayaking, or shore excursions
 
-Variations made on safety grounds do not give rise to a right to a refund beyond what is provided in clause 5.2.
+FEL also reserves the right to change timetables or to use alternative vessels, plant, or equipment, in order to maintain service quality and safety standards.
+
+Variations made on safety or operational grounds do not give rise to a right to a refund beyond what is provided in clause 5.2.
 
 # **7. Passenger conduct**
 
 While on board, all Guests must:
 
-- Follow the directions of the Skipper and crew, particularly safety instructions
+- Follow the directions of the Skipper and crew at all times, particularly safety instructions
 
 - Behave in a way that does not endanger themselves, other Guests, the crew, or the Vessel
 
@@ -122,7 +136,11 @@ Our cruises are accessible to most able-bodied people, but Vessels involve stair
 
 Guests are responsible for ensuring they are fit to travel and for bringing any medication or assistive devices they require.
 
-**[PLACEHOLDER — Confirm with FEL whether there are any specific health/fitness exclusions (e.g. late-stage pregnancy, specific medical conditions, age limits for unaccompanied minors). If yes, list them explicitly.]**
+All Guests travelling on FEL Vessels must meet the current — at the time of travel — New Zealand Government health requirements.
+
+FEL is proactive in keeping our Guests' and crew's health foremost in our operations. If you are feeling unwell in the days before departure, please contact us at least 36 hours prior to your scheduled departure to discuss options.
+
+FEL reserves the right to refuse boarding to any Guest who, in our reasonable opinion, presents a health risk to other Guests or the crew, or whose condition would be unsafe to travel with in the operating environment.
 
 # **9. Insurance**
 
@@ -150,15 +168,13 @@ Nothing in these Terms limits or excludes any rights you may have under the Cons
 
 If you are using our services for business purposes, the Consumer Guarantees Act 1993 does not apply, and additional liability limitations under these Terms apply.
 
-**[PLACEHOLDER — This limitation of liability clause requires legal review specific to NZ maritime tourism. Confirm coverage scope, interaction with the Consumer Guarantees Act 1993, the Maritime Transport Act 1994, and FEL****'****s public liability insurance terms.]**
-
 # **13. Intellectual property**
 
 All content on our Website, marketing materials, and other publications — including but not limited to text, images, video, designs, and logos — is owned by FEL or licensed to us. You may not reproduce, distribute, or otherwise use this content without our prior written consent, except for personal, non-commercial use such as sharing your trip with friends and family.
 
 # **14. Privacy**
 
-Our collection, use, and protection of your personal information is governed by our Privacy Policy, available at fiordlandexpeditions.co.nz/pages/privacy.html. By making a booking, you acknowledge our Privacy Policy.
+FEL respects your right to privacy and does not on-sell private information to third parties. Our collection, use, and protection of your personal information is governed by our Privacy Policy, available at fiordlandexpeditions.co.nz/pages/privacy.html. By making a booking, you acknowledge our Privacy Policy.
 
 # **15. Governing law and dispute resolution**
 
@@ -184,6 +200,6 @@ Email: info@fiordlandexpeditions.co.nz
 
 charters@fiordlandexpeditions.co.nz (for charter enquiries)
 
-***END OF DRAFT — FOR LEGAL REVIEW***
+---
 
-Page  of
+*Note: These Terms are subject to ongoing review by qualified NZ maritime tourism legal counsel. For complex private charter arrangements, supplementary terms may apply.*
