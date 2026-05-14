@@ -12,3 +12,8 @@
 /why-us                                /pages/about-us.html              301
 /pages/why-fiordland-expeditions.html  /pages/about-us.html              301
 /pages/why-us.html                     /pages/about-us.html              301
+
+# Persona landing consolidation — Seclusionist and Discerning Explorer target
+# the same audience (65+ HNW, Doubtful Sound under AUTH-20202007). Discerning
+# Explorer is the canonical paid-campaign landing page.
+/pages/landing-seclusionist.html       /pages/discerning-explorer.html   301

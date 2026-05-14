@@ -481,5 +481,17 @@
   </div>
 
 </div>
+
+<!-- Minimal landing-page footer (© + Privacy + Terms) injected by footer-landing.js -->
+<footer class="footer" id="fel-footer" style="background:#0e1a24;padding:24px 6%;border-top:1px solid rgba(255,255,255,0.08);"></footer>
+<style>
+  /* Inline footer-landing styles — discerning-explorer doesn't load fel.css */
+  #fel-footer .footer-landing { max-width:1280px; margin:0 auto; padding:0; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+  #fel-footer .footer-landing-legal { font-size:12px; color:rgba(255,255,255,0.45); }
+  #fel-footer .footer-landing-links { display:flex; gap:24px; }
+  #fel-footer .footer-landing-links a { font-size:12px; color:rgba(255,255,255,0.45); text-decoration:none; transition:color 0.2s; }
+  #fel-footer .footer-landing-links a:hover { color:#97D5CC; }
+</style>
 <script src="../js/nav.js"></script>
+<script src="../css/footer-landing.js"></script>
 </body></html>
