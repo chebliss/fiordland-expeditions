@@ -296,7 +296,7 @@ Estimated 4–6 images: hero, marine wildlife strip, principles grid.
 
 - **Public ID:** TBD (upload pending — recommended path: `fel/brand/logo`)
 - **Alt text:** `Fiordland Expeditions`
-- **Notes:** Currently still hot-linking to Squarespace. Ché to upload to Cloudinary as part of this pass. Once uploaded, replace the LOGO constant in `nav.js` with the Cloudinary URL.
+- **Notes:** Currently still hot-linking to Squarespace. Ché to upload to Cloudinary as part of this pass. Once uploaded, replace the `FEL_LOGO` constant in `css/fel-components.js` with the Cloudinary URL.
 
 ---
 

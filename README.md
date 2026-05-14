@@ -25,12 +25,11 @@ Static HTML site for Fiordland Expeditions Ltd. Built for CloudCannon CMS, deplo
 │   ├── landing-pilgrim-trophy.html         Persona: bucket-list, trophy
 │   ├── photography-expedition.html         Stakeholder, noindex
 │   ├── guest-content-hub.html              GCH (dynamic, see netlify/functions)
-│   └── discerning-explorer.html            Legacy fragment, noindex
+│   └── discerning-explorer.html            Persona: escape the crowds, exclusivity
 ├── css/
 │   ├── fel.css                             Global brand stylesheet
 │   ├── style.css                           Legacy stylesheet
 │   └── fel-components.js                   Shared nav, footer, helpers
-├── js/nav.js                               Legacy nav (only loaded by discerning-explorer.html)
 ├── images/                                 Self-hosted brand and photography
 ├── assets/img/                             Qualmark, TripAdvisor, owner photography
 ├── netlify/functions/                      Guest Content Hub backend (4 functions)

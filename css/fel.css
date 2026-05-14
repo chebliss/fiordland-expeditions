@@ -429,22 +429,6 @@ button { cursor: pointer; font-family: var(--font-sans); }
   flex-wrap: wrap; gap: 16px;
 }
 .footer-legal { font-size: 12px; color: var(--text-dim); }
-
-/* Minimal footer for paid-campaign landing pages.
-   Rendered by css/footer-landing.js into <footer id="fel-footer">. */
-.footer-landing {
-  max-width: var(--max-w); margin: 0 auto; padding: 24px;
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 16px;
-}
-.footer-landing-legal { font-size: 12px; color: var(--text-dim); }
-.footer-landing-links { display: flex; gap: 24px; }
-.footer-landing-links a {
-  font-size: 12px; color: var(--text-dim); text-decoration: none;
-  transition: color 0.2s;
-}
-.footer-landing-links a:hover { color: var(--gold); }
-
 @media(max-width:900px) {
   .footer-inner { grid-template-columns: 1fr 1fr; }
 }

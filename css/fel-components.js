@@ -30,19 +30,6 @@ function renderNav() {
   const nav = document.getElementById('fel-nav');
   if (!nav) return;
   const b = getBase();
-
-  // Landing pages opt out of the full nav via <body data-landing="true">.
-  // They get logo + a single conversion CTA — no other escape routes.
-  if (document.body.dataset.landing === 'true') {
-    const ctaHref = document.body.dataset.ctaHref || '#enquire';
-    const ctaLabel = document.body.dataset.ctaLabel || 'Request Your Itinerary';
-    nav.innerHTML = `
-      <a href="${b}index.html" class="nav-logo"><img src="${FEL_LOGO}" alt="Fiordland Expeditions" /></a>
-      <a href="${ctaHref}" class="nav-cta">${ctaLabel}</a>
-    `;
-    return;
-  }
-
   nav.innerHTML = `
     <a href="${b}index.html" class="nav-logo"><img src="${FEL_LOGO}" alt="Fiordland Expeditions" /></a>
     <ul class="nav-links">
@@ -69,8 +56,6 @@ function renderNav() {
 function renderFooter() {
   const footer = document.getElementById('fel-footer');
   if (!footer) return;
-  // Landing pages render their own minimal footer via css/footer-landing.js.
-  if (document.body.dataset.landing === 'true') return;
   const b = getBase();
   footer.innerHTML = `
     <div class="footer-inner">
