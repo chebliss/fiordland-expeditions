@@ -2,10 +2,12 @@
 
 # Staging-specific robots.txt — block all crawlers on fel-staging.netlify.app
 # Production (fiordlandexpeditions.co.nz) gets the default robots.txt.
-# The 200! force flag is required because /robots.txt exists as a real
-# file in the build; without it Netlify serves the file directly and the
-# rewrite is bypassed.
-/robots.txt  /robots-staging.txt  200!  Host=fel-staging.netlify.app
+# Uses Netlify's documented full-URL form for host-based redirects: the
+# hostname goes in the from-side rather than as a Host= condition (which
+# Netlify silently ignores). The 200! force flag is required because
+# /robots.txt exists as a real file in the build; without it Netlify
+# serves the file directly and the rewrite is bypassed.
+https://fel-staging.netlify.app/robots.txt  /robots-staging.txt  200!
 
 # Guest Content Hub — clean, thumb-typable URLs for vessel QR codes
 # and guest-facing print collateral
